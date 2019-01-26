@@ -1,2 +1,2 @@
 # TravelPin
-Flag Camp for an online bootcamp
+Enjoy your trips with TravelPin
