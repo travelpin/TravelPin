@@ -1,12 +1,15 @@
 package rpc;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+
 
 @WebServlet(name = "searchInterests")
 public class searchInterests extends HttpServlet {
@@ -18,5 +21,6 @@ public class searchInterests extends HttpServlet {
         String name = request.getParameter("name");
         //List<?> interests = xx.searchinter(x,y,c)
         JSONArray array = new JSONArray();
+        JSONObject object = new JSONObject();
     }
 }
