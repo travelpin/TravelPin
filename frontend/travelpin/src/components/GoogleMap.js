@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import {API_KEY} from './constants';
+import {API_KEY} from '../constants';
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 export class SimpleMap extends Component {
