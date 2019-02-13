@@ -1,6 +1,6 @@
 @import '~antd/dist/antd.css';
-@import 'Main.css';
-@import 'RightPopUp.css';
+@import 'styles/Main.css';
+@import 'styles/RightPopUp.css';
 
 body {
   margin: 0;
