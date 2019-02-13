@@ -11,7 +11,7 @@ import entity.Interest.InterestBuilder;
 public class ListAllInterests {
 //    private static final String URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=40.730610,-73.935242&radius=2000&type=museum";
 //    private static final String DEFAULT_KEYWORD = ""; // no restriction
-//    private static final String API_KEY = "AIzaSyCy-058HYzp9eeWBQI8qtZXMaYSOfV7fnM";
+
 
     public List<Interest> ListAllInterests(JSONObject obj) {
 //        if (keyword == null) {
