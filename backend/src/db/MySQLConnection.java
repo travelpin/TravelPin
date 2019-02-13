@@ -20,7 +20,7 @@ public class MySQLConnection implements DBConnection {
 
 
     @Override
-    public void setFavoriteItems(String userId, List<String> interestIds) {
+    public void likeInterests(String userId, List<String> interestIds) {
         if (connection == null) {
             System.err.println("DB connection failed");
             return;
@@ -41,8 +41,8 @@ public class MySQLConnection implements DBConnection {
     }
 
     @Override
-    public void unsetFavoriteItems(String userId, List<String> interestIds) {
-        if(connection == null) {
+    public void dislikeInterests(String userId, List<String> interestIds) {
+        if (connection == null) {
             System.err.println("DB connection failed");
             return;
         }
@@ -61,6 +61,42 @@ public class MySQLConnection implements DBConnection {
 
 
     }
+
+    @Override
+    public Interest getInterestInfo(String interestId) {
+        if (connection == null) {
+            return null;
+        }
+
+        try {
+            String sql = "SELECT * FROM interests WHERE interest_id = ?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, interestId);
+            ResultSet rs = stmt.executeQuery();
+
+            InterestBuilder builder = new InterestBuilder();
+            while(rs.next) {
+                builder.setInterestId(rs.getString("interest_id"));
+                builder.setName(rs.getString("name"));
+                builder.setAddress(rs.getString("address"));
+                builder.setImageUrl(rs.getString("image_url"));
+                builder.setOpenTime(rs.getInt("open_time"));
+                builder.setCloseTime(rs.getInt("close_time"));
+                builder.setRanking(rs.getInt("ranking"));
+                builder.setRating(rs.getDouble("rating"));
+                builder.setTicketPrice(rs.getDouble("ticket_price"));
+                builder.setSuggestedVisitTime(rs.getInt("suggested_visit_time"));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return builder.build();
+    }
+
+
+
 }
 
 
