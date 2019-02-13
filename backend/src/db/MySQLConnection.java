@@ -95,8 +95,72 @@ public class MySQLConnection implements DBConnection {
         return builder.build();
     }
 
+    @Override
+    public Set<Interest> getFavoriteInterests(String userId) {
+        if (connection == null) {
+            return new HashSet<>();
+        }
 
+        Set<Interest> favoriteInterests = new HashSet<>();
+        Set<String> interestIds = getFavoriteInterestIds(userId);
 
+        try {
+            String sql = "SELECT * FROM interests WHERE interest_id = ?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            for (String interestId : interestIds) {
+                stmt.setString(1, interestId);
+
+                ResultSet rs = stmt.executeQuery();
+
+                InterestBuilder builder = new InterestBuilder();
+
+                while(rs.next()) {
+                    builder.setInterestId(rs.getString("interest_id"));
+                    builder.setName(rs.getString("name"));
+                    builder.setAddress(rs.getString("address"));
+                    builder.setImageUrl(rs.getString("image_url"));
+                    builder.setOpenTime(rs.getInt("open_time"));
+                    builder.setCloseTime(rs.getInt("close_time"));
+                    builder.setRanking(rs.getInt("ranking"));
+                    builder.setRating(rs.getDouble("rating"));
+                    builder.setTicketPrice(rs.getDouble("ticket_price"));
+                    builder.setSuggestedVisitTime(rs.getInt("suggested_visit_time"));
+
+                    favoriteInterests.add(builder.build());
+
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return favoriteInterests;
+    }
+
+    @Override
+    public Set<String> getFavoriteInterestIds(String userId) {
+        if (connection == null) {
+            return new HashSet<>();
+        }
+
+        Set<String> favoriteInterestIds = new HashSet<>();
+
+        try {
+            String sql = "SELECT interest_id FROM history WHERE user_id = ?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, userId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String interestId = rs.getString("interest_id");
+                favoriteInterestIds.add(interestId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return favoriteInterestIds;
+    }
 }
 
 
