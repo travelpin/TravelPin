@@ -131,6 +131,7 @@ class algorithm {
         }
         if (pinnedVisitTime > totalVisitTime) {
             return null;
+            System.out.println("Schedule is too tight");
         }
 
         // briefly check the total number of interests / days rate. Approximately 2-3 interests per day is good
