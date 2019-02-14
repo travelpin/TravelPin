@@ -88,9 +88,9 @@ public class ListAllInterests {
     /**
      * Helper methods
      */
-    private List<Interest> getItemListByCategory(List<Interest> list, String category) throws JSONException {
+    private List<Interest> getItemListByCategory(List<Interest> list, String category) {
         List<Interest> itemList = new ArrayList<>();
-        Set<String> types = new HashSet<>();
+        Set<String> types;
         for (int i = 0; i < list.size(); i++) {
             types = list.get(i).getCategories();
             if (types.contains(category)) {
