@@ -1,7 +1,7 @@
 package db;
 
-import entity.Interest;
 
+import entity.Interest;
 import java.util.List;
 import java.util.Set;
 

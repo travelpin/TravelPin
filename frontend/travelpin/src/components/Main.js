@@ -3,6 +3,7 @@ import {Layout, Menu} from 'antd';
 import {SimpleMap} from "./GoogleMap";
 import {List} from "antd/lib/list";
 import {RightPopUp} from "./RightPopUp";
+import {LeftPopover} from "./LeftPopover";
 
 const { Header, Content, Footer } = Layout;
 
@@ -11,6 +12,7 @@ export class Main extends React.Component {
     render() {
         return (
             <Layout className="layout">
+                <LeftPopover/>
                 <RightPopUp/>
                 <Header>
                     <div className="logo" >
