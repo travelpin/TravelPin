@@ -1,8 +1,19 @@
 package db;
 
+import entity.Interest;
+
 import java.util.List;
+import java.util.Set;
+
+//import entity.Item;
+
+/*
+Author: Debbie Liang
+Date: Feb. 2019
+ */
 
 public interface DBConnection {
+
     public void likeInterests(String userId, List<String> interestIds);
 
     public void dislikeInterests(String userId, List<String> interestIds);
@@ -117,6 +128,6 @@ public interface DBConnection {
      * @return boolean
      */
     public boolean verifyLogin(String userId, String password);
-
-
 }
+
+
