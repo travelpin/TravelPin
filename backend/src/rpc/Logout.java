@@ -38,6 +38,7 @@ public class Logout extends HttpServlet {
 		if (session != null) {
 			session.invalidate();
 		}
+		//Can be implemented in another way. For now just return a logout HTMl page
 		response.sendRedirect("logOut.html");
 
 	}

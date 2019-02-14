@@ -41,9 +41,10 @@ public class Registration extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 response.setContentType("text/html;charset=UTF-8");
 	        PrintWriter out = response.getWriter();
-	        //Primitive design of registration only include userId, email addr and password
-	        String userId = request.getParameter("userId");
-	        String email = request.getParameter("email");
+	        //Primitive design of registration only include user_Id, password, first and last name
+	        String user_Id = request.getParameter("user_Id");
+	        String first_name = request.getParameter("first_name");
+	        String last_name = request.getParameter("last_name");
 	        String password = request.getParameter("password");
 	        try{
 	        
@@ -51,18 +52,19 @@ public class Registration extends HttpServlet {
 	        	Class.forName("com.mysql.jdbc.Driver");
 
 	        	//Create connection with the database 
-	        	Connection con=DriverManager.getConnection("jdbc:mysql:/ /localhost:3306/test","userId","password");
+	        	Connection c=DriverManager.getConnection("jdbc:mysql:/ /localhost:3306/test","user_Id","password","first_name","last_name");
 
-	        	PreparedStatement ps=con.prepareStatement("insert into AuthUserList values(?,?,?)");
+	        	PreparedStatement ps=c.prepareStatement("insert into users values(?,?,?,?)");
 
-	        	ps.setString(1, userId);
+	        	ps.setString(1, user_Id);
 	        	ps.setString(2, password);
-	        	ps.setString(3, email);
-	        
+	        	ps.setString(3, first_name);
+	        	ps.setString(4, last_name);
+
 	        	int i=ps.executeUpdate();
 	        
 	        	if(i>0){
-	        		out.println("User registered!");
+	        		out.println("New User registered!");
 	        	}
 	        }
 	        catch(Exception se)

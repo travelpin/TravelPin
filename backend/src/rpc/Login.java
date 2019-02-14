@@ -44,8 +44,8 @@ public class Login extends HttpServlet {
 			JSONObject obj = new JSONObject();
 			
 			if (session != null) {
-				String userId = session.getAttribute("user_id").toString();
-				obj.put("status", "OK").put("user_id", userId).put("name", connection.getFullname(userId));
+				String user_Id = session.getAttribute("user_id").toString();
+				obj.put("status", "OK").put("user_id", user_Id).put("name", connection.getFullname(user_Id));
 			} else {
 				response.setStatus(403);
 				obj.put("status", "Invalid Session");
@@ -65,7 +65,7 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DBConnection connection = DBConnectionFactory.getConnection();
 	
-		String userId = request.getParameter("user_id");
+		String user_Id = request.getParameter("user_id");
 		String password = request.getParameter("password");
 			
 		// Connect to mysql and verify username password
@@ -76,8 +76,8 @@ public class Login extends HttpServlet {
 				Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "root"); // gets a new connection
 	 
 			
-				PreparedStatement ps = c.prepareStatement("select userId,password from AuthUserList where userId=? and password=?");
-				ps.setString(1, userId);
+				PreparedStatement ps = c.prepareStatement("select user_Id,password from users where user_Id=? and password=?");
+				ps.setString(1, user_Id);
 				ps.setString(2, password);
 	 
 				//Check if username and pw match
