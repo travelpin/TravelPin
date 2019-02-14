@@ -116,22 +116,17 @@ package algorithm;
 //         this also can fail to generate if interest's visit time cannot be put into slots
 
 
-import entity.Interest;
-
-import java.util.ArrayList;
-import java.util.List;
-
 class algorithm {
     // optimize travel route
-    public List<List<Interest>> optimizeRoute(List<Interest> pinnedInterests, int days) {
+    public List<List<interests>> optimizeRoute(List<interests> pinnedInterests, int days) {
 
-        List<List<Interest>> result = new ArrayList<>();
+        List<List<interests>> result = new ArrayList<>();
 
         // calculate total visit time and check if valid
         int dailyVisitTime = 10;
         int totalVisitTime = days * dailyVisitTime;
         int pinnedVisitTime = 0;
-        for (Interest interest : pinnedInterests) {
+        for (interests interest : pinnedInterests) {
             pinnedVisitTime += interest.time.visit;
         }
         if (pinnedVisitTime > totalVisitTime) {
@@ -140,12 +135,14 @@ class algorithm {
         }
 
         // briefly check the total number of interests / days rate. Approximately 2-3 interests per day is good
-        int numberOfInterests = pinnedInterests.size();
-
+        int numberOfInterests = 0;
+        for (interests interest : pinnedInterests) {
+            numberOfInterests++;
+        }
         if (numberOfInterests / days >= 3) {
             // TODO. It still has chance to be done. Need to double check open time and close time
 
-        } else if (numberOfInterests / days < 2) {
+        } else if {numberOfInterests / days < 2} {
             // one interest per day. final days may apply free time
 
         } else { // numberOfInterests / days >= 2 && numberOfInterests / days <= 3
@@ -165,14 +162,14 @@ class algorithm {
     }
 
     // get the closest spot of one given spot
-    private Interest findClosest(List<Interest> pinnedInterests, Interest spot) {
+    private interest findClosest(List<interests> pinnedInterests, interest spot) {
         double min = Integer.MAX_VALUE;
-        Interest closest = null;
+        interest closest = null;
         pinnedInterests.remove(spot);
-        for (Interest candidate : pinnedInterests) {
+        for (interest candidate : pinnedInterests) {
             double distance = calculateDistance(candidate.x, candidate.y, spot.x, spot.y);
             if (distance < min) {
-                closest = candidate;
+                closet = candidate;
                 min = distance;
             }
         }
@@ -180,21 +177,20 @@ class algorithm {
     }
 
     // calculate travel expense
-    public int calculateExpense(List<List<Interest>> result, int persons) {
+    public int calculateExpense(List<List<interests>> result, int persons) {
         int sum = 0;
-        for (List<Interest> daily : result) {
-            for (Interest interest : daily) {
+        for (List<interests> daily : result) {
+            for (interests interest : daily) {
                 sum += interest.price;
             }
-
         }
         return sum * persons;
     }
 
     // generete travel schedule
-//    public List<Schedule> generateSchedule(List<List<interests>> result) {
-//        // TO DO
-//    }
+    public List<Schedule> generateSchedule(List<List<interests>> result) {
+        // TO DO
+    }
 
     public static void main(String[] args) {
 
