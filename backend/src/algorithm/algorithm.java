@@ -1,5 +1,10 @@
 package algorithm;
 
+import javax.ejb.Schedule;
+import java.util.ArrayList;
+import java.util.List;
+        package algorithm;
+
 // Route Optimization Algorithm
 // Zhenyu Pan
 
@@ -116,7 +121,7 @@ package algorithm;
 //         this also can fail to generate if interest's visit time cannot be put into slots
 
 
-class algorithm {
+public class algorithm {
     // optimize travel route
     public List<List<interests>> optimizeRoute(List<interests> pinnedInterests, int days) {
 
