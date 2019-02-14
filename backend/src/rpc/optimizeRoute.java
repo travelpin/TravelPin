@@ -18,6 +18,11 @@ import java.util.List;
 
 @WebServlet(name = "optimizeRoute")
 public class optimizeRoute extends HttpServlet {
+
+    public optimizeRoute(){
+        super();
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject inputJSON = RpcHelper.readJSONObject(request);
         int days = inputJSON.getInt("days");
@@ -25,8 +30,8 @@ public class optimizeRoute extends HttpServlet {
         JSONArray pinnedInterestsJSONArray = inputJSON.getJSONArray("pinnedInterests");
         for(int i = 0; i<pinnedInterestsJSONArray.length(); i++){
             JSONObject tempObject = (JSONObject) pinnedInterestsJSONArray.get(i);
-            String pinnedInteretsName = tempObject.getString("name");
-            Interest tempInterest = RpcHelper.interestName_to_Interest(pinnedInteretsName);
+            String pinnedInteretId = tempObject.getString("interestsId");
+            Interest tempInterest = RpcHelper.interestName_to_Interest(pinnedInteretId);
             pinnedInterests.add(tempInterest);
         }
         algorithm algorithmCollection = new algorithm();

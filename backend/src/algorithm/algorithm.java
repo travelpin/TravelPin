@@ -122,7 +122,7 @@ import javax.ejb.Schedule;
 import java.util.ArrayList;
 import java.util.List;
 
-public class routeOptimization {
+public class algorithm {
     // optimize travel route
     public List<List<Interest>> optimizeRoute(List<Interest> pinnedInterests, int days) {
 
