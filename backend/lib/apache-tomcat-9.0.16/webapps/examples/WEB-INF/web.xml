@@ -174,7 +174,7 @@
                http://tomcat.apache.org/debug-taglib
             </taglib-uri>
             <taglib-location>
-               /WEB-INF/jsp/debug-taglib.tld
+                /WEB-INF/jsp/debug-taglib.tld
             </taglib-location>
         </taglib>
 
@@ -183,7 +183,7 @@
                http://tomcat.apache.org/example-taglib
             </taglib-uri>
             <taglib-location>
-               /WEB-INF/jsp/example-taglib.tld
+                /WEB-INF/jsp/example-taglib.tld
             </taglib-location>
         </taglib>
 
@@ -192,7 +192,7 @@
                http://tomcat.apache.org/jsp2-example-taglib
             </taglib-uri>
             <taglib-location>
-               /WEB-INF/jsp2/jsp2-example-taglib.tld
+                /WEB-INF/jsp2/jsp2-example-taglib.tld
             </taglib-location>
         </taglib>
 

@@ -25,7 +25,7 @@ public class fetchInterestInfo extends HttpServlet {
 
             JSONObject resJSONObject = new JSONObject();
 
-            RpcHelper.writeJsonObject(response, resJSONObject);
+            rpc.RpcHelper.writeJsonObject(response, resJSONObject);
         }catch(Exception e){
             e.printStackTrace();
         }finally{
