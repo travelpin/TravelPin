@@ -11,6 +11,16 @@ Date: Feb. 2019
  */
 
 public interface DBConnection {
+
+    public void likeInterests(String userId, List<String> interestIds);
+
+    public void dislikeInterests(String userId, List<String> interestIds);
+
+    public Interest getInterestInfo(String interestId);
+
+    public Set<Interest> getFavoriteInterests(String userId);
+
+    public Set<String> getFavoriteInterestIds(String userId);
     /**
      * Close the connection.
      */
