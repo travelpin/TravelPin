@@ -42,7 +42,7 @@ public class Registration extends HttpServlet {
 		 response.setContentType("text/html;charset=UTF-8");
 	        PrintWriter out = response.getWriter();
 	        //Primitive design of registration only include user_Id, password, first and last name
-	        String user_Id = request.getParameter("user_Id");
+	        String username = request.getParameter("username");
 	        String first_name = request.getParameter("first_name");
 	        String last_name = request.getParameter("last_name");
 	        String password = request.getParameter("password");
@@ -50,6 +50,9 @@ public class Registration extends HttpServlet {
 	        
 	        	//Load drivers for MySQL
 	        	Class.forName("com.mysql.jdbc.Driver");
+
+	        	//Convert username to user_Id. For now we store user_Id in DB. But do we need to store username?
+	        	String user_Id=username+"1234";
 
 	        	//Create connection with the database 
 	        	Connection c=DriverManager.getConnection("jdbc:mysql:/ /localhost:3306/test","user_Id","password","first_name","last_name");

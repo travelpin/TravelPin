@@ -22,7 +22,7 @@ import db.DBConnectionFactory;
 /**
  * Servlet implementation class Login
  */
-@WebServlet("/Login")
+@WebServlet(name="Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -38,24 +38,24 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DBConnection connection = DBConnectionFactory.getConnection();
-		try {
-			HttpSession session = request.getSession(false);
-			JSONObject obj = new JSONObject();
+		// DBConnection connection = DBConnectionFactory.getConnection();
+		// try {
+		// 	HttpSession session = request.getSession(false);
+		// 	JSONObject obj = new JSONObject();
 			
-			if (session != null) {
-				String user_Id = session.getAttribute("user_id").toString();
-				obj.put("status", "OK").put("user_id", user_Id).put("name", connection.getFullname(user_Id));
-			} else {
-				response.setStatus(403);
-				obj.put("status", "Invalid Session");
-			}
-			//RpcHelper.writeJsonObject(response, obj);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			connection.close();
-		}
+		// 	if (session != null) {
+		// 		String user_Id = session.getAttribute("user").toString();
+		// 		obj.put("status", "OK").put("user_id", user_Id).put("name", connection.getFullname(user_Id));
+		// 	} else {
+		// 		response.setStatus(403);
+		// 		obj.put("status", "Invalid Session");
+		// 	}
+		// 	//RpcHelper.writeJsonObject(response, obj);
+		// } catch (Exception e) {
+		// 	e.printStackTrace();
+		// } finally {
+		// 	connection.close();
+		// }
 
 	}
 
@@ -65,7 +65,7 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DBConnection connection = DBConnectionFactory.getConnection();
 	
-		String user_Id = request.getParameter("user_id");
+		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 			
 		// Connect to mysql and verify username password
@@ -74,7 +74,9 @@ public class Login extends HttpServlet {
 				Class.forName("com.mysql.jdbc.Driver");
 				// loads driver
 				Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "root"); // gets a new connection
-	 
+	 			
+	 			//Convert username to user_Id for internal use. 
+	 			String user_Id=username+"1234";
 			
 				PreparedStatement ps = c.prepareStatement("select user_Id,password from users where user_Id=? and password=?");
 				ps.setString(1, user_Id);
