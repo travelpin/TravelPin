@@ -1,7 +1,7 @@
 @import '~antd/dist/antd.css';
 @import 'styles/Main.css';
 @import 'styles/RightPopUp.css';
-
+@import "styles/LeftExpansionPanel.css";
 body {
   margin: 0;
   padding: 0;
