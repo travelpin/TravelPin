@@ -19,7 +19,6 @@ public class Interest {
     private Set<String> categories;
     private String placeId;
 
-
     private Interest(InterestBuilder builder) {
         this.locationId = builder.locationId;
         this.name = builder.name;
@@ -32,7 +31,6 @@ public class Interest {
         this.formattedAddress = builder.formattedAddress;
         this.categories = builder.categories;
         this.placeId = builder.placeId;
-
     }
 
     public String getLocationId() {
@@ -93,7 +91,6 @@ public class Interest {
             obj.put("formattedAddress", formattedAddress);
             obj.put("categories", new JSONArray(categories));
             obj.put("placeId", placeId);
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -113,7 +110,6 @@ public class Interest {
         private Set<String> categories;
         private String placeId;
 
-
         public void setLocationId(String locationId) {
             this.locationId = locationId;
         }
@@ -131,19 +127,19 @@ public class Interest {
         }
 
         public void setRating(double rating) {
-            this.lng = rating;
+            this.rating = rating;
         }
 
         public void setOpenTime(double openTime) {
-            this.lng = openTime;
+            this.openTime = openTime;
         }
 
         public void setCloseTime(double closeTime) {
-            this.lng = closeTime;
+            this.closeTime = closeTime;
         }
 
         public void setSuggestVisitTime(double suggestVisitTime) {
-            this.lng = suggestVisitTime;
+            this.suggestVisitTime = suggestVisitTime;
         }
 
         public void setFormattedAddress(String formattedAddress) {
@@ -161,9 +157,6 @@ public class Interest {
         public Interest build() {
             return new Interest(this);
         }
-
-
     }
-
-
 }
+
