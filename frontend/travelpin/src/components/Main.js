@@ -3,8 +3,7 @@ import {Layout, Menu} from 'antd';
 import {SimpleMap} from "./GoogleMap";
 import {List} from "antd/lib/list";
 import {RightPopUp} from "./RightPopUp";
-import {LeftPopover} from "./LeftPopover";
-
+import {LeftExpansionPanel} from "./LeftExpansionPanel/LeftExpansionPanel"
 const { Header, Content, Footer } = Layout;
 
 // the container of the left-pop-up window, right-pop-up window, navbar, and the footer
@@ -12,8 +11,9 @@ export class Main extends React.Component {
     render() {
         return (
             <Layout className="layout">
-                <LeftPopover/>
+
                 <RightPopUp/>
+
                 <Header>
                     <div className="logo" >
 
@@ -29,11 +29,17 @@ export class Main extends React.Component {
                         <Menu.Item key="3" className="menu-item">nav 3</Menu.Item>
                     </Menu>
                 </Header>
-                <Content style={{ padding: '0 50px' }}>
-                    <div style={{ background: '#fff', padding: 24, minHeight: 1000 }}>
-                        <SimpleMap/>
-                    </div>
-                </Content>
+                <LeftExpansionPanel/>
+                <div>
+                    <Content className={"mapStyle"}>
+                        <div style={{ background: '#fff', padding: 1, minHeight: 1000 }}>
+                            <SimpleMap/>
+                        </div>
+                    </Content>
+                </div>
+
+
+
                 <Footer style={{ textAlign: 'center' }}>
 
                 </Footer>
