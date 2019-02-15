@@ -7,26 +7,36 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Interest {
-    private String id;
+    private String locationId;
     private String name;
     private double lat;
+    private double lng;
+    private double rating;
+    private double openTime;
+    private double closeTime;
+    private double suggestVisitTime;
     private String formattedAddress;
     private Set<String> categories;
     private String placeId;
-    private double lng;
+
 
     private Interest(InterestBuilder builder) {
-        this.id = builder.id;
+        this.locationId = builder.locationId;
         this.name = builder.name;
         this.lat = builder.lat;
+        this.lng = builder.lng;
+        this.rating = builder.rating;
+        this.openTime = builder.openTime;
+        this.closeTime = builder.closeTime;
+        this.suggestVisitTime = builder.suggestVisitTime;
         this.formattedAddress = builder.formattedAddress;
         this.categories = builder.categories;
         this.placeId = builder.placeId;
-        this.lng = builder.lng;
+
     }
 
-    public String getId() {
-        return id;
+    public String getLocationId() {
+        return locationId;
     }
 
     public String getName() {
@@ -35,6 +45,26 @@ public class Interest {
 
     public double getLat() {
         return lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public double getOpenTime() {
+        return openTime;
+    }
+
+    public double getCloseTime() {
+        return closeTime;
+    }
+
+    public double getSuggestVisitTime() {
+        return suggestVisitTime;
     }
 
     public String getFormattedAddress() {
@@ -49,20 +79,21 @@ public class Interest {
         return placeId;
     }
 
-    public double getLng() {
-        return lng;
-    }
-
     public JSONObject toJSONObject() {
         JSONObject obj = new JSONObject();
         try {
-            obj.put("id", id);
+            obj.put("location_id", locationId);
             obj.put("name", name);
             obj.put("lat", lat);
+            obj.put("lng", lng);
+            obj.put("rating", rating);
+            obj.put("open_time", openTime);
+            obj.put("close_time", closeTime);
+            obj.put("suggest_visit_time", suggestVisitTime);
             obj.put("formattedAddress", formattedAddress);
             obj.put("categories", new JSONArray(categories));
             obj.put("placeId", placeId);
-            obj.put("lng", lng);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -70,16 +101,21 @@ public class Interest {
     }
 
     public static class InterestBuilder {
-        private String id;
+        private String locationId;
         private String name;
         private double lat;
+        private double lng;
+        private double rating;
+        private double openTime;
+        private double closeTime;
+        private double suggestVisitTime;
         private String formattedAddress;
         private Set<String> categories;
         private String placeId;
-        private double lng;
 
-        public void setId(String id) {
-            this.id = id;
+
+        public void setLocationId(String locationId) {
+            this.locationId = locationId;
         }
 
         public void setName(String name) {
@@ -88,6 +124,26 @@ public class Interest {
 
         public void setLat(double lat) {
             this.lat = lat;
+        }
+
+        public void setLng(double lng) {
+            this.lng = lng;
+        }
+
+        public void setRating(double rating) {
+            this.lng = rating;
+        }
+
+        public void setOpenTime(double openTime) {
+            this.lng = openTime;
+        }
+
+        public void setCloseTime(double closeTime) {
+            this.lng = closeTime;
+        }
+
+        public void setSuggestVisitTime(double suggestVisitTime) {
+            this.lng = suggestVisitTime;
         }
 
         public void setFormattedAddress(String formattedAddress) {
@@ -100,10 +156,6 @@ public class Interest {
 
         public void setPlaceId(String placeId) {
             this.placeId = placeId;
-        }
-
-        public void setLng(double lng) {
-            this.lng = lng;
         }
 
         public Interest build() {
