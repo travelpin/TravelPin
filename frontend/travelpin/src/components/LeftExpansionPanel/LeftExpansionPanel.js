@@ -10,6 +10,7 @@ const SubMenu = Menu.SubMenu;
 export class LeftExpansionPanel extends React.Component {
     state = {
         collapsed: false,
+        pixelPosition: '400px'
     }
 
     toggleCollapsed = () => {
@@ -19,9 +20,24 @@ export class LeftExpansionPanel extends React.Component {
     }
 
     render() {
+        const MenuStyle = {
+            width:this.state.collapsed?'0px':this.state.pixelPosition,
+            height:this.state.collapsed?'0px':this.state.pixelPosition,
+        }
+        const ButtonStyle = {
+            marginBottom: 8,
+            position:"fixed",
+            left:this.state.collapsed?'0px':this.state.pixelPosition,
+
+        }
         return (
 
             <div  className={"leftExpansionPanel"}>
+                <div>
+                    <Button type="primary" onClick={this.toggleCollapsed} style={ButtonStyle}>
+                        <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
+                    </Button>
+                </div>
                 <div>
                     <Menu
                         defaultSelectedKeys={['1']}
@@ -29,19 +45,16 @@ export class LeftExpansionPanel extends React.Component {
                         mode="inline"
                         theme="white"
                         inlineCollapsed={this.state.collapsed}
+                        style={MenuStyle}
                     >
                         <Tabs defaultActiveKey="1">
-                            <TabPane tab="Tab 1" key="1"><ListInterests/></TabPane>
-                            <TabPane tab="Tab 2" key="2">Tab 2</TabPane>
-                            <TabPane tab="Tab 3" key="3">Tab 3</TabPane>
+                            <TabPane tab="Interest" key="1"><ListInterests/></TabPane>
+                            <TabPane tab="Route" key="2">Tab 2</TabPane>
+                            <TabPane tab="SaveRoute" key="3">Tab 3</TabPane>
                         </Tabs>
                     </Menu>
                 </div>
-               <div>
-                   <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 8}}>
-                       <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
-                   </Button>
-               </div>
+
             </div>
         );
     }

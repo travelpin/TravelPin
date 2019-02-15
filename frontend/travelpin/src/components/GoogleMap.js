@@ -9,7 +9,7 @@ export class SimpleMap extends Component {
             lat: 40.71,
             lng: -74.00
         },
-        zoom: 11
+        zoom: 13
     };
 
     render() {
