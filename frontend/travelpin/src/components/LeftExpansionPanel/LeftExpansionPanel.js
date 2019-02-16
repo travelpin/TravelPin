@@ -2,6 +2,8 @@ import { Menu, Icon, Button } from 'antd';
 import React from 'react';
 import { Tabs, List } from 'antd';
 import {ListInterests} from "./ListInterests";
+import {ShowRoute} from "./ShowRoute";
+import {UserSavedRoutes} from "./UserSavedRoutes";
 
 const TabPane = Tabs.TabPane;
 
@@ -49,8 +51,8 @@ export class LeftExpansionPanel extends React.Component {
                     >
                         <Tabs defaultActiveKey="1">
                             <TabPane tab="Interest" key="1"><ListInterests/></TabPane>
-                            <TabPane tab="Route" key="2">Tab 2</TabPane>
-                            <TabPane tab="SaveRoute" key="3">Tab 3</TabPane>
+                            <TabPane tab="Route" key="2"><ShowRoute/></TabPane>
+                            <TabPane tab="SaveRoute" key="3"><UserSavedRoutes/></TabPane>
                         </Tabs>
                     </Menu>
                 </div>
