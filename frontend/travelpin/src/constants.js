@@ -1,1 +1,7 @@
-export const API_KEY = 'AIzaSyDxj1K1g3Uonp_1SjDJdTljc9zzhSj3lJ8'; // this is my google map api key
+export const API_KEY = 'AIzaSyAVn85ZeI_X8UZaWd5U0GQZFfPBJ-'; // this is my google map api key
+
+export const API_ROOT = 'https://around-75015.appspot.com/api/v1';
+export const TOKEN_KEY = 'TOKEN_KEY';
+export const GEO_OPTIONS = {enableHighAccuracy: true, maximumAge: 3600000, timeout: 27000};
+export const POS_KEY = 'POS_KEY';
+export const AUTH_HEADER = 'Bearer';

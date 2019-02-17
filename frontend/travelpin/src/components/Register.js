@@ -1,35 +1,9 @@
-import {
-    Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete,
-} from 'antd';
+import {Form, Input, Button, message, Layout, Menu} from 'antd';
 import React from 'react';
+import { API_ROOT } from '../constants';
+import { Link } from 'react-router-dom';
 
-const { Option } = Select;
-const AutoCompleteOption = AutoComplete.Option;
-
-const residences = [{
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [{
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [{
-            value: 'xihu',
-            label: 'West Lake',
-        }],
-    }],
-}, {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [{
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [{
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-        }],
-    }],
-}];
-
+const { Header, Content, Footer } = Layout;
 class RegistrationForm extends React.Component {
     state = {
         confirmDirty: false,
@@ -41,9 +15,32 @@ class RegistrationForm extends React.Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+                // send request
+                fetch(`${API_ROOT}/signup`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        username: values.username,
+                        password: values.password,
+                    }),
+                }).then((response) => {
+                    if (response.ok) {
+                        return response.text();
+                    }
+                    throw new Error(response.statusText);
+                })
+                    .then((data) => {
+                        console.log(data);
+                        message.success('Registration Succeed!');
+                        this.props.history.push('/login');
+                    })
+                    .catch((e) => {
+                        console.log(e);
+                        message.error('Registration Failed.');
+                    });
             }
         });
     }
+
 
     handleConfirmBlur = (e) => {
         const value = e.target.value;
@@ -67,19 +64,10 @@ class RegistrationForm extends React.Component {
         callback();
     }
 
-    handleWebsiteChange = (value) => {
-        let autoCompleteResult;
-        if (!value) {
-            autoCompleteResult = [];
-        } else {
-            autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
-        }
-        this.setState({ autoCompleteResult });
-    }
+
 
     render() {
         const { getFieldDecorator } = this.props.form;
-        const { autoCompleteResult } = this.state;
 
         const formItemLayout = {
             labelCol: {
@@ -103,105 +91,84 @@ class RegistrationForm extends React.Component {
                 },
             },
         };
-        const prefixSelector = getFieldDecorator('prefix', {
-            initialValue: '86',
-        })(
-            <Select style={{ width: 70 }}>
-                <Option value="86">+86</Option>
-                <Option value="87">+87</Option>
-            </Select>
-        );
 
-        const websiteOptions = autoCompleteResult.map(website => (
-            <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-        ));
 
         return (
-            <Form onSubmit={this.handleSubmit}>
-                <Form.Item
-                    {...formItemLayout}
-                    label="E-mail"
-                >
-                    {getFieldDecorator('email', {
-                        rules: [{
-                            type: 'email', message: 'The input is not valid E-mail!',
-                        }, {
-                            required: true, message: 'Please input your E-mail!',
-                        }],
-                    })(
-                        <Input />
-                    )}
-                </Form.Item>
-                <Form.Item
-                    {...formItemLayout}
-                    label="Password"
-                >
-                    {getFieldDecorator('password', {
-                        rules: [{
-                            required: true, message: 'Please input your password!',
-                        }, {
-                            validator: this.validateToNextPassword,
-                        }],
-                    })(
-                        <Input type="password" />
-                    )}
-                </Form.Item>
-                <Form.Item
-                    {...formItemLayout}
-                    label="Confirm Password"
-                >
-                    {getFieldDecorator('confirm', {
-                        rules: [{
-                            required: true, message: 'Please confirm your password!',
-                        }, {
-                            validator: this.compareToFirstPassword,
-                        }],
-                    })(
-                        <Input type="password" onBlur={this.handleConfirmBlur} />
-                    )}
-                </Form.Item>
-                <Form.Item
-                    {...formItemLayout}
-                    label="Phone Number"
-                >
-                    {getFieldDecorator('phone', {
-                        rules: [{ required: true, message: 'Please input your phone number!' }],
-                    })(
-                        <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
-                    )}
-                </Form.Item>
+            <Layout className="layout">
 
-                <Form.Item
-                    {...formItemLayout}
-                    label="Captcha"
-                    extra="We must make sure that your are a human."
-                >
-                    <Row gutter={8}>
-                        <Col span={12}>
-                            {getFieldDecorator('captcha', {
-                                rules: [{ required: true, message: 'Please input the captcha you got!' }],
-                            })(
-                                <Input />
-                            )}
-                        </Col>
-                        <Col span={12}>
-                            <Button>Get captcha</Button>
-                        </Col>
-                    </Row>
-                </Form.Item>
-                <Form.Item {...tailFormItemLayout}>
-                    {getFieldDecorator('agreement', {
-                        valuePropName: 'checked',
-                    })(
-                        <Checkbox>I have read the <a href="">agreement</a></Checkbox>
-                    )}
-                </Form.Item>
-                <Form.Item {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit">Register</Button>
-                </Form.Item>
-            </Form>
+                <Header>
+                    <div className="logo" >
+
+                    </div>
+                    <Menu
+                        theme="dark"
+                        mode="horizontal"
+                        defaultSelectedKeys={['2']}
+                        style={{ lineHeight: '64px' }}
+                    >
+
+                    </Menu>
+                </Header>
+                <div>
+                    <Content className={"mapStyle"}>
+                        <div style={{ background: '#fff', padding: 1, minHeight: 1000 }}>
+                            <Form onSubmit={this.handleSubmit} className="register">
+                                <Form.Item
+                                    {...formItemLayout}
+                                    label="Username"
+                                >
+                                    {getFieldDecorator('username', {
+                                        rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+                                    })(
+                                        <Input />
+                                    )}
+                                </Form.Item>
+                                <Form.Item
+                                    {...formItemLayout}
+                                    label="Password"
+                                >
+                                    {getFieldDecorator('password', {
+                                        rules: [{
+                                            required: true, message: 'Please input your password!',
+                                        }, {
+                                            validator: this.validateToNextPassword,
+                                        }],
+                                    })(
+                                        <Input type="password" />
+                                    )}
+                                </Form.Item>
+                                <Form.Item
+                                    {...formItemLayout}
+                                    label="Confirm Password"
+                                >
+                                    {getFieldDecorator('confirm', {
+                                        rules: [{
+                                            required: true, message: 'Please confirm your password!',
+                                        }, {
+                                            validator: this.compareToFirstPassword,
+                                        }],
+                                    })(
+                                        <Input type="password" onBlur={this.handleConfirmBlur} />
+                                    )}
+                                </Form.Item>
+
+                                <Form.Item {...tailFormItemLayout}>
+                                    <Button type="primary" htmlType="submit">Register</Button>
+                                    <p>I already have an account, go back to <Link to="/login">Login</Link></p>
+                                </Form.Item>
+                            </Form>
+                        </div>
+                    </Content>
+                </div>
+
+
+
+                <Footer style={{ textAlign: 'center' }}>
+
+                </Footer>
+            </Layout>
         );
     }
 }
 
-export const WrappedRegistrationForm = Form.create({ name: 'register' })(RegistrationForm);
+export const Register = Form.create({ name: 'register' })(RegistrationForm);
