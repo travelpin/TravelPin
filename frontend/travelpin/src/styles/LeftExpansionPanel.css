@@ -1,0 +1,19 @@
+.leftExpansionPanel {
+    display: inline;
+    position: absolute;
+    left: 0px;
+    top: 65px;
+    z-index:20;
+    overflow:auto;
+
+}
+
+.leftExpansionPanel Button{
+    z-index: 100
+}
+
+.ListInterests {
+    background-color: white;
+
+}
+
