@@ -199,7 +199,7 @@ public class algorithm {
 
 
             // put two close interests in each day first
-            List<Interest> buffer = new ArrayList<>(); // to store scheduled interests in 1st step
+            List<List<Interest>> buffer = new ArrayList<>(); // to store scheduled list of list of interests in 1st step
             for (int i = 0; i < days; i++) {
                 List<Interest> daily = new ArrayList<>();
                 Interest one = pinnedInterests.get(0);
@@ -209,13 +209,16 @@ public class algorithm {
                 pinnedInterests.remove(one);
                 pinnedInterests.remove(two);
                 result.add(daily);
+                buffer.add(daily);
             }
             // post-check if there are extra interests. put them in each days again. check closest interests and put extra into that slot
             if ((days * 2) < numberOfInterests) {
                 int numberOfExtraInterests = numberOfInterests - days * 2;
                 for (int i = 0; i < numberOfExtraInterests; i++) {
                     // calculate total distance of extra interest to everyday's two interests and find the closest
-
+                    List<Interest> optimizeDay = result.get(result.indexOf(findClosestDaily(buffer, pinnedInterests.get(i)));
+                    optimizeDay.add(pinnedInterests.get(i)); // add one extra interest to that optimize day
+                    buffer.remove(optimizeDay);
                 }
             }
         }
