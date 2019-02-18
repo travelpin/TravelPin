@@ -18,6 +18,18 @@ import entity.Interest;
 // (need AI/ML) Option 2: Clustering Algorithm
 //    ==>       Option 3: Develop Route Optimization Algorithm on our own
 
+// Algorithm:
+// Step 1: briefly check if selection is valid: based on travel days and the numbers of interests, check if it is possible to generate schedule.
+//         the number of interests should be smaller than the maximum possible interests that can be visited during travel
+//         briefly check the number of interests vs days (approximately 2-3 interests per day)
+// Step 2: calculate distances between each interests. make sure shortest travel distance between interests each day
+//         using BFS. find the shortest distance of two dots then put them into one day slot;
+//         continue BFS for the rest of the dots with same procedure;
+// Step 3: put each interests into different days slots: morning(08-12 4h)/afternoon(14-18 4h)/evening(20-22 2h)
+//         check time.open and time.close is valid for that day's visit
+//         [optimize shortest distance first, if cannot meet demand then give up distance and ask for optimized time schedule]
+//         this also can fail to generate if interest's visit time cannot be put into slots
+
 // eg.
 // input: travel days: 3 days;
 //        travel person: 2 persons;
@@ -110,19 +122,6 @@ import entity.Interest;
 //         22:00 - 07:00: sleep
 //         }}
 // ==> display them on google map with routes, pictures and chart
-
-
-// Algorithm:
-// Step 1: briefly check if selection is valid: based on travel days and the numbers of interests, check if it is possible to generate schedule.
-//         the number of interests should be smaller than the maximum possible interests that can be visited during travel
-//         briefly check the number of interests vs days (approximately 2-3 interests per day)
-// Step 2: calculate distances between each interests. make sure shortest travel distance between interests each day
-//         using BFS. find the shortest distance of two dots then put them into one day slot;
-//         continue BFS for the rest of the dots with same procedure;
-// Step 3: put each interests into different days slots: morning(08-12 4h)/afternoon(14-18 4h)/evening(20-22 2h)
-//         check time.open and time.close is valid for that day's visit
-//         [optimize shortest distance first, if cannot meet demand then give up distance and ask for optimized time shedule]
-//         this also can fail to generate if interest's visit time cannot be put into slots
 
 
 public class algorithm {
