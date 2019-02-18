@@ -12,7 +12,7 @@ export class Main extends React.Component {
 
 
     getHome = () => {
-        return <Home/>;
+     return <Home isLoggedIn={this.props.isLoggedIn} handleLogout={this.props.handleLogout}/>
     }
 
     render() {
