@@ -5,23 +5,25 @@ import {Switch, Route, Redirect} from 'react-router-dom';
 import { Home } from './Home.js';
 
 export class Main extends React.Component {
+
     getLogin = () => {
         return this.props.isLoggedIn ? <Redirect to="/home"/> : <Login handleSuccessfulLogin={this.props.handleSuccessfulLogin}/>;
     }
 
+
     getHome = () => {
-        return this.props.isLoggedIn ? <Home/> : <Redirect to="/login"/>;
+        return <Home/>;
     }
 
     render() {
         return (
             <div className="main">
                 <Switch>
-                    <Route exact path="/" render={this.getLogin}/>
+                    <Route exact path="/" render={this.getHome}/>
                     <Route path="/login" render={this.getLogin}/>
                     <Route path="/register" component={Register}/>
                     <Route path="/home" render={this.getHome}/>
-                    <Route render={this.getLogin}/>
+                    <Route render={this.getHome}/>
                 </Switch>
             </div>
         );

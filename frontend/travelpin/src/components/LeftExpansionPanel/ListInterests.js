@@ -28,9 +28,6 @@ export class ListInterests extends React.Component {
         // this.loadInterests();
     }
 
-
-
-
     render() {
         return (
             <div className="interests-list-container">
