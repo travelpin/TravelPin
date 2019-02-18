@@ -1,9 +1,9 @@
 package algorithm;
 
-import javax.ejb.Schedule;
-import java.util.ArrayList;
 import java.util.List;
-        package algorithm;
+import java.util.ArrayList;
+
+import entity.Interest;
 
 // Route Optimization Algorithm
 // Zhenyu Pan
@@ -13,6 +13,10 @@ import java.util.List;
 
 // 优化目标：保证用户在整个旅行中，景点均匀分配到每天，不至于某天特别累，某天特别闲；并且保证每天游玩的景点距离之间较近，不至于前后奔波劳累；
 //          还需要确保用户去景点时，景点开门营业，并且能充分游玩，不至于吃闭门羹，或者被关门轰出
+
+// (try later)  Option 1: Vehicle Routing Algorithm
+// (need AI/ML) Option 2: Clustering Algorithm
+//    ==>       Option 3: Develop Route Optimization Algorithm on our own
 
 // eg.
 // input: travel days: 3 days;
@@ -123,16 +127,16 @@ import java.util.List;
 
 public class algorithm {
     // optimize travel route
-    public List<List<interests>> optimizeRoute(List<interests> pinnedInterests, int days) {
+    public List<List<Interest>> optimizeRoute(List<Interest> pinnedInterests, int days) {
 
-        List<List<interests>> result = new ArrayList<>();
+        List<List<Interest>> result = new ArrayList<>();
 
         // calculate total visit time and check if valid
         int dailyVisitTime = 10;
         int totalVisitTime = days * dailyVisitTime;
         int pinnedVisitTime = 0;
-        for (interests interest : pinnedInterests) {
-            pinnedVisitTime += interest.time.visit;
+        for (Interest interest : pinnedInterests) {
+            pinnedVisitTime += interest.getSuggestVisitTime();
         }
         if (pinnedVisitTime > totalVisitTime) {
             return null;
@@ -141,13 +145,13 @@ public class algorithm {
 
         // briefly check the total number of interests / days rate. Approximately 2-3 interests per day is good
         int numberOfInterests = 0;
-        for (interests interest : pinnedInterests) {
+        for (Interest interest : pinnedInterests) {
             numberOfInterests++;
         }
         if (numberOfInterests / days >= 3) {
             // TODO. It still has chance to be done. Need to double check open time and close time
 
-        } else if {numberOfInterests / days < 2} {
+        } else if (numberOfInterests / days < 2) {
             // one interest per day. final days may apply free time
 
         } else { // numberOfInterests / days >= 2 && numberOfInterests / days <= 3
@@ -166,15 +170,15 @@ public class algorithm {
         return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
     }
 
-    // get the closest spot of one given spot
-    private interest findClosest(List<interests> pinnedInterests, interest spot) {
+    // get the closest interest of one given interest
+    private Interest findClosest(List<Interest> pinnedInterests, Interest spot) {
         double min = Integer.MAX_VALUE;
-        interest closest = null;
+        Interest closest = null;
         pinnedInterests.remove(spot);
-        for (interest candidate : pinnedInterests) {
+        for (Interest candidate : pinnedInterests) {
             double distance = calculateDistance(candidate.x, candidate.y, spot.x, spot.y);
             if (distance < min) {
-                closet = candidate;
+                Interest closet = candidate;
                 min = distance;
             }
         }
@@ -182,22 +186,24 @@ public class algorithm {
     }
 
     // calculate travel expense
-    public int calculateExpense(List<List<interests>> result, int persons) {
+    public int calculateExpense(List<List<Interest>> result, int persons) {
         int sum = 0;
-        for (List<interests> daily : result) {
-            for (interests interest : daily) {
+        for (List<Interest> daily : result) {
+            for (Interest interest : daily) {
                 sum += interest.price;
             }
         }
         return sum * persons;
     }
 
-    // generete travel schedule
-    public List<Schedule> generateSchedule(List<List<interests>> result) {
+    /*
+    // generate travel schedule
+    public List<Schedule> generateSchedule(List<List<Interest>> result) {
         // TO DO
     }
 
     public static void main(String[] args) {
 
     }
+    */
 }
