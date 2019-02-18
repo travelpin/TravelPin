@@ -216,7 +216,7 @@ public class algorithm {
                 int numberOfExtraInterests = numberOfInterests - days * 2;
                 for (int i = 0; i < numberOfExtraInterests; i++) {
                     // calculate total distance of extra interest to everyday's two interests and find the closest
-                    List<Interest> optimizeDay = result.get(result.indexOf(findClosestDaily(buffer, pinnedInterests.get(i)));
+                    List<Interest> optimizeDay = result.get(result.indexOf(findClosestDaily(buffer, pinnedInterests.get(i))));
                     optimizeDay.add(pinnedInterests.get(i)); // add one extra interest to that optimize day
                     buffer.remove(optimizeDay);
                 }
