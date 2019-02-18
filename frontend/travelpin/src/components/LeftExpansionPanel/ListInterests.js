@@ -1,36 +1,80 @@
-import { List } from 'antd';
 import React from 'react';
+import { List, message, Avatar, Spin, Icon} from 'antd';
+import InfiniteScroll from 'react-infinite-scroller';
 
 
 
-export class ListInterests extends React.Component{
+export class ListInterests extends React.Component {
+    state = {
+        loading: false,
+        hasMore: true,
+    }
 
 
-    render(){
-        const data = [
-            'Racing car sprays burning fuel into crowd.',
-            'Japanese princess to wed commoner.',
-            'Australian walks 100km after outback crash.',
-            'Man charged over missing wedding girl.',
-            'Los Angeles battles huge wildfires.',
-        ];
-        return(
-            <div>
-                <h3 style={{ marginBottom: 16 }}>Default Size</h3>
-                <List
-                    header={<div>Header</div>}
-                    footer={<div>Footer</div>}
-                    bordered
-                    dataSource={data}
-                    renderItem={item => (<List.Item>{item}</List.Item>)}
-                    className={"ListInterests"}
-                />
+
+    handleInfiniteOnLoad = () => {
+        let data = this.props.data;
+        this.setState({
+            loading: true,
+        });
+        if (data.length > 10) {
+            message.warning('Infinite List loaded all');
+            this.setState({
+                hasMore: false,
+                loading: false,
+            });
+            return;
+        }
+        // this.loadInterests();
+    }
+
+
+
+
+    render() {
+        return (
+            <div className="interests-list-container">
+                <InfiniteScroll
+                    initialLoad={false}
+                    pageStart={0}
+                    loadMore={this.handleInfiniteOnLoad}
+                    hasMore={!this.state.loading && this.state.hasMore}
+                    useWindow={false}
+                >
+                    <List
+                        dataSource={this.props.data}
+                        renderItem={(item, index) => (
+                            <List.Item key={index}
+
+                            >
+                                <List.Item.Meta
+                                    avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                                    title={<a>{item.name}</a>}
+                                    description={item.description}
+                                />
+
+
+                                <div>
+                                    <button
+                                        className="liked-button"
+                                        onClick = {() => { this.props.clickLiked(item.id)}}
+                                    >
+                                        {item.liked === 'TRUE' ? <Icon type="like" theme="filled" /> : <Icon type="like"/>}
+                                    </button>
+                                </div>
+
+                            </List.Item>
+                        )}
+                    >
+                        {this.state.loading && this.state.hasMore && (
+                            <div className="interests-loading-container">
+                                <Spin />
+                            </div>
+                        )}
+                    </List>
+                </InfiniteScroll>
             </div>
         );
     }
 }
-
-
-
-
 
