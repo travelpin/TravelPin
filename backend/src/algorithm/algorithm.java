@@ -193,22 +193,22 @@ public class algorithm {
     }
 
     // Convert longitude to a X value in World Coordinates
-    public static final double lon2x(double lon) {
+    private static final double lon2x(double lon) {
         return (lon + 180f) / 360f * 256f;
     }
 
     // Convert latitude to a Y value in World Coordinates
-    public static final double lat2y(double aLat) {
+    private static final double lat2y(double aLat) {
         return ((1 - Math.log(Math.tan(aLat * Math.PI / 180) + 1 / Math.cos(aLat * Math.PI / 180)) / Math.PI) / 2 * Math.pow(2, 0)) * 256;
     }
 
     // Convert X value in World Coordinates to longitude
-    public static final double x2lng(double x) {
+    private static final double x2lng(double x) {
         return x * 360 / 256 - 180;
     }
 
     // Convert Y value in World Coordinates to latitude
-    public static final double y2lat(double y) {
+    private static final double y2lat(double y) {
         double z = Math.pow(Math.E, (2 * Math.PI * (1 - y / 128)));
         return Math.asin((z - 1) / (z + 1)) * 180 / Math.PI;
     }
@@ -224,7 +224,11 @@ public class algorithm {
         Interest closest = null;
         pinnedInterests.remove(spot);
         for (Interest candidate : pinnedInterests) {
-            double distance = calculateDistance(candidate.x, candidate.y, spot.x, spot.y);
+            double candidateX = lon2x(candidate.getLng());
+            double candidateY = lat2y(candidate.getLat());
+            double spotX = lon2x(spot.getLng());
+            double spotY = lat2y(spot.getLat());
+            double distance = calculateDistance(candidateX, candidateY, spotX, spotY);
             if (distance < min) {
                 closest = candidate;
                 min = distance;
