@@ -197,7 +197,6 @@ public class algorithm {
             // extra 2 interests: {d h} put these two into two of the three days
             // result: {{a e h} {c f} {b g d}}
 
-
             // put two close interests in each day first
             List<List<Interest>> buffer = new ArrayList<>(); // to store scheduled list of list of interests in 1st step
             for (int i = 0; i < days; i++) {
