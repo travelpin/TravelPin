@@ -138,24 +138,54 @@ public class algorithm {
             pinnedVisitTime += interest.getSuggestVisitTime();
         }
         if (pinnedVisitTime > totalVisitTime) {
-            return null;
-            System.out.println("Schedule is too tight");
+            System.out.println("Too many interests. Schedule is too tight. Please re-pin interests!");
         }
 
-        // briefly check the total number of interests / days rate. Approximately 2-3 interests per day is good
-        int numberOfInterests = 0;
-        for (Interest interest : pinnedInterests) {
-            numberOfInterests++;
-        }
+        // briefly check the "total number of interests / days" rate. Approximately 2-3 interests per day is good
+        // then implement route optimization algorithms in each cases
+        int numberOfInterests = pinnedInterests.size();
         if (numberOfInterests / days >= 3) {
-            // TODO. It still has chance to be done. Need to double check open time and close time
-
+            // TODO: It still has chance to be done. Need to double check open time and close time
+            return null;
         } else if (numberOfInterests / days < 2) {
             // one interest per day. final days may apply free time
+            // put one interest in each day first
+
+            // e.g.
+            // 5 interests: (a b c d e}
+            // 3 days: {{} {} {}}
+            // 1st step: {{a} {b} {c}}
+            // buffer: {a b c}
+            // extra to be scheduled: {d e} total 5-3=2
+            // 2nd step: find closest of d and e from {a b c}
+            // {b d} d scheduled into {b} day
+            // buffer-b = {a c}
+            // {c e} e scheduled into {c} day
+            // final result: {{a} {b d} {c e}}
+
+            List<Interest> buffer = new ArrayList<>(); // to store scheduled interests in 1st step
+            for (int i = 0; i < days; i++) {
+                List<Interest> daily = new ArrayList<>();
+                daily.add(pinnedInterests.get(i));
+                buffer.add(pinnedInterests.get(i));
+                result.add(daily);
+            }
+            // post-check if there are extra interests. put them in each days again. check closest interests and put extra into that slot
+            if (days < numberOfInterests) {
+                int numberOfExtraInterests = numberOfInterests - days;
+                for (int i = numberOfExtraInterests + 1; i < days; i++) {
+                    Interest spot = pinnedInterests.get(i);
+                    Interest closest = findClosest(buffer, spot);
+                    List<Interest> specificDay = new ArrayList<>();
+                    specificDay.add(closest);
+                    result.get(result.indexOf(specificDay)).add(spot);
+                    buffer.remove(closest);
+                }
+            }
 
         } else { // numberOfInterests / days >= 2 && numberOfInterests / days <= 3
             // two interests per day. final days may apply three interests per day
-
+            return null;
         }
 
         // generate route
@@ -177,7 +207,7 @@ public class algorithm {
         for (Interest candidate : pinnedInterests) {
             double distance = calculateDistance(candidate.x, candidate.y, spot.x, spot.y);
             if (distance < min) {
-                Interest closet = candidate;
+                closest = candidate;
                 min = distance;
             }
         }
@@ -189,7 +219,7 @@ public class algorithm {
         int sum = 0;
         for (List<Interest> daily : result) {
             for (Interest interest : daily) {
-                sum += interest.price;
+                // sum += interest.price;
             }
         }
         return sum * persons;
