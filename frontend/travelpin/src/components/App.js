@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import '../styles/App.css';
 import { Main } from "./Main.js";
 import { BrowserRouter } from 'react-router-dom';
-import { TopBar } from "./TopBar";
 import { TOKEN_KEY } from "../constants";
+import { TopBar } from "./TopBar.js";
 
 class App extends Component {
     state = {
@@ -12,7 +12,9 @@ class App extends Component {
 
     handleSuccessfulLogin = (token) => {
         localStorage.setItem(TOKEN_KEY, token);
-        this.setState({isLoggedIn : true});
+        this.setState({
+            isLoggedIn : true,
+        });
     }
 
     handleLogout = () => {
@@ -24,8 +26,8 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div className="App">
-                    <TopBar handleLogout={this.handleLogout} isLoggedIn={this.state.isLoggedIn}/>
-                    <Main handleSuccessfulLogin={this.handleSuccessfulLogin} isLoggedIn={this.state.isLoggedIn}/>
+                    <TopBar/>
+                    <Main handleLogout={this.handleLogout} handleSuccessfulLogin={this.handleSuccessfulLogin} isLoggedIn={this.state.isLoggedIn}/>
                 </div>
             </BrowserRouter>
         );
