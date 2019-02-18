@@ -149,7 +149,6 @@ public class algorithm {
             return null;
         } else if (numberOfInterests / days < 2) {
             // one interest per day. final days may apply free time
-            // put one interest in each day first
 
             // e.g.
             // 5 interests: (a b c d e}
@@ -163,6 +162,7 @@ public class algorithm {
             // {c e} e scheduled into {c} day
             // final result: {{a} {b d} {c e}}
 
+            // put one interest in each day first
             List<Interest> buffer = new ArrayList<>(); // to store scheduled interests in 1st step
             for (int i = 0; i < days; i++) {
                 List<Interest> daily = new ArrayList<>();
@@ -185,7 +185,39 @@ public class algorithm {
 
         } else { // numberOfInterests / days >= 2 && numberOfInterests / days <= 3
             // two interests per day. final days may apply three interests per day
-            return null;
+
+            // e.g.
+            // 8 interests: (a b c d e f g h}
+            // 3 days: {{} {} {}}
+            // 1st step: {{a} {} {}}
+            // find closest to a in {b c d e f} => e
+            // {{a e} {} {}}
+            // ...
+            // {{a e} {c f} {b g}}
+            // extra 2 interests: {d h} put these two into two of the three days
+            // result: {{a e h} {c f} {b g d}}
+
+
+            // put two close interests in each day first
+            List<Interest> buffer = new ArrayList<>(); // to store scheduled interests in 1st step
+            for (int i = 0; i < days; i++) {
+                List<Interest> daily = new ArrayList<>();
+                Interest one = pinnedInterests.get(0);
+                daily.add(one);
+                Interest two = findClosest(pinnedInterests, one);
+                daily.add(two);
+                pinnedInterests.remove(one);
+                pinnedInterests.remove(two);
+                result.add(daily);
+            }
+            // post-check if there are extra interests. put them in each days again. check closest interests and put extra into that slot
+            if ((days * 2) < numberOfInterests) {
+                int numberOfExtraInterests = numberOfInterests - days * 2;
+                for (int i = 0; i < numberOfExtraInterests; i++) {
+                    // calculate total distance of extra interest to everyday's two interests and find the closest
+
+                }
+            }
         }
 
         // generate route
@@ -218,17 +250,22 @@ public class algorithm {
         return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
     }
 
+    // distance between candidate and spot
+    private double distance(Interest candidate, Interest spot) {
+        double candidateX = lon2x(candidate.getLng());
+        double candidateY = lat2y(candidate.getLat());
+        double spotX = lon2x(spot.getLng());
+        double spotY = lat2y(spot.getLat());
+        return calculateDistance(candidateX, candidateY, spotX, spotY);
+    }
+
     // get the closest interest of one given interest
     private Interest findClosest(List<Interest> pinnedInterests, Interest spot) {
         double min = Integer.MAX_VALUE;
         Interest closest = null;
-        pinnedInterests.remove(spot);
+        pinnedInterests.remove(spot); // to avoid self to self which is 0 distance
         for (Interest candidate : pinnedInterests) {
-            double candidateX = lon2x(candidate.getLng());
-            double candidateY = lat2y(candidate.getLat());
-            double spotX = lon2x(spot.getLng());
-            double spotY = lat2y(spot.getLat());
-            double distance = calculateDistance(candidateX, candidateY, spotX, spotY);
+            double distance = distance(candidate, spot);
             if (distance < min) {
                 closest = candidate;
                 min = distance;
