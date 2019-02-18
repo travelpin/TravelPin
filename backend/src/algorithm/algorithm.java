@@ -274,6 +274,23 @@ public class algorithm {
         return closest;
     }
 
+    // get the total distance and find the shortest of one spot to list of list of interests
+    private List<Interest> findClosestDaily(List<List<Interest>> preResult, Interest spot) {
+        double min = Integer.MAX_VALUE;
+        int index = 0;
+        double totalDistanceDaily = 0;
+        for (List<Interest> day : preResult) {
+            for (Interest candidate : day) {
+                totalDistanceDaily += distance(candidate, spot);
+            }
+            if (totalDistanceDaily < min) {
+                index = preResult.indexOf(day);
+                min = totalDistanceDaily;
+            }
+        }
+        return preResult.get(index);
+    }
+
     // calculate travel expense
     public int calculateExpense(List<List<Interest>> result, int persons) {
         int sum = 0;
