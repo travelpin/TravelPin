@@ -1,0 +1,18 @@
+.interests-list-container {
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    overflow: auto;
+    padding: 8px 24px;
+    height: 300px;
+}
+.interests-loading-container {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    text-align: center;
+}
+
+.liked-button {
+    background-color: white;
+    border: none;
+}

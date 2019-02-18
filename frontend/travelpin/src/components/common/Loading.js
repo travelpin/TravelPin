@@ -7,15 +7,7 @@ export class Loading extends React.Component{
         super(props)
         this.loadingSize = props.loadingSize;
     }
-
-    state={
-        confirmLoading:false,
-
-    }
-
     render(){
-
-
         return (
             <Spin size={this.loadingSize}/>
         );
