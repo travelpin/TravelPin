@@ -1,14 +1,13 @@
 import React from 'react';
-import { Icon } from 'antd';
+import mapIcon from "../asserts/images/mapIcon.svg";
 
 export class TopBar extends React.Component {
     render() {
         return(
-            <div className="top-bar">
-                {this.props.isLoggedIn ? <a className="logout" onClick={this.props.handleLogout} >
-                    <Icon type="logout"/>{' '}Logout
-                </a> : null}
+            <div className="logo-name">
+                <img src={mapIcon} className="top-logo" alt="logo" />
+                <span className="logo-name">TravelPin</span>
             </div>
-        )
+        );
     }
 }

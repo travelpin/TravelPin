@@ -2,8 +2,7 @@ package algorithm;
 
 import java.util.List;
 import java.util.ArrayList;
-
-import entity.Interest;
+import entity.Interest；
 
 // Route Optimization Algorithm
 // Zhenyu Pan
@@ -147,6 +146,7 @@ public class algorithm {
         if (numberOfInterests / days >= 3) {
             // TODO: It still has chance to be done. Need to double check open time and close time
             return null;
+
         } else if (numberOfInterests / days < 2) {
             // one interest per day. final days may apply free time
 
@@ -268,6 +268,7 @@ public class algorithm {
         pinnedInterests.remove(spot); // to avoid self to self which is 0 distance
         for (Interest candidate : pinnedInterests) {
             double distance = distance(candidate, spot);
+
             if (distance < min) {
                 closest = candidate;
                 min = distance;
@@ -309,6 +310,7 @@ public class algorithm {
     public List<Schedule> generateSchedule(List<List<Interest>> result) {
         // TO DO
     }
+
 
     public static void main(String[] args) {
 
