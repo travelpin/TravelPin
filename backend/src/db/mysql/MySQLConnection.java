@@ -175,6 +175,7 @@ public class MySQLConnection implements DBConnection{
                   builder.setSuggestVisitTime(rs.getDouble("suggest_visit_time"));
                   builder.setFormattedAddress(rs.getString("formattedAddress"));
                   builder.setPlaceId(rs.getString("placeId"));
+                  builder.setCategories(getCategories(rs.getString("location_id")));
 
                   allInterests.add(builder.build());
               }
@@ -188,7 +189,24 @@ public class MySQLConnection implements DBConnection{
 
     @Override
     public Set<String> getCategories(String itemId) {
-        return null;
+        if (conn == null) {
+            return new HashSet<>();
+        }
+
+        Set<String> categories = new HashSet<>();
+        try {
+            String sql = "SELECT category FROM categories WHERE location_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, itemId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                categories.add(rs.getString("category"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return categories;
     }
 
     @Override
