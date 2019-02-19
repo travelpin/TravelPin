@@ -69,6 +69,8 @@ public interface DBConnection {
 
     public Set<Interest> getFavoriteInterests(String userId);
 
+    public Set<Interest> getAllInterests();
+
     public Set<String> getCategories(String itemId);
 
     public Interest getInterestInfo(String interestId);
