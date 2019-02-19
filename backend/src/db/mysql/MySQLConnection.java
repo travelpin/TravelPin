@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import db.DBConnection;
+import entity.Interest;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -129,7 +130,27 @@ public class MySQLConnection implements DBConnection{
         }
     }
 
-        @Override
+    @Override
+    public void likeInterests(String userId, List<String> interestIds) {
+
+    }
+
+    @Override
+    public void dislikeInterests(String userId, List<String> interestIds) {
+
+    }
+
+    @Override
+    public Interest getInterestInfo(String interestId) {
+        return null;
+    }
+
+    @Override
+    public Set<Interest> getFavoriteInterests(String userId) {
+        return null;
+    }
+
+    @Override
     public Set<String> getFavoriteInterestIds(String user_id) {
         // TODO Auto-generated method stub
         return null;

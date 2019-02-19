@@ -20,8 +20,6 @@ public interface DBConnection {
     public Interest getInterestInfo(String interestId);
 
     public Set<Interest> getFavoriteInterests(String userId);
-
-    public Set<String> getFavoriteInterestIds(String userId);
     /**
      * Close the connection.
      */

@@ -36,6 +36,7 @@ public class optimizeRoute extends HttpServlet {
         }
         algorithm algorithmCollection = new algorithm();
         try{
+
             List<List<Interest>> interestArrangements = algorithmCollection.optimizeRoute(pinnedInterests, days);
             JSONArray arrangements = new JSONArray();
             for(List<Interest> interests : interestArrangements){
