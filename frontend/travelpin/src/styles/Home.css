@@ -1,0 +1,46 @@
+.logo {
+    width: 120px;
+    height: 31px;
+    background: rgba(255,255,255,.2);
+    margin: 16px 24px 16px 0;
+    float: left;
+}
+
+.logout {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 100;
+    font-size: 16px;
+}
+
+.before-login {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 100;
+    font-size: 16px;
+}
+
+.App-logo {
+    height: 10px;
+    float: left;
+}
+
+.login-link {
+    margin-right: 15px;
+}
+
+.menu-item {
+    float: left;
+}
+
+.layout {
+    position: relative;
+}
+.mapAndMenu{
+
+}
+.mapStyle{
+
+}

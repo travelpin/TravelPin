@@ -1,0 +1,17 @@
+.logo-name {
+    position: absolute;
+    z-index: 100;
+    font-size: 30px;
+    color: floralwhite;
+    font-family: 'Satisfy', cursive;
+    left: 30px;
+    top: 5px;
+}
+
+.top-logo {
+    z-index: 100;
+    position: absolute;
+    height: 40px;
+    right: -20px;
+    top: 5px;
+}
