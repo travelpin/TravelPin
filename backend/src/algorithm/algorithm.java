@@ -2,7 +2,7 @@ package algorithm;
 
 import java.util.List;
 import java.util.ArrayList;
-import entity.Interest；
+import entity.Interest;
 
 // Route Optimization Algorithm
 // Zhenyu Pan
