@@ -5,10 +5,6 @@ import java.util.*;
 
 import db.DBConnection;
 import entity.Interest;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import entity.Interest.InterestBuilder;
 import java.util.List;
 import java.util.Set;
@@ -20,7 +16,7 @@ Author: Debbie Liang
 Date: Feb. 2019
  */
 
-public class MySQLConnection implements DBConnection {
+public class MySQLConnection implements DBConnection{
 
     private Connection conn;
 
@@ -88,12 +84,7 @@ public class MySQLConnection implements DBConnection {
         }
     }
 
-    @Override
-    public Set<String> getFavoriteInterestIds(String user_id) {
-        return null;
-    }
-
-    //    @Override
+//    @Override
 //    public void setFavoritePlans(String user_id, List<String> liked_plans) {
 //        if (conn == null) {
 //            System.err.println("DB connection failed");
@@ -133,6 +124,13 @@ public class MySQLConnection implements DBConnection {
 //            e.printStackTrace();
 //        }
 //    }
+
+    @Override
+    public Set<String> getFavoriteInterestIds(String user_id) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
     @Override
     public Set<Interest> getFavoriteInterests(String userId) {
         return null;
@@ -161,7 +159,7 @@ public class MySQLConnection implements DBConnection {
         try {
             String sql = "SELECT * FROM interests WHERE location_id = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
-            for (String location_id : allInterestIds) {
+            for (String location_id: allInterestIds) {
                 statement.setString(1, location_id);
                 ResultSet rs = statement.executeQuery();
                 InterestBuilder builder = new InterestBuilder();
@@ -212,26 +210,45 @@ public class MySQLConnection implements DBConnection {
     }
 
     @Override
-
     public Interest getInterestInfo(String interestId) {
         return null;
     }
 
     @Override
     public List<Interest> searchItems(double lat, double lon, String term) {
-
         return null;
     }
 
     @Override
-    public void saveItem (Interest interest){
+    public void saveItem(Interest interest) {
 
     }
 
     @Override
-    public String getFullname (String userId){
+    public boolean registration(String username, String password, String firstName, String lastName) {
+        if (conn == null) {
+            System.err.println("DB connection failed");
+            return false;
+        }
 
-            return null;
+        try {
+            String sql = "INSERT IGNORE INTO users VALUES (?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ps.setString(3, firstName);
+            ps.setString(4, lastName);
+            int numOfUpdates = ps.executeUpdate();
+            return numOfUpdates > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public String getFullname(String userId) {
+        return null;
     }
 
 //    @Override
@@ -266,6 +283,8 @@ public class MySQLConnection implements DBConnection {
 
     @Override
     public boolean verifyLogin(String userId, String password) {
+        // TODO Auto-generated method stub
         return false;
     }
+
 }
