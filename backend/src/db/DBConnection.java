@@ -79,7 +79,7 @@ public interface DBConnection {
 
     public void saveItem(Interest interest);
 
-    public void registration(String username, String password, String firstName, String lastName);
+    public boolean registration(String username, String password, String firstName, String lastName);
 
 
 //    public Set<Item> getFavoriteItems(String userId);
