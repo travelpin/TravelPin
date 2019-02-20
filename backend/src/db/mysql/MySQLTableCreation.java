@@ -32,20 +32,25 @@ public class MySQLTableCreation {
             sql = "DROP TABLE IF EXISTS users";
             statement.executeUpdate(sql);
 
+            sql = "DROP TABLE IF EXISTS history";
+            statement.executeUpdate(sql);
+
+            sql = "DROP TABLE IF EXISTS categories";
+            statement.executeUpdate(sql);
+
 
             // Step 3 Create new tables
             sql = "CREATE TABLE interests ("
-                    + "name VARCHAR(255) NOT NULL,"
-                    + "location_id VARCHAR(255),"
-                    + "coordinate_x FLOAT,"
-                    + "coordinate_y FLOAT,"
-                    + "category VARCHAR(255),"
-                    + "url VARCHAR(255),"
-                    + "suggested_time FLOAT,"
-                    + "open_time INT," // the default is this place is gonna be open in the morning at this time
-                    + "close_time FLOAT," // the default is this place is gonna be closed in the afternoon at this time
-                    + "price FLOAT," // the default is the full price
-                    + "rating INT," // optional
+                    + "location_id VARCHAR(255) NOT NULL,"
+                    + "name VARCHAR(255),"
+                    + "lat FLOAT,"
+                    + "lng FLOAT,"
+                    + "rating FLOAT,"
+                    + "open_time FLOAT,"
+                    + "close_time FLOAT,"
+                    + "suggest_visit_time FLOAT,"
+                    + "formattedAddress VARCHAR(255),"
+                    + "placeId VARCHAR(255),"
                     + "PRIMARY KEY (location_id)"
                     + ")";
             statement.executeUpdate(sql);
@@ -63,6 +68,23 @@ public class MySQLTableCreation {
                     + ")";
             statement.executeUpdate(sql);
 
+            sql = "CREATE TABLE categories ("
+                    + "location_id VARCHAR(255) NOT NULL,"
+                    + "category VARCHAR(255) NOT NULL,"
+                    + "PRIMARY KEY (location_id, category),"
+                    + "FOREIGN KEY (location_id) REFERENCES interests(location_id)"
+                    + ")";
+            statement.executeUpdate(sql);
+
+            sql = "CREATE TABLE history ("
+                    + "user_id VARCHAR(255) NOT NULL,"
+                    + "location_id VARCHAR(255) NOT NULL,"
+                    + "last_favor_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,"
+                    + "PRIMARY KEY (user_id, location_id),"
+                    + "FOREIGN KEY (user_id) REFERENCES users(user_id),"
+                    + "FOREIGN KEY (location_id) REFERENCES interests(location_id)"
+                    + ")";
+            statement.executeUpdate(sql);
 
             // Step 4: insert fake user 1111/3229c1097c00d497a0fd282d586be050
             sql = "INSERT INTO users VALUES('1111', '3229c1097c00d497a0fd282d586be050', 'Jim', 'Gray', 'mock_liked_location', 'mock_liked_plan')";
