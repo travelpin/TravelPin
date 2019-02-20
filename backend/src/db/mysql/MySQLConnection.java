@@ -225,6 +225,26 @@ public class MySQLConnection implements DBConnection{
     }
 
     @Override
+    public void registration(String username, String password, String firstName, String lastName) {
+        if (conn == null) {
+            System.err.println("DB connection failed");
+            return;
+        }
+
+        try {
+            String sql = "INSERT IGNORE INTO users VALUES (?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ps.setString(3, firstName);
+            ps.setString(4, lastName);
+            ps.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public String getFullname(String userId) {
         return null;
     }
