@@ -1,5 +1,7 @@
 package rpc;
 
+import entity.Interest;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -15,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Registration
  */
-@WebServlet("/Registration")
+@WebServlet(name = "register", urlPatterns = {"/signup"})
 public class Registration extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -55,7 +57,7 @@ public class Registration extends HttpServlet {
 	        	String user_Id=username+"1234";
 
 	        	//Create connection with the database 
-	        	Connection c=DriverManager.getConnection("jdbc:mysql:/ /localhost:3306/test","user_Id","password","first_name","last_name");
+	        	Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/test");
 
 	        	PreparedStatement ps=c.prepareStatement("insert into users values(?,?,?,?)");
 
@@ -70,8 +72,7 @@ public class Registration extends HttpServlet {
 	        		out.println("New User registered!");
 	        	}
 	        }
-	        catch(Exception se)
-	        {
+	        catch(Exception se) {
 	            se.printStackTrace();
 	        }
 	}
