@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 import java.util.Set;
 
 
-@WebServlet(name = "listInterests", urlPatterns = {"/listinterests"})
+@WebServlet("/listinterests")
 public class listInterests extends HttpServlet {
     public listInterests(){
         super();
