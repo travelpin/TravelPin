@@ -225,10 +225,10 @@ public class MySQLConnection implements DBConnection{
     }
 
     @Override
-    public void registration(String username, String password, String firstName, String lastName) {
+    public boolean registration(String username, String password, String firstName, String lastName) {
         if (conn == null) {
             System.err.println("DB connection failed");
-            return;
+            return false;
         }
 
         try {
@@ -238,10 +238,12 @@ public class MySQLConnection implements DBConnection{
             ps.setString(2, password);
             ps.setString(3, firstName);
             ps.setString(4, lastName);
-            ps.execute();
+            int numOfUpdates = ps.executeUpdate();
+            return numOfUpdates > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override
