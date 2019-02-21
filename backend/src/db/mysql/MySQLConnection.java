@@ -165,7 +165,7 @@ public class MySQLConnection implements DBConnection{
                 InterestBuilder builder = new InterestBuilder();
 
                 while (rs.next()) {
-                    builder.setLocationId(rs.getString("lcoation_id"));
+                    builder.setLocationId(rs.getString("location_id"));
                     builder.setName(rs.getString("name"));
                     builder.setLat(rs.getDouble("lat"));
                     builder.setLng(rs.getDouble("lng"));
@@ -232,7 +232,7 @@ public class MySQLConnection implements DBConnection{
             //put results in our data structure "Interest"
             InterestBuilder builder = new InterestBuilder();
             while(rs.next()){
-                builder.setLocationId(rs.getString("lcoation_id"));
+                builder.setLocationId(rs.getString("location_id"));
                 builder.setName(rs.getString("name"));
                 builder.setLat(rs.getDouble("lat"));
                 builder.setLng(rs.getDouble("lng"));
