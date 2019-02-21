@@ -215,8 +215,40 @@ public class MySQLConnection implements DBConnection{
     }
 
     @Override
-    public List<Interest> searchItems(double lat, double lon, String term) {
-        return null;
+    public List<Interest> searchByName(String name){
+        if(connection == null){
+            return new ArrayList<>();
+        }
+
+        List<Interest> matchingInterests = new ArrayList<>();
+        try{
+            String sql = "SELECT * FROM interests WHERE interest_id LIKE ?";//if interest name is the interestId in the database
+            //String sql = "SELECT * FROM interests WHERE name LIKE ?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, "%" + name + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            //put results in our data structure "Interest"
+            InterestBuilder builder = new InterestBuilder();
+            while(rs.next()){
+            	builder.setInterestId(rs.getString("interest_id"));
+                builder.setName(rs.getString("name"));
+                builder.setAddress(rs.getString("address"));
+                builder.setImageUrl(rs.getString("image_url"));
+                builder.setOpenTime(rs.getInt("open_time"));
+                builder.setCloseTime(rs.getInt("close_time"));
+                builder.setRanking(rs.getInt("ranking"));
+                builder.setRating(rs.getDouble("rating"));
+                builder.setTicketPrice(rs.getDouble("ticket_price"));
+                builder.setSuggestedVisitTime(rs.getInt("suggested_visit_time"));
+
+                matchingInterests.add(builder.build());
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return matchingInterests;
     }
 
     @Override
