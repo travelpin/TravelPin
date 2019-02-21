@@ -5,13 +5,16 @@
 /.pnp
 .pnp.js
 
-# testing
-/coverage
+# Editor directories and files
+.idea
+.vscode
 
-# production
-/build
-*/out/*
-*/lib/*
+
+.DS_Store
+node_modules/*
+lib/*
+library/*
+out/*
 
 # misc
 .DS_Store
