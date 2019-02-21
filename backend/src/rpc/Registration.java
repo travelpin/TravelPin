@@ -15,17 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Registration
  */
-@WebServlet("/Registration")
+@WebServlet("/signup")
 public class Registration extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Registration() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public Registration() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

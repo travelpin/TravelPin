@@ -18,7 +18,6 @@ public class ListAllInterests {
     public List<Interest> search(JSONObject obj) {
         List<Interest> allInterest = new ArrayList<>();
         DBConnection connection = DBConnectionFactory.getConnection();
-        Set<String>
         return allInterest;
     }
 
@@ -28,7 +27,7 @@ public class ListAllInterests {
             JSONObject result = results.getJSONObject(i);
             InterestBuilder builder = new InterestBuilder();
             if (!result.isNull("id")) {
-                builder.setId(result.getString("id"));
+                builder.setLocationId(result.getString("id"));
             }
             if (!result.isNull("name")) {
                 builder.setName(result.getString("name"));
