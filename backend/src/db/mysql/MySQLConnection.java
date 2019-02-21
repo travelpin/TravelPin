@@ -266,7 +266,7 @@ public class MySQLConnection implements DBConnection{
         }
 
         try {
-            String sql = "INSERT IGNORE INTO users VALUES (?,?,?,?)";
+            String sql = "INSERT IGNORE INTO users(user_id, password, first_name, last_name) VALUES (?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, password);
