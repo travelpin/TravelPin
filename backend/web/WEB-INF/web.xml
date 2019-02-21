@@ -4,7 +4,9 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <servlet>
-        <servlet-name>Login</servlet-name>
-        <servlet-class>rpc.Login</servlet-class>
+        <!--<servlet-name>Login</servlet-name>-->
+        <!--<servlet-class>rpc.Login</servlet-class>-->
+        <servlet-name>listInterests</servlet-name>
+        <servlet-class>rpc.listInterests</servlet-class>
     </servlet>
 </web-app>

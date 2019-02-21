@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
+import java.util.Set;
 
-@WebServlet(name = "listInterests")
+
+@WebServlet("/listinterests")
 public class listInterests extends HttpServlet {
     public listInterests(){
         super();
@@ -24,7 +26,18 @@ public class listInterests extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DBConnection connection = DBConnectionFactory.getConnection();
-        JSONArray interests = new JSONArray();
-        RpcHelper.writeJsonArray(response, interests);
+        try {
+            Set<Interest> interests = connection.getAllInterests();
+            JSONArray array = new JSONArray();
+            for (Interest interest : interests) {
+                array.put(interest.toJSONObject());
+            }
+            RpcHelper.writeJsonArray(response, array);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            connection.close();
+        }
     }
 }

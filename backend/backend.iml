@@ -11,6 +11,76 @@
         </webroots>
       </configuration>
     </facet>
+    <facet type="web" name="Web2">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/lib/apache-tomcat-9.0.16/webapps/examples/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/lib/apache-tomcat-9.0.16/webapps/examples" relative="/" />
+        </webroots>
+      </configuration>
+    </facet>
+    <facet type="web" name="Web3">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/lib/apache-tomcat-9.0.16/webapps/host-manager/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/lib/apache-tomcat-9.0.16/webapps/host-manager" relative="/" />
+        </webroots>
+      </configuration>
+    </facet>
+    <facet type="web" name="Web4">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/lib/apache-tomcat-9.0.16/webapps/ROOT/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/lib/apache-tomcat-9.0.16/webapps/ROOT" relative="/" />
+        </webroots>
+      </configuration>
+    </facet>
+    <facet type="web" name="Web5">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/lib/apache-tomcat-9.0.16/webapps/docs/appdev/sample/web/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/lib/apache-tomcat-9.0.16/webapps/docs/appdev/sample/web" relative="/" />
+        </webroots>
+      </configuration>
+    </facet>
+    <facet type="web" name="Web6">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/lib/apache-tomcat-9.0.16/webapps/docs/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/lib/apache-tomcat-9.0.16/webapps/docs" relative="/" />
+        </webroots>
+      </configuration>
+    </facet>
+    <facet type="web" name="Web7">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/lib/apache-tomcat-9.0.16/conf/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/lib/apache-tomcat-9.0.16/conf" relative="/WEB-INF" />
+        </webroots>
+      </configuration>
+    </facet>
+    <facet type="web" name="Web8">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/lib/apache-tomcat-9.0.16/webapps/manager/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/lib/apache-tomcat-9.0.16/webapps/manager" relative="/" />
+        </webroots>
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -23,5 +93,6 @@
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
     <orderEntry type="library" name="apache-maven-3.0" level="project" />
     <orderEntry type="library" name="json-20180813" level="project" />
+    <orderEntry type="library" name="json-201808131" level="project" />
   </component>
 </module>
