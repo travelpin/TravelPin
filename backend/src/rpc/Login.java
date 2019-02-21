@@ -85,13 +85,17 @@ public class Login extends HttpServlet {
 //            ResultSet rs = ps.executeQuery();
             String username = input.getString("username");
             String password = input.getString("password");
-            boolean isLoggedIn = connection.verifyLogin(username, password);
+
+            //Convert user entered username into user_Id that DB recognize
+            String user_Id=username;
+            boolean isLoggedIn = connection.verifyLogin(user_Id, password);
             JSONObject responseObj = new JSONObject();
             if(isLoggedIn) {
-                //Can be implemented in another way, for now just a success HTML returned
                 response.setStatus(200);
+                responseObj.put("status", "OK").put("user", user_Id);
             }else{
                 response.setStatus(403);
+                responseObj.put("status", "User Doesn't Exist");
             }
 
             RpcHelper.writeJsonObject(response, responseObj);
