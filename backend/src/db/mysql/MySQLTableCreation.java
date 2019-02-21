@@ -26,18 +26,17 @@ public class MySQLTableCreation {
 
             // Step 2 Drop tables in case they exist.
             Statement statement = conn.createStatement();
-            String sql = "DROP TABLE IF EXISTS interests";
-            statement.executeUpdate(sql);
-
-            sql = "DROP TABLE IF EXISTS users";
-            statement.executeUpdate(sql);
-
-            sql = "DROP TABLE IF EXISTS history";
+            String sql = "DROP TABLE IF EXISTS history";
             statement.executeUpdate(sql);
 
             sql = "DROP TABLE IF EXISTS categories";
             statement.executeUpdate(sql);
 
+            sql = "DROP TABLE IF EXISTS interests";
+            statement.executeUpdate(sql);
+
+            sql = "DROP TABLE IF EXISTS users";
+            statement.executeUpdate(sql);
 
             // Step 3 Create new tables
             sql = "CREATE TABLE interests ("
