@@ -216,7 +216,8 @@ public class MySQLConnection implements DBConnection{
 
     @Override
     public List<Interest> searchByName(String name){
-        if(connection == null){
+
+        if(conn == null){
             return new ArrayList<>();
         }
 
@@ -224,23 +225,24 @@ public class MySQLConnection implements DBConnection{
         try{
             String sql = "SELECT * FROM interests WHERE interest_id LIKE ?";//if interest name is the interestId in the database
             //String sql = "SELECT * FROM interests WHERE name LIKE ?";
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, "%" + name + "%");
             ResultSet rs = stmt.executeQuery();
 
             //put results in our data structure "Interest"
             InterestBuilder builder = new InterestBuilder();
             while(rs.next()){
-            	builder.setInterestId(rs.getString("interest_id"));
+                builder.setLocationId(rs.getString("lcoation_id"));
                 builder.setName(rs.getString("name"));
-                builder.setAddress(rs.getString("address"));
-                builder.setImageUrl(rs.getString("image_url"));
-                builder.setOpenTime(rs.getInt("open_time"));
-                builder.setCloseTime(rs.getInt("close_time"));
-                builder.setRanking(rs.getInt("ranking"));
+                builder.setLat(rs.getDouble("lat"));
+                builder.setLng(rs.getDouble("lng"));
                 builder.setRating(rs.getDouble("rating"));
-                builder.setTicketPrice(rs.getDouble("ticket_price"));
-                builder.setSuggestedVisitTime(rs.getInt("suggested_visit_time"));
+                builder.setOpenTime(rs.getDouble("open_time"));
+                builder.setCloseTime(rs.getDouble("close_time"));
+                builder.setSuggestVisitTime(rs.getDouble("suggest_visit_time"));
+                builder.setFormattedAddress(rs.getString("formattedAddress"));
+                builder.setPlaceId(rs.getString("placeId"));
+                builder.setCategories(getCategories(rs.getString("location_id")));
 
                 matchingInterests.add(builder.build());
             }
