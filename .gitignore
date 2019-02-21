@@ -4,12 +4,14 @@
 
 
 .DS_Store
-node_modules/*
+node_modules/
 lib/
-library/*
-out/*
+library/
+out/
+
 
 backend/out/
 MySQLDBUtil.java
 .project
 .classpath
+
