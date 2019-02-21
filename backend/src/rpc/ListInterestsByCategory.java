@@ -18,7 +18,7 @@ import entity.Interest;
 /**
  * Servlet implementation class ListInterestByCategory
  */
-@WebServlet("/listInterestByCategory")
+@WebServlet("/listInterestsByCategory")
 public class ListInterestsByCategory extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -57,4 +57,5 @@ public class ListInterestsByCategory extends HttpServlet {
         // TODO Auto-generated method stub
         doGet(request, response);
     }
+
 }
