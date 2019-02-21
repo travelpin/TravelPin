@@ -1,4 +1,4 @@
-package db;
+package backend.src.db;
 
 import entity.Interest;
 import java.util.List;

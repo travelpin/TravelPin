@@ -1,7 +1,8 @@
-package rpc;
+package backend.src.rpc;
 
-import db.DBConnection;
-import db.DBConnectionFactory;
+
+import backend.src.db.DBConnection;
+import backend.src.db.DBConnectionFactory;
 import entity.Interest;
 import org.json.JSONArray;
 
@@ -33,6 +34,7 @@ public class listInterests extends HttpServlet {
                 array.put(interest.toJSONObject());
             }
             RpcHelper.writeJsonArray(response, array);
+
 
         } catch (Exception e) {
             e.printStackTrace();

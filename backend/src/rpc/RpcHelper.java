@@ -1,9 +1,5 @@
-package rpc;
+package backend.src.rpc;
 
-import db.DBConnection;
-import db.DBConnectionFactory;
-import entity.Interest;
-import entity.Interest.InterestBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

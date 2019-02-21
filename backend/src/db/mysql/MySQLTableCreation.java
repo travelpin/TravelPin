@@ -1,5 +1,6 @@
 
-package db.mysql;
+package backend.src.db.mysql;
+
 
 import java.sql.DriverManager;
 import java.sql.Statement;

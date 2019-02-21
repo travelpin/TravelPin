@@ -1,4 +1,4 @@
-package rpc;
+package backend.src.rpc;
 
 
 

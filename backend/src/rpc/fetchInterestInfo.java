@@ -1,6 +1,5 @@
-package rpc;
+package backend.src.rpc;
 
-import entity.Interest;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;

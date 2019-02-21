@@ -1,4 +1,4 @@
-package rpc;
+package backend.src.rpc;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -14,10 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+import backend.src.db.DBConnection;
+import backend.src.db.DBConnectionFactory;
 import org.json.JSONObject;
 
-import db.DBConnection;
-import db.DBConnectionFactory;
 
 /**
  * Servlet implementation class Login

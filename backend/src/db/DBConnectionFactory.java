@@ -1,11 +1,12 @@
-package db;
+package backend.src.db;
 
 /*
 Author: Debbie Liang
 Date: Feb. 2019
  */
 
-import db.mysql.MySQLConnection;
+import backend.src.db.mysql.MySQLConnection;
+
 
 public class DBConnectionFactory {
     // This should change based on the pipeline.

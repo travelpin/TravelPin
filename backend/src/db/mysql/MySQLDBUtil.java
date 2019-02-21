@@ -1,4 +1,4 @@
-package db.mysql;
+package backend.src.db.mysql;
 
 /*
 Author: Debbie Liang
