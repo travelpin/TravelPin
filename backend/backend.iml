@@ -94,5 +94,6 @@
     <orderEntry type="library" name="apache-maven-3.0" level="project" />
     <orderEntry type="library" name="json-20180813" level="project" />
     <orderEntry type="library" name="json-201808131" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-8.0.13" level="project" />
   </component>
 </module>

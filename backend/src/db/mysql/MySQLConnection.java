@@ -215,8 +215,42 @@ public class MySQLConnection implements DBConnection{
     }
 
     @Override
-    public List<Interest> searchItems(double lat, double lon, String term) {
-        return null;
+    public List<Interest> searchByName(String name){
+
+        if(conn == null){
+            return new ArrayList<>();
+        }
+
+        List<Interest> matchingInterests = new ArrayList<>();
+        try{
+            String sql = "SELECT * FROM interests WHERE interest_id LIKE ?";//if interest name is the interestId in the database
+            //String sql = "SELECT * FROM interests WHERE name LIKE ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "%" + name + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            //put results in our data structure "Interest"
+            InterestBuilder builder = new InterestBuilder();
+            while(rs.next()){
+                builder.setLocationId(rs.getString("lcoation_id"));
+                builder.setName(rs.getString("name"));
+                builder.setLat(rs.getDouble("lat"));
+                builder.setLng(rs.getDouble("lng"));
+                builder.setRating(rs.getDouble("rating"));
+                builder.setOpenTime(rs.getDouble("open_time"));
+                builder.setCloseTime(rs.getDouble("close_time"));
+                builder.setSuggestVisitTime(rs.getDouble("suggest_visit_time"));
+                builder.setFormattedAddress(rs.getString("formattedAddress"));
+                builder.setPlaceId(rs.getString("placeId"));
+                builder.setCategories(getCategories(rs.getString("location_id")));
+
+                matchingInterests.add(builder.build());
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return matchingInterests;
     }
 
     @Override
