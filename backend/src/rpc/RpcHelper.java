@@ -3,6 +3,7 @@ package rpc;
 import db.DBConnection;
 import db.DBConnectionFactory;
 import entity.Interest;
+import entity.Interest.InterestBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class RpcHelper {
@@ -43,20 +47,5 @@ public class RpcHelper {
         }
 
         return new JSONObject();
-    }
-    public static Interest interestName_to_Interest(String interestId){
-        Interest tempInterest = new Interest();
-        //
-        DBConnection connection = DBConnectionFactory.getConnection();
-        //following will find an Interest object from db, return this object as tempInterest
-        try{
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            connection.close();
-        }
-
-        return tempInterest;
     }
 }
