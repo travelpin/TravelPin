@@ -65,8 +65,7 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DBConnection connection = DBConnectionFactory.getConnection();
         JSONObject input = RpcHelper.readJSONObject(request);
-        String username = input.getString("username");
-        String password = input.getString("password");
+
 
         // Connect to mysql and verify username password
 
@@ -84,6 +83,8 @@ public class Login extends HttpServlet {
 //
 //            //Check if username and pw match
 //            ResultSet rs = ps.executeQuery();
+            String username = input.getString("username");
+            String password = input.getString("password");
             boolean isLoggedIn = connection.verifyLogin(username, password);
             JSONObject responseObj = new JSONObject();
             if(isLoggedIn) {
