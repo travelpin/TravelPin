@@ -4,9 +4,8 @@
 
 
 .DS_Store
-*/node_modules/*
-*/lib/*
-*/library/*
+node_modules/*
 lib/*
-*/out/*
-/out
+library/*
+out/*
+
