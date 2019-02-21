@@ -13,15 +13,6 @@ Date: Feb. 2019
 
 public interface DBConnection {
 
-    public void likeInterests(String userId, List<String> interestIds);
-
-    public void dislikeInterests(String userId, List<String> interestIds);
-
-    public Interest getInterestInfo(String interestId);
-
-    public Set<Interest> getFavoriteInterests(String userId);
-
-    public Set<String> getFavoriteInterestIds(String userId);
     /**
      * Close the connection.
      */
@@ -50,7 +41,7 @@ public interface DBConnection {
      * @param user_id
      * @param liked_locations
      */
-    public void setFavoritePlans(String user_id, List<String> liked_locations);
+    //public void setFavoritePlans(String user_id, List<String> liked_locations);
 
     /**
      * Delete the favorite items for a user.
@@ -58,7 +49,7 @@ public interface DBConnection {
      * @param user_id
      * @param liked_locations
      */
-    public void unsetFavoritePlans(String user_id, List<String> liked_locations);
+    //public void unsetFavoritePlans(String user_id, List<String> liked_locations);
 
 
     /**
@@ -76,7 +67,19 @@ public interface DBConnection {
      * @return items
      */
 
+    public Set<Interest> getFavoriteInterests(String userId);
 
+    public Set<Interest> getAllInterests();
+
+    public Set<String> getCategories(String itemId);
+
+    public Interest getInterestInfo(String interestId);
+
+    public List<Interest> searchItems(double lat, double lon, String term);
+
+    public void saveItem(Interest interest);
+
+    public boolean registration(String username, String password, String firstName, String lastName);
 
 
 //    public Set<Item> getFavoriteItems(String userId);
@@ -115,7 +118,7 @@ public interface DBConnection {
 //     * @param userId
 //     * @return full name of the user
 //     */
-//    public String getFullname(String userId);
+    public String getFullname(String userId);
 
 
     /**

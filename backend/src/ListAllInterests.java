@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import db.DBConnection;
+import db.DBConnectionFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,54 +15,10 @@ public class ListAllInterests {
 //    private static final String URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=40.730610,-73.935242&radius=2000&type=museum";
 //    private static final String DEFAULT_KEYWORD = ""; // no restriction
 
-
-    public List<Interest> ListAllInterests(JSONObject obj) {
-//        if (keyword == null) {
-//            keyword = DEFAULT_KEYWORD;
-//        }
-//
-//        try {
-//            keyword = URLEncoder.encode(keyword, "UTF-8"); //"Rick Sun" => "Rick%20Sun"
-//        } catch (UnsupportedEncodingException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-//
-//        // "apikey=qqPuP6n3ivMUoT9fPgLepkRMreBcbrjV&latlong=37,-120&keyword=event&radius=50"
-//        String query = String.format("key=%s", API_KEY);
-//        String url = URL + "&" + query;
-
-        try {
-//            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-//            connection.setRequestMethod("GET");
-//
-//            int responseCode = connection.getResponseCode();
-//            System.out.println("Sending request to url: " + url);
-//            System.out.println("Response code: " + responseCode);
-//
-//            if (responseCode != 200) {
-//                return new ArrayList<>();
-//            }
-
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//            String line;
-//            StringBuilder response = new StringBuilder();
-//
-//            while ((line = reader.readLine()) != null) {
-//                response.append(line);
-//            }
-//            reader.close();
-//            JSONObject obj = new JSONObject(response.toString());
-
-            if (!obj.isNull("results")) {
-                return getItemList(obj.getJSONArray("results"));
-            }
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return new ArrayList<>();
-
+    public List<Interest> search(JSONObject obj) {
+        List<Interest> allInterest = new ArrayList<>();
+        DBConnection connection = DBConnectionFactory.getConnection();
+        return allInterest;
     }
 
     private List<Interest> getItemList(JSONArray results) throws JSONException {
@@ -68,7 +27,7 @@ public class ListAllInterests {
             JSONObject result = results.getJSONObject(i);
             InterestBuilder builder = new InterestBuilder();
             if (!result.isNull("id")) {
-                builder.setId(result.getString("id"));
+                builder.setLocationId(result.getString("id"));
             }
             if (!result.isNull("name")) {
                 builder.setName(result.getString("name"));
