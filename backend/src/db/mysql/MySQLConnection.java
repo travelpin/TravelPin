@@ -321,4 +321,54 @@ public class MySQLConnection implements DBConnection{
         return false;
     }
 
+    @Override
+    public List<Interest> getInterestsByCategory(String category) {
+        if (conn == null) {
+            return new ArrayList<>();
+        }
+
+        List<String> allInterestIds = new ArrayList<>();
+        try {
+            String sql = "SELECT location_id FROM categories WHERE category = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, category);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                allInterestIds.add(rs.getString("location_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        List<Interest> result = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM interests WHERE location_id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            for (String location_id: allInterestIds) {
+                statement.setString(1, location_id);
+                ResultSet rs = statement.executeQuery();
+                InterestBuilder builder = new InterestBuilder();
+
+                while (rs.next()) {
+                    builder.setLocationId(rs.getString("location_id"));
+                    builder.setName(rs.getString("name"));
+                    builder.setLat(rs.getDouble("lat"));
+                    builder.setLng(rs.getDouble("lng"));
+                    builder.setRating(rs.getDouble("rating"));
+                    builder.setOpenTime(rs.getDouble("open_time"));
+                    builder.setCloseTime(rs.getDouble("close_time"));
+                    builder.setSuggestVisitTime(rs.getDouble("suggest_visit_time"));
+                    builder.setFormattedAddress(rs.getString("formattedAddress"));
+                    builder.setPlaceId(rs.getString("placeId"));
+                    builder.setCategories(getCategories(rs.getString("location_id")));
+                    result.add(builder.build());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
 }
