@@ -165,7 +165,7 @@ public class MySQLConnection implements DBConnection{
                 InterestBuilder builder = new InterestBuilder();
 
                 while (rs.next()) {
-                    builder.setLocationId(rs.getString("lcoation_id"));
+                    builder.setLocationId(rs.getString("location_id"));
                     builder.setName(rs.getString("name"));
                     builder.setLat(rs.getDouble("lat"));
                     builder.setLng(rs.getDouble("lng"));
@@ -318,6 +318,21 @@ public class MySQLConnection implements DBConnection{
     @Override
     public boolean verifyLogin(String userId, String password) {
         // TODO Auto-generated method stub
+        if (conn == null) {
+            System.err.println("DB connection failed");
+            return false;
+        }
+        try{
+            PreparedStatement ps = conn.prepareStatement("select user_Id,password from users where user_Id=? and password=?");
+            ps.setString(1, userId);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                return true;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return false;
     }
 

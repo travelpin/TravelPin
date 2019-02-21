@@ -10,3 +10,6 @@ library/*
 out/*
 
 backend/out/
+MySQLDBUtil.java
+.project
+.classpath

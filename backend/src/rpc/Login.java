@@ -64,35 +64,38 @@ public class Login extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DBConnection connection = DBConnectionFactory.getConnection();
-
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        JSONObject input = RpcHelper.readJSONObject(request);
+        String username = input.getString("username");
+        String password = input.getString("password");
 
         // Connect to mysql and verify username password
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            // loads driver
-            Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "root"); // gets a new connection
+//            Class.forName("com.mysql.jdbc.Driver");
+//            // loads driver
+//            Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/TravelPin", "nopassword", ""); // gets a new connection
 
             //Convert username to user_Id for internal use.
-            String user_Id=username;
-
-            PreparedStatement ps = c.prepareStatement("select user_Id,password from users where user_Id=? and password=?");
-            ps.setString(1, user_Id);
-            ps.setString(2, password);
-
-            //Check if username and pw match
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
+//            String user_Id=username;
+//
+//            PreparedStatement ps = c.prepareStatement("select user_Id,password from users where user_Id=? and password=?");
+//            ps.setString(1, user_Id);
+//            ps.setString(2, password);
+//
+//            //Check if username and pw match
+//            ResultSet rs = ps.executeQuery();
+            boolean isLoggedIn = connection.verifyLogin(username, password);
+            JSONObject responseObj = new JSONObject();
+            if(isLoggedIn) {
                 //Can be implemented in another way, for now just a success HTML returned
-                response.sendRedirect("success.html");
-                return;
+                response.setStatus(200);
+            }else{
+                response.setStatus(403);
             }
-            response.sendRedirect("error.html");
-            return;
-        } catch (ClassNotFoundException | SQLException e) {
+
+            RpcHelper.writeJsonObject(response, responseObj);
+
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } finally{
