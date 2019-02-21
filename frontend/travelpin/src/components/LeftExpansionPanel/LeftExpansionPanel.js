@@ -11,6 +11,7 @@ const SubMenu = Menu.SubMenu;
 
 
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
+const DataUrl = "http://localhost:8080/listinterests"
 export class LeftExpansionPanel extends React.Component {
     state = {
         data: [],
@@ -35,7 +36,7 @@ export class LeftExpansionPanel extends React.Component {
     }
 
     loadInterests = () => {
-        fetch(fakeDataUrl, {
+        fetch(DataUrl, {
             method: 'GET',
         }).then((response) => {
             if (response.ok) {
@@ -69,8 +70,7 @@ export class LeftExpansionPanel extends React.Component {
             }
 
             this.setState({
-                // data: data ? data : [],
-                data : fakeData,
+                data : data.length>0 ? data : fakeData,
             });
         }).catch((e) => {
             console.log(e.message);

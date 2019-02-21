@@ -26,6 +26,7 @@ public class listInterests extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DBConnection connection = DBConnectionFactory.getConnection();
+        System.out.println("listInterests was called");
         try {
             Set<Interest> interests = connection.getAllInterests();
             JSONArray array = new JSONArray();
