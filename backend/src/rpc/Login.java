@@ -22,7 +22,7 @@ import db.DBConnectionFactory;
 /**
  * Servlet implementation class Login
  */
-@WebServlet(name = "Login", urlPatterns = {"/login"})
+@WebServlet("/login")
 public class Login extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
