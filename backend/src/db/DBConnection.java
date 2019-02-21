@@ -130,6 +130,8 @@ public interface DBConnection {
      * @return boolean
      */
     public boolean verifyLogin(String userId, String password);
+
+    public List<Interest> getInterestsByCategory(String category);
 }
 
 
