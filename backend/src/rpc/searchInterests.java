@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(name = "searchInterests")
+@WebServlet("/searchinterests")
 public class searchInterests extends HttpServlet {
     public searchInterests(){
         super();

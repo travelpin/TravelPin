@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "fetchInterestInfo")
+@WebServlet("/fetchinterestinfo")
 public class fetchInterestInfo extends HttpServlet {
     public fetchInterestInfo(){
         super();

@@ -19,7 +19,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "optimizeRoute")
+@WebServlet("/optimizeroute")
 public class optimizeRoute extends HttpServlet {
 
     public optimizeRoute(){
@@ -29,6 +29,7 @@ public class optimizeRoute extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try{
+
             JSONObject inputJSON = RpcHelper.readJSONObject(request);
             int days = inputJSON.getInt("days");
             List<Interest> pinnedInterests = new ArrayList<>();

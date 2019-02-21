@@ -45,7 +45,6 @@ public class Registration extends HttpServlet {
 		String lastName = request.getParameter("last_name");
 		String password = request.getParameter("password");
 
-
 		try {
 			boolean userDidRegister = connection.registration(username, password, firstName, lastName);
 			JSONObject obj = new JSONObject();
