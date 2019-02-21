@@ -75,7 +75,7 @@ public interface DBConnection {
 
     public Interest getInterestInfo(String interestId);
 
-    public List<Interest> searchItems(double lat, double lon, String term);
+    public List<Interest> searchByName(String name);
 
     public void saveItem(Interest interest);
 
