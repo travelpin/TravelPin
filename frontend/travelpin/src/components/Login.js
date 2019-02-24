@@ -1,6 +1,6 @@
 import React from 'react';
 import {Form, Icon, Input, Button, message, Layout, Menu} from 'antd';
-import { API_ROOT } from '../constants';
+import { API_ROOT } from '../secureConstants';
 import { Link } from 'react-router-dom';
 
 const { Header, Content, Footer } = Layout;
