@@ -314,8 +314,10 @@ public class algorithm {
 
 
     public static void main(String[] args) {
+        // list of pinned interests by user
         List<Interest> pinnedInterests = new ArrayList<>();
 
+        // 5 interests with name and lat lng for tests
         InterestBuilder builder1 = new InterestBuilder();
         builder1.setName("StatueOfLiberty");
         builder1.setLat(40.6892534);
@@ -347,11 +349,18 @@ public class algorithm {
         pinnedInterests.add(builder5.build());
 
         algorithm test = new algorithm();
-        test.optimizeRoute(pinnedInterests, 1);
 
-        test.optimizeRoute(pinnedInterests, 2);
+        // test case 1: 5 interests in 1 day
+        List<List<Interest>> result1 = new ArrayList<>();
+        result1 = test.optimizeRoute(pinnedInterests, 1);
 
-        test.optimizeRoute(pinnedInterests, 3);
+        // test case 2: 5 interests in 2 days
+        List<List<Interest>> result2 = new ArrayList<>();
+        result2 = test.optimizeRoute(pinnedInterests, 2);
+
+        // test case 3: 5 interests in 3 days
+        List<List<Interest>> result3 = new ArrayList<>();
+        result3 = test.optimizeRoute(pinnedInterests, 3);
     }
 
 }
