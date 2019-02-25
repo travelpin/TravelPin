@@ -346,6 +346,12 @@ public class algorithm {
         builder5.setLng(-73.9678064);
         pinnedInterests.add(builder5.build());
 
+        algorithm test = new algorithm();
+        test.optimizeRoute(pinnedInterests, 1);
+
+        test.optimizeRoute(pinnedInterests, 2);
+
+        test.optimizeRoute(pinnedInterests, 3);
     }
 
 }
