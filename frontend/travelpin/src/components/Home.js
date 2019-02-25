@@ -3,9 +3,16 @@ import {Icon, Layout, Menu} from 'antd';
 import {TravelPinGoogleMap} from "./GoogleMap";
 import {LeftExpansionPanel} from "./LeftExpansionPanel/LeftExpansionPanel"
 import { Link } from 'react-router-dom';
+import {GOOGLE_MAP_API} from "../secureConstants";
+
 const { Header, Content, Footer } = Layout;
 // the container of the left-pop-up window, right-pop-up window, navbar, and the footer
 export class Home extends React.Component {
+    state = {
+
+    }
+
+
     render() {
         return (
             <Layout className="layout">
@@ -34,11 +41,12 @@ export class Home extends React.Component {
                     <Content className={"mapStyle"}>
                         <div style={{ background: '#fff', padding: 0, minHeight: 1000 }}>
                             <TravelPinGoogleMap
-                                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3CEh9DXuyjozqptVB5LA-dN7MxWWkr9s&v=3.exp&libraries=geometry,drawing,places"
+                                googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API}&v=3.exp&libraries=geometry,drawing,places`}
                                 loadingElement={<div style={{ height: `100%` }} />}
                                 containerElement={<div style={{ height: `1000px` }} />}
                                 mapElement={<div style={{ height: `100%` }} />}
                             />
+
                         </div>
                     </Content>
                 </div>
