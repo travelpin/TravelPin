@@ -3,6 +3,7 @@ package algorithm;
 import java.util.List;
 import java.util.ArrayList;
 import entity.Interest;
+import entity.Interest.InterestBuilder;
 
 // Route Optimization Algorithm
 // Zhenyu Pan
@@ -294,26 +295,57 @@ public class algorithm {
         return preResult.get(index);
     }
 
-    // calculate travel expense
-    public int calculateExpense(List<List<Interest>> result, int persons) {
-        int sum = 0;
-        for (List<Interest> daily : result) {
-            for (Interest interest : daily) {
-                // sum += interest.price;
-            }
-        }
-        return sum * persons;
-    }
+//    // calculate travel expense
+//    public int calculateExpense(List<List<Interest>> result, int persons) {
+//        int sum = 0;
+//        for (List<Interest> daily : result) {
+//            for (Interest interest : daily) {
+//                sum += interest.price;
+//            }
+//        }
+//        return sum * persons;
+//    }
 
-    /*
-    // generate travel schedule
-    public List<Schedule> generateSchedule(List<List<Interest>> result) {
-        // TO DO
-    }
+
+//    // generate travel schedule
+//    public List<Schedule> generateSchedule(List<List<Interest>> result) {
+//        // TODO
+//    }
 
 
     public static void main(String[] args) {
+        List<Interest> pinnedInterests = new ArrayList<>();
+
+        InterestBuilder builder1 = new InterestBuilder();
+        builder1.setName("StatueOfLiberty");
+        builder1.setLat(40.6892534);
+        builder1.setLng(-74.0466891);
+        pinnedInterests.add(builder1.build());
+
+        InterestBuilder builder2 = new InterestBuilder();
+        builder2.setName("EmpireStateBuilding");
+        builder2.setLat(40.7485492);
+        builder2.setLng(-73.9879522);
+        pinnedInterests.add(builder2.build());
+
+        InterestBuilder builder3 = new InterestBuilder();
+        builder3.setName("BrooklynBridge");
+        builder3.setLat(40.7058134);
+        builder3.setLng(-73.9981622);
+        pinnedInterests.add(builder3.build());
+
+        InterestBuilder builder4 = new InterestBuilder();
+        builder4.setName("911Memorial");
+        builder4.setLat(40.708788);
+        builder4.setLng(-74.0095311);
+        pinnedInterests.add(builder4.build());
+
+        InterestBuilder builder5 = new InterestBuilder();
+        builder5.setName("5thAvenue");
+        builder5.setLat(40.7744186);
+        builder5.setLng(-73.9678064);
+        pinnedInterests.add(builder5.build());
 
     }
-    */
+
 }
