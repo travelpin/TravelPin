@@ -139,6 +139,7 @@ public class algorithm {
         }
         if (pinnedVisitTime > totalVisitTime) {
             System.out.println("Too many interests. Schedule is too tight. Please re-pin interests!");
+            return null;
         }
 
         // briefly check the "total number of interests / days" rate. Approximately 2-3 interests per day is good
@@ -174,8 +175,8 @@ public class algorithm {
             // post-check if there are extra interests. put them in each days again. check closest interests and put extra into that slot
             if (days < numberOfInterests) {
                 int numberOfExtraInterests = numberOfInterests - days;
-                for (int i = numberOfExtraInterests + 1; i < days; i++) {
-                    Interest spot = pinnedInterests.get(i);
+                for (int i = numberOfExtraInterests; i <= days; i++) {
+                    Interest spot = pinnedInterests.get(i + 1);
                     Interest closest = findClosest(buffer, spot);
                     List<Interest> specificDay = new ArrayList<>();
                     specificDay.add(closest);
@@ -295,6 +296,19 @@ public class algorithm {
         return preResult.get(index);
     }
 
+    // helper function for tests
+    private void printResult(List<List<Interest>> result){
+        System.out.print("{");
+        for (List<Interest> daily : result) {
+            System.out.print("{");
+            for (Interest interest : daily) {
+                System.out.print(interest.getName() + " ");
+            }
+            System.out.print("}");
+        }
+        System.out.println("}");
+    }
+
 //    // calculate travel expense
 //    public int calculateExpense(List<List<Interest>> result, int persons) {
 //        int sum = 0;
@@ -315,52 +329,89 @@ public class algorithm {
 
     public static void main(String[] args) {
         // list of pinned interests by user
-        List<Interest> pinnedInterests = new ArrayList<>();
+        List<Interest> pinnedInterests1 = new ArrayList<>();
+        List<Interest> pinnedInterests2 = new ArrayList<>();
+        List<Interest> pinnedInterests3 = new ArrayList<>();
 
         // 5 interests with name and lat lng for tests
         InterestBuilder builder1 = new InterestBuilder();
         builder1.setName("StatueOfLiberty");
         builder1.setLat(40.6892534);
         builder1.setLng(-74.0466891);
-        pinnedInterests.add(builder1.build());
+        builder1.setSuggestVisitTime(4.0);
+        pinnedInterests1.add(builder1.build());
+        pinnedInterests2.add(builder1.build());
+        pinnedInterests3.add(builder1.build());
 
         InterestBuilder builder2 = new InterestBuilder();
         builder2.setName("EmpireStateBuilding");
         builder2.setLat(40.7485492);
         builder2.setLng(-73.9879522);
-        pinnedInterests.add(builder2.build());
+        builder2.setSuggestVisitTime(3.0);
+        pinnedInterests1.add(builder2.build());
+        pinnedInterests2.add(builder2.build());
+        pinnedInterests3.add(builder2.build());
 
         InterestBuilder builder3 = new InterestBuilder();
         builder3.setName("BrooklynBridge");
         builder3.setLat(40.7058134);
         builder3.setLng(-73.9981622);
-        pinnedInterests.add(builder3.build());
+        builder3.setSuggestVisitTime(2.0);
+        pinnedInterests1.add(builder3.build());
+        pinnedInterests2.add(builder3.build());
+        pinnedInterests3.add(builder3.build());
 
         InterestBuilder builder4 = new InterestBuilder();
         builder4.setName("911Memorial");
         builder4.setLat(40.708788);
         builder4.setLng(-74.0095311);
-        pinnedInterests.add(builder4.build());
+        builder4.setSuggestVisitTime(3.0);
+        pinnedInterests1.add(builder4.build());
+        pinnedInterests2.add(builder4.build());
+        pinnedInterests3.add(builder4.build());
 
         InterestBuilder builder5 = new InterestBuilder();
         builder5.setName("5thAvenue");
         builder5.setLat(40.7744186);
         builder5.setLng(-73.9678064);
-        pinnedInterests.add(builder5.build());
+        builder5.setSuggestVisitTime(3.0);
+        pinnedInterests1.add(builder5.build());
+        pinnedInterests2.add(builder5.build());
+        pinnedInterests3.add(builder5.build());
 
         algorithm test = new algorithm();
 
-        // test case 1: 5 interests in 1 day
-        List<List<Interest>> result1 = new ArrayList<>();
-        result1 = test.optimizeRoute(pinnedInterests, 1);
+        System.out.println("===============================================================================");
 
-        // test case 2: 5 interests in 2 days
-        List<List<Interest>> result2 = new ArrayList<>();
-        result2 = test.optimizeRoute(pinnedInterests, 2);
+        // test case one: 5 interests in 1 day
+        System.out.println("Test case one: 5 interests in 1 day");
+        System.out.println("Expected result: ");
+        System.out.println("Too many interests. Schedule is too tight. Please re-pin interests!");
+        System.out.println("Real result: ");
+        List<List<Interest>> result1;
+        result1 = test.optimizeRoute(pinnedInterests1, 1);
+        System.out.println("===============================================================================");
 
-        // test case 3: 5 interests in 3 days
-        List<List<Interest>> result3 = new ArrayList<>();
-        result3 = test.optimizeRoute(pinnedInterests, 3);
+
+        // test case two: 5 interests in 2 days
+        System.out.println("Test case two: 5 interests in 2 days");
+        System.out.println("Expected result: ");
+        System.out.println("{{StatueOfLiberty 911Memorial BrooklynBridge }{EmpireStateBuilding 5thAvenue }}");
+        System.out.println("Real result: ");
+        List<List<Interest>> result2;
+        result2 = test.optimizeRoute(pinnedInterests2, 2);
+        test.printResult(result2);
+        System.out.println("===============================================================================");
+
+
+        // test case three: 5 interests in 3 days
+        System.out.println("Test case three: 5 interests in 3 days");
+        System.out.println("Expected result: ");
+        System.out.println("{{StatueOfLiberty }{EmpireStateBuilding 5thAvenue }{BrooklynBridge 911Memorial }}");
+        System.out.println("Real result: ");
+        List<List<Interest>> result3;
+        result3 = test.optimizeRoute(pinnedInterests3, 3);
+        test.printResult(result3);
+        System.out.println("===============================================================================");
     }
-
 }
