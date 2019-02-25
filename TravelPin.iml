@@ -9,6 +9,9 @@
         <webroots>
           <root url="file://$MODULE_DIR$/backend/web" relative="/" />
         </webroots>
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/backend/src" />
+        </sourceRoots>
       </configuration>
     </facet>
   </component>

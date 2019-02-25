@@ -27,8 +27,12 @@ export class LeftExpansionPanel extends React.Component {
     clickLiked = (id) => {
         let data = this.state.data;
         for (let i = 0; i < data.length; i++) {
-            if (data[i].id === id) {
-                data[i].liked = data[i].liked === 'TRUE' ? "FALSE" : "TRUE";
+            if (data[i].location_id === id) {
+                if (! data[i].liked) {
+                    data[i].liked = "TRUE";
+                } else {
+                    data[i].liked = data[i].liked === 'FALSE' ? "TRUE" : "FALSE";
+                }
             }
         }
         console.log(data);
@@ -45,18 +49,22 @@ export class LeftExpansionPanel extends React.Component {
             throw new Error('Failed to load posts.');
         }).then((data) => {
             console.log(data);
+
+
             const fakeLikedInterest =  {
                 id : 1,
                 name : 'NYC',
                 liked : 'TRUE',
                 description : 'This is the place I want to go',
             };
+
             const fakeunLikedInterest =  {
                 id : 2,
                 name : 'Liberty',
                 liked : 'FALSE',
                 description : 'This is a the place I do not like',
             };
+
             let fakeData = [];
 
             for (let i = 0; i < 20; i++) {
