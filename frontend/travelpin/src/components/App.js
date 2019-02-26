@@ -5,6 +5,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { TOKEN_KEY } from "../constants";
 import { TopBar } from "./TopBar.js";
 
+
+
 class App extends Component {
     state = {
         isLoggedIn: Boolean(localStorage.getItem(TOKEN_KEY)),

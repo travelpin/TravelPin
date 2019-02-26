@@ -1,22 +1,25 @@
-import { Menu, Icon, Button } from 'antd';
+import {Menu, Icon, Button, Spin} from 'antd';
 import React from 'react';
 import { Tabs, List } from 'antd';
 import {ListInterests} from "./ListInterests";
-import {ShowRoute} from "./ShowRoute";
-import {UserSavedRoutes} from "./UserSavedRoutes";
+import { Collapse } from 'antd';
+import {connect} from "react-redux";
+import {Loading} from "../common/Loading";
+import {PlanPanel} from "./PlanPanel";
 
 const TabPane = Tabs.TabPane;
 
 const SubMenu = Menu.SubMenu;
 
-
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 const DataUrl = "http://localhost:8080/listinterests"
+
 export class LeftExpansionPanel extends React.Component {
     state = {
         data: [],
         collapsed: false,
-        pixelPosition: '400px'
+        pixelPosition: '400px',
+        plan:[["1","2","3"],["4","5","6"],["7","8","9"]]
     }
 
 
@@ -48,9 +51,6 @@ export class LeftExpansionPanel extends React.Component {
             }
             throw new Error('Failed to load posts.');
         }).then((data) => {
-            console.log(data);
-
-
             const fakeLikedInterest =  {
                 id : 1,
                 name : 'NYC',
@@ -91,6 +91,25 @@ export class LeftExpansionPanel extends React.Component {
         });
     }
 
+    showPlan = () => {
+        const {error, isLoadingPlan, plan} = this.state;
+        if(error){
+            return <div>{error}</div>
+        } else if (isLoadingPlan) {
+            return <Spin tip="Loading posts..." />;
+        } else if (plan && plan.length > 0 ){
+            return this.getPlan();
+        } else {
+            return <div>No Plan.</div>
+        }
+    }
+    getPlan = () => {
+        const {plan} = this.state;
+        console.log(plan)
+        return <PlanPanel plan={plan}/>
+    }
+
+
     render() {
         const MenuStyle = {
             width:this.state.collapsed?'0px':this.state.pixelPosition,
@@ -102,6 +121,7 @@ export class LeftExpansionPanel extends React.Component {
             left:this.state.collapsed?'0px':this.state.pixelPosition,
         }
         const favorite = this.state.data.filter((interest) => interest.liked === 'TRUE');
+        console.log(favorite)
         return (
 
             <div  className={"leftExpansionPanel"}>
@@ -133,7 +153,7 @@ export class LeftExpansionPanel extends React.Component {
                                     clickLiked = {this.clickLiked}
                                 />
                             </TabPane>
-                            <TabPane tab="SaveRoute" key="3">Tab 3</TabPane>
+                            <TabPane tab="ShowPlan" key="3">{this.showPlan()}</TabPane>
 
                         </Tabs>
                     </Menu>
