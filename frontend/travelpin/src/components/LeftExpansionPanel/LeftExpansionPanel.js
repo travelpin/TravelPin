@@ -94,6 +94,7 @@ export class LeftExpansionPanel extends React.Component {
                                 <ListInterests
                                     data = {favorite}
                                     clickLiked = {this.clickLiked}
+                                    clickInterest = {this.clickInterest}
                                 />
                             </TabPane>
                             <TabPane tab="SaveRoute" key="3">Tab 3</TabPane>

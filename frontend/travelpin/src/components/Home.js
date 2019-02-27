@@ -68,7 +68,7 @@ export class Home extends React.Component {
 
             let fakeData = [];
 
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 2; i++) {
                 fakeData[i] =  i % 2 === 0 ? {
                     ...fakeLikedInterest,
                     location_id : i,
