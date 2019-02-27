@@ -43,45 +43,46 @@ public class MySQLConnection implements DBConnection{
 
 
     @Override
-    public void setFavoriteInterests(String user_id, List<String> liked_locations) {
+    public void setFavoriteInterests(String userId, List<String> locationIds) {
         if (conn == null) {
             System.err.println("DB connection failed");
             return;
         }
 
         try {
-            String sql = "INSERT IGNORE INTO users(user_id, liked_location) VALUES (?, ?)";
+            String sql = "INSERT IGNORE INTO history(user_id, location_id) VALUE (?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, user_id);
-            for (String liked_location : liked_locations) {
-                ps.setString(2, liked_location);
+            ps.setString(1, userId);
+            for (String locationId : locationIds) {
+                ps.setString(2, locationId);
                 ps.execute();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
 
     @Override
-    public void unsetFavoriteInterests(String user_id, List<String> liked_locations) {
+    public void unsetFavoriteInterests(String userId, List<String> locationIds) {
         if (conn == null) {
             System.err.println("DB connection failed");
             return;
         }
 
         try {
-            String sql = "DELETE FROM users WHERE user_id = ? AND liked_location = ?";
+            String sql = "DELETE FROM history WHERE user_id = ? AND location_id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, user_id);
-            for (String liked_location : liked_locations) {
-                ps.setString(2, liked_location);
+            ps.setString(1, userId);
+            for (String locationId : locationIds) {
+                ps.setString(2, locationId);
                 ps.execute();
             }
-
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
         }
+
     }
 
 //    @Override
@@ -126,14 +127,71 @@ public class MySQLConnection implements DBConnection{
 //    }
 
     @Override
-    public Set<String> getFavoriteInterestIds(String user_id) {
-        // TODO Auto-generated method stub
-        return null;
+    public Set<Interest> getFavoriteInterests(String userId) {
+        if (conn == null) {
+            return new HashSet<>();
+        }
+
+        Set<Interest> favoriteInterests = new HashSet<>();
+        Set<String> interestIds = getFavoriteInterestIds(userId);
+
+        try {
+            String sql = "SELECT * FROM interests WHERE location_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            for (String interestId : interestIds) {
+                stmt.setString(1, interestId);
+
+                ResultSet rs = stmt.executeQuery();
+
+                InterestBuilder builder = new InterestBuilder();
+
+                while(rs.next()) {
+                    builder.setLocationId(rs.getString("location_id"));
+                    builder.setName(rs.getString("name"));
+                    builder.setLat(rs.getDouble("lat"));
+                    builder.setLng(rs.getDouble("lng"));
+                    builder.setRating(rs.getDouble("rating"));
+                    builder.setOpenTime(rs.getDouble("open_time"));
+                    builder.setCloseTime(rs.getDouble("close_time"));
+                    builder.setSuggestVisitTime(rs.getDouble("suggest_visit_time"));
+                    builder.setFormattedAddress(rs.getString("formattedAddress"));
+                    builder.setPlaceId(rs.getString("placeId"));
+                    builder.setCategories(getCategories(rs.getString("location_id")));
+
+                    favoriteInterests.add(builder.build());
+
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return favoriteInterests;
     }
 
     @Override
-    public Set<Interest> getFavoriteInterests(String userId) {
-        return null;
+    public Set<String> getFavoriteInterestIds(String userId) {
+        if (conn == null) {
+            return new HashSet<>();
+        }
+
+        Set<String> favoriteInterestIds = new HashSet<>();
+
+        try {
+            String sql = "SELECT location_id FROM history WHERE user_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, userId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String interestId = rs.getString("location_id");
+                favoriteInterestIds.add(interestId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return favoriteInterestIds;
     }
 
     @Override
@@ -165,7 +223,7 @@ public class MySQLConnection implements DBConnection{
                 InterestBuilder builder = new InterestBuilder();
 
                 while (rs.next()) {
-                    builder.setLocationId(rs.getString("lcoation_id"));
+                    builder.setLocationId(rs.getString("location_id"));
                     builder.setName(rs.getString("name"));
                     builder.setLat(rs.getDouble("lat"));
                     builder.setLng(rs.getDouble("lng"));
@@ -210,13 +268,76 @@ public class MySQLConnection implements DBConnection{
     }
 
     @Override
-    public Interest getInterestInfo(String interestId) {
+    public Interest getInterestInfo(String locationId) {
+        if (conn == null) {
+            return null;
+        }
+
+        try {
+            String sql = "SELECT * FROM interests WHERE location_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, locationId);
+            ResultSet rs = stmt.executeQuery();
+
+            InterestBuilder builder = new InterestBuilder();
+            while (rs.next()) {
+                builder.setLocationId(rs.getString("location_id"));
+                builder.setName(rs.getString("name"));
+                builder.setLat(rs.getDouble("lat"));
+                builder.setLng(rs.getDouble("lng"));
+                builder.setRating(rs.getDouble("rating"));
+                builder.setOpenTime(rs.getDouble("open_time"));
+                builder.setCloseTime(rs.getDouble("close_time"));
+                builder.setSuggestVisitTime(rs.getDouble("suggest_visit_time"));
+                builder.setFormattedAddress(rs.getString("formattedAddress"));
+                builder.setPlaceId(rs.getString("placeId"));
+                builder.setCategories(getCategories(rs.getString("location_id")));
+                return builder.build();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
-    public List<Interest> searchItems(double lat, double lon, String term) {
-        return null;
+    public List<Interest> searchByName(String name){
+
+        if(conn == null){
+            return new ArrayList<>();
+        }
+
+        List<Interest> matchingInterests = new ArrayList<>();
+        try{
+            String sql = "SELECT * FROM interests WHERE interest_id LIKE ?";//if interest name is the interestId in the database
+            //String sql = "SELECT * FROM interests WHERE name LIKE ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "%" + name + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            //put results in our data structure "Interest"
+            InterestBuilder builder = new InterestBuilder();
+            while(rs.next()){
+                builder.setLocationId(rs.getString("location_id"));
+                builder.setName(rs.getString("name"));
+                builder.setLat(rs.getDouble("lat"));
+                builder.setLng(rs.getDouble("lng"));
+                builder.setRating(rs.getDouble("rating"));
+                builder.setOpenTime(rs.getDouble("open_time"));
+                builder.setCloseTime(rs.getDouble("close_time"));
+                builder.setSuggestVisitTime(rs.getDouble("suggest_visit_time"));
+                builder.setFormattedAddress(rs.getString("formattedAddress"));
+                builder.setPlaceId(rs.getString("placeId"));
+                builder.setCategories(getCategories(rs.getString("location_id")));
+
+                matchingInterests.add(builder.build());
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return matchingInterests;
     }
 
     @Override
@@ -232,7 +353,7 @@ public class MySQLConnection implements DBConnection{
         }
 
         try {
-            String sql = "INSERT IGNORE INTO users VALUES (?,?,?,?)";
+            String sql = "INSERT IGNORE INTO users(user_id, password, first_name, last_name) VALUES (?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, password);
@@ -284,7 +405,72 @@ public class MySQLConnection implements DBConnection{
     @Override
     public boolean verifyLogin(String userId, String password) {
         // TODO Auto-generated method stub
+        if (conn == null) {
+            System.err.println("DB connection failed");
+            return false;
+        }
+        try{
+            PreparedStatement ps = conn.prepareStatement("select user_Id,password from users where user_Id=? and password=?");
+            ps.setString(1, userId);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                return true;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return false;
+    }
+
+    @Override
+    public List<Interest> getInterestsByCategory(String category) {
+        if (conn == null) {
+            return new ArrayList<>();
+        }
+
+        List<String> allInterestIds = new ArrayList<>();
+        try {
+            String sql = "SELECT location_id FROM categories WHERE category = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, category);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                allInterestIds.add(rs.getString("location_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        List<Interest> result = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM interests WHERE location_id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            for (String location_id: allInterestIds) {
+                statement.setString(1, location_id);
+                ResultSet rs = statement.executeQuery();
+                InterestBuilder builder = new InterestBuilder();
+
+                while (rs.next()) {
+                    builder.setLocationId(rs.getString("location_id"));
+                    builder.setName(rs.getString("name"));
+                    builder.setLat(rs.getDouble("lat"));
+                    builder.setLng(rs.getDouble("lng"));
+                    builder.setRating(rs.getDouble("rating"));
+                    builder.setOpenTime(rs.getDouble("open_time"));
+                    builder.setCloseTime(rs.getDouble("close_time"));
+                    builder.setSuggestVisitTime(rs.getDouble("suggest_visit_time"));
+                    builder.setFormattedAddress(rs.getString("formattedAddress"));
+                    builder.setPlaceId(rs.getString("placeId"));
+                    builder.setCategories(getCategories(rs.getString("location_id")));
+                    result.add(builder.build());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
 }

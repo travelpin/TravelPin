@@ -27,7 +27,7 @@ public class Logout extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		response.getWriter().append("Served at: Login").append(request.getContextPath());
 	}
 
 	/**
@@ -39,7 +39,7 @@ public class Logout extends HttpServlet {
 			session.invalidate();
 		}
 		//Can be implemented in another way. For now just return a logout HTMl page
-		response.sendRedirect("logOut.html");
+		response.sendRedirect("LoggedOut.html");
 
 	}
 

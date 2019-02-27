@@ -32,7 +32,7 @@ public class Registration extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.getWriter().append("Served at: registration").append(request.getContextPath());
 	}
 
 	/**
@@ -40,13 +40,13 @@ public class Registration extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DBConnection connection = DBConnectionFactory.getConnection();
-		String username = request.getParameter("username");
-		String firstName = request.getParameter("first_name");
-		String lastName = request.getParameter("last_name");
-		String password = request.getParameter("password");
-
-
+		JSONObject input = RpcHelper.readJSONObject(request);
 		try {
+			String username = input.getString("username");
+			String password = input.getString("password");
+			String firstName = "shouldbeNull";
+			String lastName = "shouldbeNull";
+			System.out.println("username is : "+username+". password is : "+password);
 			boolean userDidRegister = connection.registration(username, password, firstName, lastName);
 			JSONObject obj = new JSONObject();
 			if (userDidRegister) {

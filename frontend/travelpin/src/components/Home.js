@@ -1,11 +1,18 @@
 import React from 'react';
 import {Icon, Layout, Menu} from 'antd';
-import {SimpleMap} from "./GoogleMap";
+import {TravelPinGoogleMap} from "./GoogleMap";
 import {LeftExpansionPanel} from "./LeftExpansionPanel/LeftExpansionPanel"
 import { Link } from 'react-router-dom';
+import {GOOGLE_MAP_API} from "../secureConstants";
+
 const { Header, Content, Footer } = Layout;
 // the container of the left-pop-up window, right-pop-up window, navbar, and the footer
 export class Home extends React.Component {
+    state = {
+
+    }
+
+
     render() {
         return (
             <Layout className="layout">
@@ -27,16 +34,19 @@ export class Home extends React.Component {
                         defaultSelectedKeys={['2']}
                         style={{ lineHeight: '64px' }}
                     >
-                        <Menu.Item key="1" className="menu-item">nav 1</Menu.Item>
-                        <Menu.Item key="2" className="menu-item">nav 2</Menu.Item>
-                        <Menu.Item key="3" className="menu-item">nav 3</Menu.Item>
                     </Menu>
                 </Header>
                 <LeftExpansionPanel/>
                 <div>
                     <Content className={"mapStyle"}>
-                        <div style={{ background: '#fff', padding: 1, minHeight: 1000 }}>
-                            <SimpleMap/>
+                        <div style={{ background: '#fff', padding: 0, minHeight: 1000 }}>
+                            <TravelPinGoogleMap
+                                googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API}&v=3.exp&libraries=geometry,drawing,places`}
+                                loadingElement={<div style={{ height: `100%` }} />}
+                                containerElement={<div style={{ height: `1000px` }} />}
+                                mapElement={<div style={{ height: `100%` }} />}
+                            />
+
                         </div>
                     </Content>
                 </div>

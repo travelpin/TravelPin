@@ -19,7 +19,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "optimizeRoute")
+@WebServlet("/optimizeroute")
 public class optimizeRoute extends HttpServlet {
 
     public optimizeRoute(){
@@ -27,15 +27,14 @@ public class optimizeRoute extends HttpServlet {
     }
     private Connection conn;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        JSONObject inputJSON = RpcHelper.readJSONObject(request);
-        int days = inputJSON.getInt("days");
-        List<Interest> pinnedInterests = new ArrayList<>();
-        JSONArray pinnedInterestsJSONArray = inputJSON.getJSONArray("pinnedInterests");
 
-
-
-        algorithm algorithmCollection = new algorithm();
         try{
+
+            JSONObject inputJSON = RpcHelper.readJSONObject(request);
+            int days = inputJSON.getInt("days");
+            List<Interest> pinnedInterests = new ArrayList<>();
+            JSONArray pinnedInterestsJSONArray = inputJSON.getJSONArray("pinnedInterests");
+            algorithm algorithmCollection = new algorithm();
 
             for(int i = 0; i<pinnedInterestsJSONArray.length(); i++){
                 JSONObject tempObject = (JSONObject) pinnedInterestsJSONArray.get(i);

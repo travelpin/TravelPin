@@ -1,11 +1,19 @@
 # Editor directories and files
 .idea
 .vscode
-
+.settings
 
 .DS_Store
-*/node_modules/*
-*/lib/*
-*/library/*
-lib/*
+node_modules/
+lib/
+library/
+out/
 
+
+backend/out/
+MySQLDBUtil.java
+.project
+.classpath
+
+frontend/travelpin/src/SecureConstants.js
+secureConstants.js
