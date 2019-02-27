@@ -155,6 +155,7 @@ public class MySQLConnection implements DBConnection{
                     builder.setCloseTime(rs.getDouble("close_time"));
                     builder.setSuggestVisitTime(rs.getDouble("suggest_visit_time"));
                     builder.setFormattedAddress(rs.getString("formattedAddress"));
+                    builder.setPrice(rs.getDouble("price"));
                     builder.setPlaceId(rs.getString("placeId"));
                     builder.setCategories(getCategories(rs.getString("location_id")));
 
@@ -232,6 +233,7 @@ public class MySQLConnection implements DBConnection{
                     builder.setCloseTime(rs.getDouble("close_time"));
                     builder.setSuggestVisitTime(rs.getDouble("suggest_visit_time"));
                     builder.setFormattedAddress(rs.getString("formattedAddress"));
+                    builder.setPrice(rs.getDouble("price"));
                     builder.setPlaceId(rs.getString("placeId"));
                     builder.setCategories(getCategories(rs.getString("location_id")));
 
@@ -290,6 +292,7 @@ public class MySQLConnection implements DBConnection{
                 builder.setCloseTime(rs.getDouble("close_time"));
                 builder.setSuggestVisitTime(rs.getDouble("suggest_visit_time"));
                 builder.setFormattedAddress(rs.getString("formattedAddress"));
+                builder.setPrice(rs.getDouble("price"));
                 builder.setPlaceId(rs.getString("placeId"));
                 builder.setCategories(getCategories(rs.getString("location_id")));
                 return builder.build();
@@ -328,6 +331,7 @@ public class MySQLConnection implements DBConnection{
                 builder.setCloseTime(rs.getDouble("close_time"));
                 builder.setSuggestVisitTime(rs.getDouble("suggest_visit_time"));
                 builder.setFormattedAddress(rs.getString("formattedAddress"));
+                builder.setPrice(rs.getDouble("price"));
                 builder.setPlaceId(rs.getString("placeId"));
                 builder.setCategories(getCategories(rs.getString("location_id")));
 
@@ -461,6 +465,7 @@ public class MySQLConnection implements DBConnection{
                     builder.setCloseTime(rs.getDouble("close_time"));
                     builder.setSuggestVisitTime(rs.getDouble("suggest_visit_time"));
                     builder.setFormattedAddress(rs.getString("formattedAddress"));
+                    builder.setPrice(rs.getDouble("price"));
                     builder.setPlaceId(rs.getString("placeId"));
                     builder.setCategories(getCategories(rs.getString("location_id")));
                     result.add(builder.build());
