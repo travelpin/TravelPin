@@ -39,7 +39,7 @@ export class Home extends React.Component {
     }
 
     loadInterests = () => {
-        fetch(fakeDataUrl, {
+        fetch(DataUrl, {
             method: 'GET',
         }).then((response) => {
             if (response.ok) {

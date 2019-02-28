@@ -18,7 +18,7 @@ export class InterestMarker extends Component {
     }
 
     render () {
-        const {lat, lng, liked, name, description} = this.props.data;
+        const {lat, lng, liked, name} = this.props.data;
         const isLiked = liked === 'TRUE';
         const icon = isLiked ? {
             url : pinkPin,
@@ -43,9 +43,6 @@ export class InterestMarker extends Component {
                             </div>
                             <div>
                                 {liked}
-                            </div>
-                            <div>
-                                {description}
                             </div>
                         </div>
                     </InfoWindow>
