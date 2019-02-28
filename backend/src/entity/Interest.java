@@ -16,6 +16,7 @@ public class Interest {
     private double closeTime;
     private double suggestVisitTime;
     private String formattedAddress;
+    private String imageUrl;
     private double price;
     private Set<String> categories;
     private String placeId;
@@ -30,6 +31,7 @@ public class Interest {
         this.closeTime = builder.closeTime;
         this.suggestVisitTime = builder.suggestVisitTime;
         this.formattedAddress = builder.formattedAddress;
+        this.imageUrl = builder.imageUrl;
         this.price = builder.price;
         this.categories = builder.categories;
         this.placeId = builder.placeId;
@@ -71,6 +73,8 @@ public class Interest {
         return formattedAddress;
     }
 
+    public String getImageUrl() { return imageUrl; }
+
     public double getPrice() {
         return price;
     }
@@ -95,6 +99,7 @@ public class Interest {
             obj.put("close_time", closeTime);
             obj.put("suggest_visit_time", suggestVisitTime);
             obj.put("formattedAddress", formattedAddress);
+            obj.put("imageUrl", imageUrl);
             obj.put("price", price);
             obj.put("categories", new JSONArray(categories));
             obj.put("placeId", placeId);
@@ -114,6 +119,7 @@ public class Interest {
         private double closeTime;
         private double suggestVisitTime;
         private String formattedAddress;
+        private String imageUrl;
         private double price;
         private Set<String> categories;
         private String placeId;
@@ -153,6 +159,8 @@ public class Interest {
         public void setFormattedAddress(String formattedAddress) {
             this.formattedAddress = formattedAddress;
         }
+
+        public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
         public void setPrice(double price) {
             this.price = price;

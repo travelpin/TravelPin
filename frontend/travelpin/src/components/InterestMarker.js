@@ -18,7 +18,7 @@ export class InterestMarker extends Component {
     }
 
     render () {
-        const {lat, lng, liked, name} = this.props.data;
+        const {lat, lng, liked, name, imageUrl, rating, price } = this.props.data;
         const isLiked = liked === 'TRUE';
         const icon = isLiked ? {
             url : pinkPin,
@@ -32,14 +32,19 @@ export class InterestMarker extends Component {
             <Marker
                 position = {{lat,lng}}
                 icon={icon}
-                onClick={this.toggleOpen}
+                onMouseOver={this.toggleOpen}
+                onMouseOut={this.toggleOpen}
+                //onClick={this.toggleOpen}
             >
 
                 {this.state.isOpen ? (
                     <InfoWindow>
                         <div>
-                            <div>
-                                {name}
+                            <img src={imageUrl} alt={name} className="infoWindow-image"/>
+                            <div className="info">
+                                <p className="interest-name">{name}</p>
+                                <div className="rating">{`Rating: ${rating}, Price: ${price}`}</div>
+                                <div className="open-hours">{`OPEN TODAY: 08:30 - 17:00`}</div>
                             </div>
                             <div>
                                 {liked}

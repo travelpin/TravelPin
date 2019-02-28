@@ -1,0 +1,18 @@
+.infoWindow-image {
+    max-height: 150px;
+    max-width: 180px;
+}
+
+.info {
+    padding-top: 10px;
+}
+
+.rating {
+    margin-bottom: 5px;
+    color: orangered;
+}
+
+.open-hours {
+    font-weight: bold;
+    color: limegreen;
+}
