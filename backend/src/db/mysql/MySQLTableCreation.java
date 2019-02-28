@@ -103,17 +103,17 @@ public class MySQLTableCreation {
             "('a4cdbf9b01276a4da5ec35cac9b4a4940abdb99d', 'Instytut Pilsudskiego', 40.7299, -73.955, 5, 0, 0, 1, '138 Greenpoint Avenue, Brooklyn', 25, 'ChIJYRZIwEBZwokROnTnnqeT2Cg')," +
             "('ba73865214ceb74cee7e59de57330a0be9355471', 'SculptureCenter', 40.7469, -73.9408, 4.4, 0, 0, 2, '44-19 Purves Street, Long Island City', 10, 'ChIJg8J0MipZwokRO03w0rQvXJc')," +
             "('c0749de1de94b9d613eca88a2e2f763062413bfc', 'Johnston Mausoleum', 40.7333, -73.928, 4.8, 0, 0, 1, 'Maspeth', 0, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
-            "('e084e617e650662f60da9267dd12dbeacc368669ed084fd4e452f89f7ba05ed3', 'Statue of Liberty', 40.6892, 74.0445, 4.6, 0, 0, 4, 'New York, NY 10004', 18.5, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
-            "('da485a215f862664c64ededaf61616bb3d5cc02004c094f2e6a6966b44cc43a7', 'Central Park', 40.7829, 73.9654, 4.8, 0, 0, 2, 'New York, NY', 0, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
-            "('18bc00fce7a80224f343529310dfc37a2c67fd631f640498f74cdfe8dfcbb2c4', 'Rockefeller Center', 40.7587, 73.9787, 4.6, 0, 0, 2, '45 Rockefeller Plaza, New York, NY 10111', 27.22, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
-            "('f3124907f7cd8ad1c43d9567889e37917bd62db7f22e73f17652232a69d3858a', 'Metropolitan Museum of Art', 40.7794, 73.9632, 4.8, 0, 0, 4, '1000 5th Ave, New York, NY 10028', 25, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
-            "('fafe7b5693cb8a9fc666d1dfa5ecf96f26fa5527d94bb02804a9fddaa06abcb6', 'Broadway and the Theater District', 40.7590, 73.9845, 4.5, 0, 0, 2, '10018, 10019, 10036 NYC', 0, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
-            "('97f33193a3931c37a8642c8680788842bcf0247aee030e42a4aed19c34cd83fe', 'Empire State Building', 40.7484, 73.9857, 4.6, 0, 0, 2, '20 W 34th St, New York, NY 10001', 20, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
-            "('28a691d41f4326fe0c3e36c7b1e558b98376f0d512e9f94f05d30e1173e4ee66', '9/11 Memorial and Museum', 40.7115, 74.0134, 4.8, 0, 0, 2, '180 Greenwich St, New York, NY 10007', 24,'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
-            "('4c90a71790d26da780193c327c3728965a9c59085c4097e2e56c09afc4ba0f4d', 'High Line', 40.7480, 74.0048, 4.7, 0, 0, 1, 'New York, NY 10011', 0, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
-            "('0725595dbe4ec359f7f07f5480ba9d7528f21ecffc614e715b009c285bb543be', 'Time Square', 40.7590, 73.9845, 4.7, 0, 0, 3, 'Manhattan, NY 10036', 0,'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
-            "('3297615f561a06055612a4654a943ff3645e884af20ffd0ab380d583ead63157', 'Brooklyn Bridge', 40.7061, 73.9969, 4.8, 0, 0, 1, 'Brooklyn Bridge, New York, NY 10038',0, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
-            "('f202f6771e9e68cf296e01f3f53a376706c4d4a6ddca6f48bbb195ca36f7e16f', 'New York Public Library', 40.7532, 73.9823, 4.7, 0, 0, 1, '476 5th Ave, New York, NY 10018',0, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')";
+            "('e084e617e650662f60da9267dd12dbeacc368669ed084fd4e452f89f7ba05ed3', 'Statue of Liberty', 40.6892, -74.0445, 4.6, 0, 0, 4, 'New York, NY 10004', 18.5, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
+            "('da485a215f862664c64ededaf61616bb3d5cc02004c094f2e6a6966b44cc43a7', 'Central Park', 40.7829, -73.9654, 4.8, 0, 0, 2, 'New York, NY', 0, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
+            "('18bc00fce7a80224f343529310dfc37a2c67fd631f640498f74cdfe8dfcbb2c4', 'Rockefeller Center', 40.7587, -73.9787, 4.6, 0, 0, 2, '45 Rockefeller Plaza, New York, NY 10111', 27.22, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
+            "('f3124907f7cd8ad1c43d9567889e37917bd62db7f22e73f17652232a69d3858a', 'Metropolitan Museum of Art', 40.7794, -73.9632, 4.8, 0, 0, 4, '1000 5th Ave, New York, NY 10028', 25, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
+            "('fafe7b5693cb8a9fc666d1dfa5ecf96f26fa5527d94bb02804a9fddaa06abcb6', 'Broadway and the Theater District', 40.7590, -73.9845, 4.5, 0, 0, 2, '10018, 10019, 10036 NYC', 0, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
+            "('97f33193a3931c37a8642c8680788842bcf0247aee030e42a4aed19c34cd83fe', 'Empire State Building', 40.7484, -73.9857, 4.6, 0, 0, 2, '20 W 34th St, New York, NY 10001', 20, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
+            "('28a691d41f4326fe0c3e36c7b1e558b98376f0d512e9f94f05d30e1173e4ee66', '9/11 Memorial and Museum', 40.7115, -74.0134, 4.8, 0, 0, 2, '180 Greenwich St, New York, NY 10007', 24,'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
+            "('4c90a71790d26da780193c327c3728965a9c59085c4097e2e56c09afc4ba0f4d', 'High Line', 40.7480, -74.0048, 4.7, 0, 0, 1, 'New York, NY 10011', 0, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
+            "('0725595dbe4ec359f7f07f5480ba9d7528f21ecffc614e715b009c285bb543be', 'Time Square', 40.7590, -73.9845, 4.7, 0, 0, 3, 'Manhattan, NY 10036', 0,'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
+            "('3297615f561a06055612a4654a943ff3645e884af20ffd0ab380d583ead63157', 'Brooklyn Bridge', 40.7061, -73.9969, 4.8, 0, 0, 1, 'Brooklyn Bridge, New York, NY 10038',0, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')," +
+            "('f202f6771e9e68cf296e01f3f53a376706c4d4a6ddca6f48bbb195ca36f7e16f', 'New York Public Library', 40.7532, -73.9823, 4.7, 0, 0, 1, '476 5th Ave, New York, NY 10018',0, 'ChIJuQCWxM5ewokRyFBe_kLtgJo')";
 
             statement.executeUpdate(sql);
 
