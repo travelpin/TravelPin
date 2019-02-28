@@ -9,11 +9,11 @@ const { Header, Content, Footer } = Layout;
 // the container of the left-pop-up window, right-pop-up window, navbar, and the footer
 export class Home extends React.Component {
     state = {
-
+        directions: {}
     }
 
-
     render() {
+        let {directions} = this.state.directions;
         return (
             <Layout className="layout">
                 <div>
@@ -36,7 +36,7 @@ export class Home extends React.Component {
                     >
                     </Menu>
                 </Header>
-                <LeftExpansionPanel/>
+                <LeftExpansionPanel directions={directions}/>
                 <div>
                     <Content className={"mapStyle"}>
                         <div style={{ background: '#fff', padding: 0, minHeight: 1000 }}>
@@ -45,6 +45,7 @@ export class Home extends React.Component {
                                 loadingElement={<div style={{ height: `100%` }} />}
                                 containerElement={<div style={{ height: `100%` }} />}
                                 mapElement={<div style={{ height: `1000px` }} />}
+                                directions={directions}
                             />
                         </div>
                     </Content>

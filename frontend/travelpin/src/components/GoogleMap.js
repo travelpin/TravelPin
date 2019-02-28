@@ -16,6 +16,10 @@ class NormalGoogleMap extends Component {
     state = {
 
     }
+    componentWillUpdate(nextProps, nextState, nextContext) {
+        console.log("GoogleMap componentWillUpdate called.")
+    }
+
     // componentDidMount() {
     //     const DirectionsService = new google.maps.DirectionsService();
     //
@@ -44,8 +48,9 @@ class NormalGoogleMap extends Component {
     // }
 
     render() {
-        console.log(this.props)
-        const directions = this.state.directions;
+
+        const directions = this.props.directions;
+        console.log(directions)
         return (
             // Important! Always set the container height explicitly
             <div style={{ height: '10px', width: '100%' }}>
@@ -65,3 +70,16 @@ class NormalGoogleMap extends Component {
     }
 }
 export const TravelPinGoogleMap = withScriptjs(withGoogleMap(NormalGoogleMap));
+const mapStateToProps = state => {
+    return {
+        directions: state.directions
+    };
+};
+
+// const mapDispathchToProps = dispatch => {
+//     return {
+//         onShowDirection : (directions) => dispatch({type:"Directions", data:directions})
+//     };
+// }
+
+export default connect(mapStateToProps)(NormalGoogleMap);

@@ -10,7 +10,6 @@ import {PlanPanel} from "./PlanPanel";
 const TabPane = Tabs.TabPane;
 
 const SubMenu = Menu.SubMenu;
-
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 const DataUrl = "http://localhost:8080/listinterests"
 
@@ -19,7 +18,9 @@ export class LeftExpansionPanel extends React.Component {
         data: [],
         collapsed: false,
         pixelPosition: '400px',
-        plan:[["1","2","3"],["4","5","6"],["7","8","9"]]
+        plan:[["New York City Fire Museum","The Public Theater","Angelika Film Center & Café - New York"]
+        ,["IPIC New York City","Jane's Carousel"]
+        ,["National Museum of the American Indian","9/11 Tribute Museum","Regal Cinemas Battery Park 11","The Public Theater"]]
     }
 
 
@@ -106,11 +107,15 @@ export class LeftExpansionPanel extends React.Component {
     getPlan = () => {
         const {plan} = this.state;
         console.log(plan)
-        return <PlanPanel plan={plan}/>
+        return <PlanPanel
+            plan={plan}
+            directions={this.props.directions}
+        />
     }
 
 
     render() {
+        // const {directions} = this.props.directions;
         const MenuStyle = {
             width:this.state.collapsed?'0px':this.state.pixelPosition,
             height:this.state.collapsed?'0px':this.state.pixelPosition,
