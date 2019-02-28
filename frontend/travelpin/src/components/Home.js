@@ -1,6 +1,6 @@
 import React from 'react';
 import {Icon, Layout, Menu} from 'antd';
-import {TravelPinGoogleMap} from "./GoogleMap";
+import TravelPinGoogleMap from "./GoogleMap";
 import {LeftExpansionPanel} from "./LeftExpansionPanel/LeftExpansionPanel"
 import { Link } from 'react-router-dom';
 import {GOOGLE_MAP_API} from "../secureConstants";

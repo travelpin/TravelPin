@@ -1,6 +1,6 @@
 import React from 'react'
 import {Button, Collapse, List} from 'antd';
-import {Arrangement} from "./Arrangement";
+import Arrangement from "./Arrangement";
 
 const Panel = Collapse.Panel;
 

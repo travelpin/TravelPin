@@ -3,11 +3,14 @@ import {Button, Collapse, List} from 'antd';
 import {connect} from "react-redux";
 const Panel = Collapse.Panel;
 const google = window.google
-export class Arrangement extends React.Component{
+class Arrangement extends React.Component{
     state = {
         origin: "",
         destination:"",
         waypoints: [],
+    }
+    componentDidMount() {
+        console.log(this.props)
     }
 
     showRouteOnMap = () => {
@@ -58,7 +61,7 @@ export class Arrangement extends React.Component{
                 // this.setState({
                 //     directions: result,
                 // });
-                this.props.onShowDirections(result);
+                console.log(this.props.onShowDirections(result));
                 console.log(result);
             } else {
                 console.error(`error fetching directions ${result}`);
@@ -88,13 +91,13 @@ export class Arrangement extends React.Component{
 
 const mapStateToProps = state => {
     return {
-        directions: state.counter
+        directions: state.directions
     };
 };
 
 const mapDispathchToProps = dispatch => {
     return {
-        onShowDirection : (directions) => dispatch({type:"Directions", data:directions})
+        onShowDirections : (directions) => dispatch({type:"Directions", data:directions})
     };
 }
 
