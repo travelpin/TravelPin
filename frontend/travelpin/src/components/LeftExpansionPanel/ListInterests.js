@@ -44,8 +44,13 @@ export class ListInterests extends React.Component {
                             <List.Item key={index}
                             >
                                 <List.Item.Meta
-                                    avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                                    title={<a>{item.name}</a>}
+                                    // avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                                    title={<button
+                                        className="liked-button"
+                                        onClick = {() => { this.props.clickInterest(item.location_id)}}
+                                    >
+                                        <a>{item.name}</a>
+                                    </button>}
                                     description={item.formattedAddress}
                                 />
 

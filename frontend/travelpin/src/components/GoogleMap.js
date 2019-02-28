@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
-import { withScriptjs, withGoogleMap, GoogleMap, withProps, lifecycle, DirectionsRenderer} from "react-google-maps";
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, DirectionsRenderer} from "react-google-maps";
+import {InterestMarker} from "./InterestMarker";
+
 const google = window.google
 console.log(window)
 class NormalGoogleMap extends Component {
     static defaultProps = {
-        center: {
+        defaultCenter: {
             lat: 40.71,
             lng: -74.00
         },
-        zoom: 13
+        defaultZoom: 13
     };
     state = {
 
+    }
+
+    getMapRef = (instance) => {
+        this.map = instance;
     }
     componentDidMount() {
         const DirectionsService = new google.maps.DirectionsService();
@@ -46,14 +52,20 @@ class NormalGoogleMap extends Component {
             // Important! Always set the container height explicitly
             <div style={{ height: '100vh', width: '100%' }}>
                 <GoogleMap
-                defaultCenter={this.props.center}
-                defaultZoom={this.props.zoom}
+                defaultCenter={this.props.defaultCenter}
+                center={this.props.center}
+                defaultZoom={this.props.defaultZoom}
+                zoom={this.props.zoom}
+                ref={this.getMapRef}
                 >
                     {directions ? <DirectionsRenderer
                             directions={directions}
                             options={{draggable: true}}
                         /> :
                         null
+                    }
+                    {
+                        this.props.data.map((interest)=> <InterestMarker data={interest} key={interest.location_id}/>)
                     }
                 </GoogleMap>
             </div>

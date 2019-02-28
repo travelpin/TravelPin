@@ -10,22 +10,17 @@ const TabPane = Tabs.TabPane;
 const SubMenu = Menu.SubMenu;
 
 
-const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
-const DataUrl = "http://localhost:8080/listinterests"
 export class LeftExpansionPanel extends React.Component {
     state = {
-        data: [],
+
         collapsed: false,
         pixelPosition: '400px'
     }
 
 
-    componentDidMount() {
-        this.loadInterests();
-    }
 
     clickLiked = (id) => {
-        let data = this.state.data;
+        let data = this.props.data;
         for (let i = 0; i < data.length; i++) {
             if (data[i].location_id === id) {
                 if (! data[i].liked) {
@@ -36,54 +31,21 @@ export class LeftExpansionPanel extends React.Component {
             }
         }
         console.log(data);
-        this.setState({data});
+        this.props.handleLiked(data);
+
     }
 
-    loadInterests = () => {
-        fetch(DataUrl, {
-            method: 'GET',
-        }).then((response) => {
-            if (response.ok) {
-                return response.json();
+    clickInterest = (location_id) => {
+        let data = this.props.data;
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].location_id === location_id) {
+                this.props.handleCenterChange(data[i]);
             }
-            throw new Error('Failed to load posts.');
-        }).then((data) => {
-            console.log(data);
+        }
 
-
-            const fakeLikedInterest =  {
-                id : 1,
-                name : 'NYC',
-                liked : 'TRUE',
-                description : 'This is the place I want to go',
-            };
-
-            const fakeunLikedInterest =  {
-                id : 2,
-                name : 'Liberty',
-                liked : 'FALSE',
-                description : 'This is a the place I do not like',
-            };
-
-            let fakeData = [];
-
-            for (let i = 0; i < 20; i++) {
-                fakeData[i] =  i % 2 == 0 ? {
-                    ...fakeLikedInterest,
-                    id : i,
-                } : {
-                    ...fakeunLikedInterest,
-                    id : i,
-                }
-            }
-
-            this.setState({
-                data : data.length>0 ? data : fakeData,
-            });
-        }).catch((e) => {
-            console.log(e.message);
-        });
     }
+
+
 
     toggleCollapsed = () => {
         this.setState({
@@ -101,7 +63,7 @@ export class LeftExpansionPanel extends React.Component {
             position:"fixed",
             left:this.state.collapsed?'0px':this.state.pixelPosition,
         }
-        const favorite = this.state.data.filter((interest) => interest.liked === 'TRUE');
+        const favorite = this.props.data.filter((interest) => interest.liked === 'TRUE');
         return (
 
             <div  className={"leftExpansionPanel"}>
@@ -123,14 +85,16 @@ export class LeftExpansionPanel extends React.Component {
 
                             <TabPane tab="Interest" key="1">
                                 <ListInterests
-                                    data = {this.state.data}
+                                    data = {this.props.data}
                                     clickLiked = {this.clickLiked}
+                                    clickInterest = {this.clickInterest}
                                 />
                             </TabPane>
                             <TabPane tab="Route" key="2">
                                 <ListInterests
                                     data = {favorite}
                                     clickLiked = {this.clickLiked}
+                                    clickInterest = {this.clickInterest}
                                 />
                             </TabPane>
                             <TabPane tab="SaveRoute" key="3">Tab 3</TabPane>
