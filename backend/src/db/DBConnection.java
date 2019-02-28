@@ -1,6 +1,9 @@
 package db;
 
 import entity.Interest;
+import org.json.JSONArray;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -132,6 +135,9 @@ public interface DBConnection {
     public boolean verifyLogin(String userId, String password);
 
     public List<Interest> getInterestsByCategory(String category);
+
+    public List<Interest> getInterestsByLocationId(JSONArray inputJSONArray);
+
 }
 
 

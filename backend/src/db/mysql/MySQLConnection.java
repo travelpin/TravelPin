@@ -3,9 +3,12 @@ package db.mysql;
 import java.sql.*;
 import java.util.*;
 
+import algorithm.algorithm;
 import db.DBConnection;
 import entity.Interest;
 import entity.Interest.InterestBuilder;
+import org.json.JSONArray;
+
 import java.util.List;
 import java.util.Set;
 
@@ -40,6 +43,7 @@ public class MySQLConnection implements DBConnection{
             }
         }
     }
+
 
 
     @Override
@@ -473,4 +477,45 @@ public class MySQLConnection implements DBConnection{
         return result;
     }
 
+    @Override
+    public ArrayList<Interest> getInterestsByLocationId(JSONArray inputJSONArray) {
+        if (conn == null) {
+            return new ArrayList<>();
+        }
+
+        ArrayList<Interest> pinnedInterests = new ArrayList<>();
+        try{
+
+            JSONArray pinnedInterestsJSONArray = inputJSONArray;
+            System.out.println(pinnedInterestsJSONArray.get(0).toString());
+
+            for(int i = 0; i<pinnedInterestsJSONArray.length(); i++){
+                String location_id = inputJSONArray.get(i).toString();
+                Interest.InterestBuilder builder = new Interest.InterestBuilder();
+                String sql = "SELECT * FROM interests WHERE location_id = ?";
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setString(1, location_id);
+                ResultSet rs = statement.executeQuery();
+                while (rs.next()) {
+                    builder.setLocationId(rs.getString("location_id"));
+                    builder.setName(rs.getString("name"));
+                    builder.setLat(rs.getDouble("lat"));
+                    builder.setLng(rs.getDouble("lng"));
+                    builder.setRating(rs.getDouble("rating"));
+                    builder.setOpenTime(rs.getDouble("open_time"));
+                    builder.setCloseTime(rs.getDouble("close_time"));
+                    builder.setSuggestVisitTime(rs.getDouble("suggest_visit_time"));
+                    builder.setFormattedAddress(rs.getString("formattedAddress"));
+                    builder.setPlaceId(rs.getString("placeId"));
+                    builder.setCategories(getCategories(rs.getString("location_id")));
+                    pinnedInterests.add(builder.build());
+                }
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return pinnedInterests;
+
+    }
 }

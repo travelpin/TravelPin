@@ -129,7 +129,8 @@ public class algorithm {
     public List<List<Interest>> optimizeRoute(List<Interest> pinnedInterests, int days) {
 
         List<List<Interest>> result = new ArrayList<>();
-
+        System.out.println("algorithm in src was called");
+        System.out.println(pinnedInterests);
         // calculate total visit time and check if valid
         int dailyVisitTime = 10;
         int totalVisitTime = days * dailyVisitTime;
@@ -147,9 +148,11 @@ public class algorithm {
         int numberOfInterests = pinnedInterests.size();
         if (numberOfInterests / days >= 3) {
             // TODO: It still has chance to be done. Need to double check open time and close time
+            System.out.println("TODO: It still has chance to be done. Need to double check open time and close time");
             return null;
 
         } else if (numberOfInterests / days < 2) {
+            System.out.println("numberOfInterests / days < 2");
             // one interest per day. final days may apply free time
 
             // e.g.
