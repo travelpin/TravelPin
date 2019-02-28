@@ -13,9 +13,10 @@ const SubMenu = Menu.SubMenu;
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 const DataUrl = "http://localhost:8080/listinterests"
 
+
 export class LeftExpansionPanel extends React.Component {
     state = {
-        data: [],
+
         collapsed: false,
         pixelPosition: '400px',
         plan:[["New York City Fire Museum","The Public Theater","Angelika Film Center & Café - New York"]
@@ -24,12 +25,9 @@ export class LeftExpansionPanel extends React.Component {
     }
 
 
-    componentDidMount() {
-        this.loadInterests();
-    }
 
     clickLiked = (id) => {
-        let data = this.state.data;
+        let data = this.props.data;
         for (let i = 0; i < data.length; i++) {
             if (data[i].location_id === id) {
                 if (! data[i].liked) {
@@ -40,7 +38,8 @@ export class LeftExpansionPanel extends React.Component {
             }
         }
         console.log(data);
-        this.setState({data});
+        this.props.handleLiked(data);
+
     }
 
     loadInterests = () => {
@@ -52,39 +51,45 @@ export class LeftExpansionPanel extends React.Component {
             }
             throw new Error('Failed to load posts.');
         }).then((data) => {
-            const fakeLikedInterest =  {
-                id : 1,
-                name : 'NYC',
-                liked : 'TRUE',
-                description : 'This is the place I want to go',
+            const fakeLikedInterest = {
+                id: 1,
+                name: 'NYC',
+                liked: 'TRUE',
+                description: 'This is the place I want to go',
             };
 
-            const fakeunLikedInterest =  {
-                id : 2,
-                name : 'Liberty',
-                liked : 'FALSE',
-                description : 'This is a the place I do not like',
+            const fakeunLikedInterest = {
+                id: 2,
+                name: 'Liberty',
+                liked: 'FALSE',
+                description: 'This is a the place I do not like',
             };
 
             let fakeData = [];
 
             for (let i = 0; i < 20; i++) {
-                fakeData[i] =  i % 2 == 0 ? {
+                fakeData[i] = i % 2 == 0 ? {
                     ...fakeLikedInterest,
-                    id : i,
+                    id: i,
                 } : {
                     ...fakeunLikedInterest,
-                    id : i,
+                    id: i,
                 }
             }
-
-            this.setState({
-                data : data.length>0 ? data : fakeData,
-            });
-        }).catch((e) => {
-            console.log(e.message);
         });
     }
+    clickInterest = (location_id) => {
+        let data = this.props.data;
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].location_id === location_id) {
+                this.props.handleCenterChange(data[i]);
+
+            }
+        }
+
+    }
+
+
 
     toggleCollapsed = () => {
         this.setState({
@@ -125,7 +130,7 @@ export class LeftExpansionPanel extends React.Component {
             position:"fixed",
             left:this.state.collapsed?'0px':this.state.pixelPosition,
         }
-        const favorite = this.state.data.filter((interest) => interest.liked === 'TRUE');
+        const favorite = this.props.data.filter((interest) => interest.liked === 'TRUE');
         console.log(favorite)
         return (
 
@@ -148,14 +153,16 @@ export class LeftExpansionPanel extends React.Component {
 
                             <TabPane tab="Interest" key="1">
                                 <ListInterests
-                                    data = {this.state.data}
+                                    data = {this.props.data}
                                     clickLiked = {this.clickLiked}
+                                    clickInterest = {this.clickInterest}
                                 />
                             </TabPane>
                             <TabPane tab="Route" key="2">
                                 <ListInterests
                                     data = {favorite}
                                     clickLiked = {this.clickLiked}
+                                    clickInterest = {this.clickInterest}
                                 />
                             </TabPane>
                             <TabPane tab="ShowPlan" key="3">{this.showPlan()}</TabPane>
