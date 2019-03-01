@@ -370,6 +370,14 @@ public class algorithm {
         System.out.println("}");
     }
 
+    // helper function for debug
+    private void printPinnedInterests(List<Interest> pinnedInterests){
+        System.out.print("{");
+        for (Interest interest : pinnedInterests) {
+            System.out.print(interest.getName() + " ");
+        }
+        System.out.println("}");
+    }
 
 //    // generate travel schedule
 //    public List<Schedule> generateSchedule(List<List<Interest>> result) {
