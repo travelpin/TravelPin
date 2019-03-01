@@ -124,7 +124,20 @@ import entity.Interest.InterestBuilder;
 // ==> display them on google map with routes, pictures and chart
 
 
+// Usage:
+
+// 1. function: optimizeRoute()
+//    input:    List<Interest>        pinnedInterests
+//              int                   days
+//    output:   List<List<Interest>>  optimizedDailyInterests
+
+// 2. function: calculateExpense()
+//    input:    List<List<Interest>>  optimizedDailyInterests
+//              int                   persons
+//    output:   double                totalTravelExpense
+
 public class algorithm {
+
     // optimize travel route
     public List<List<Interest>> optimizeRoute(List<Interest> pinnedInterests, int days) {
 
@@ -231,6 +244,17 @@ public class algorithm {
         return result;
     }
 
+    // calculate travel expense
+    public double calculateExpense(List<List<Interest>> result, int persons) {
+        double sum = 0;
+        for (List<Interest> daily : result) {
+            for (Interest interest : daily) {
+                sum += interest.getPrice();
+            }
+        }
+        return sum * persons;
+    }
+
     // Convert longitude to a X value in World Coordinates
     private static final double lon2x(double lon) {
         return (lon + 180f) / 360f * 256f;
@@ -311,18 +335,6 @@ public class algorithm {
         }
         System.out.println("}");
     }
-
-//    // calculate travel expense
-//    public int calculateExpense(List<List<Interest>> result, int persons) {
-//        int sum = 0;
-//        for (List<Interest> daily : result) {
-//            for (Interest interest : daily) {
-//                sum += interest.price;
-//            }
-//        }
-//        return sum * persons;
-//    }
-
 
 //    // generate travel schedule
 //    public List<Schedule> generateSchedule(List<List<Interest>> result) {
