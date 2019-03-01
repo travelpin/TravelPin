@@ -143,7 +143,8 @@ public class algorithm {
 
         List<List<Interest>> result = new ArrayList<>();
         System.out.println("OptimizeRoute() in algorithm was called");
-        System.out.println("Pinned interests are: " + pinnedInterests);
+        System.out.println("Pinned interests are: ");
+
         System.out.println("Total travel days are: " + days);
         // calculate total visit time and check if valid
         int dailyVisitTime = 10;
@@ -270,7 +271,13 @@ public class algorithm {
     public double calculateExpense(List<List<Interest>> result, int persons) {
         System.out.println("CalculateExpense in algorithm was called");
         System.out.println("Optimized daily interests are: " + result);
-        System.out.println("Total travel persons are: " + persons);
+        System.out.println("Total travel person(s) are: " + persons);
+        // check corner case first!
+        if (result == null) {
+            System.out.println("The input interests are null");
+            System.out.println("Total travel expense of " + persons + " person(s) is " + 0 + " dollars");
+            return 0.0;
+        }
         double sum = 0;
         for (List<Interest> daily : result) {
             for (Interest interest : daily) {
@@ -278,7 +285,7 @@ public class algorithm {
             }
         }
         double totalExpense = sum * persons;
-        System.out.println("Total travel expense of " + persons + " person(s) are " + totalExpense + " dollars");
+        System.out.println("Total travel expense of " + persons + " person(s) is " + totalExpense + " dollars");
         return totalExpense;
     }
 
@@ -363,6 +370,7 @@ public class algorithm {
         System.out.println("}");
     }
 
+
 //    // generate travel schedule
 //    public List<Schedule> generateSchedule(List<List<Interest>> result) {
 //        // TODO
@@ -374,6 +382,7 @@ public class algorithm {
         List<Interest> pinnedInterests1 = new ArrayList<>();
         List<Interest> pinnedInterests2 = new ArrayList<>();
         List<Interest> pinnedInterests3 = new ArrayList<>();
+        List<Interest> pinnedInterests4 = new ArrayList<>();
 
         // 5 interests with name and lat lng for tests
         InterestBuilder builder1 = new InterestBuilder();
@@ -381,6 +390,7 @@ public class algorithm {
         builder1.setLat(40.6892534);
         builder1.setLng(-74.0466891);
         builder1.setSuggestVisitTime(4.0);
+        builder1.setPrice(50.0);
         pinnedInterests1.add(builder1.build());
         pinnedInterests2.add(builder1.build());
         pinnedInterests3.add(builder1.build());
@@ -390,6 +400,7 @@ public class algorithm {
         builder2.setLat(40.7485492);
         builder2.setLng(-73.9879522);
         builder2.setSuggestVisitTime(3.0);
+        builder2.setPrice(30.0);
         pinnedInterests1.add(builder2.build());
         pinnedInterests2.add(builder2.build());
         pinnedInterests3.add(builder2.build());
@@ -399,6 +410,7 @@ public class algorithm {
         builder3.setLat(40.7058134);
         builder3.setLng(-73.9981622);
         builder3.setSuggestVisitTime(2.0);
+        builder3.setPrice(0.0);
         pinnedInterests1.add(builder3.build());
         pinnedInterests2.add(builder3.build());
         pinnedInterests3.add(builder3.build());
@@ -408,6 +420,7 @@ public class algorithm {
         builder4.setLat(40.708788);
         builder4.setLng(-74.0095311);
         builder4.setSuggestVisitTime(3.0);
+        builder4.setPrice(20.0);
         pinnedInterests1.add(builder4.build());
         pinnedInterests2.add(builder4.build());
         pinnedInterests3.add(builder4.build());
@@ -417,43 +430,75 @@ public class algorithm {
         builder5.setLat(40.7744186);
         builder5.setLng(-73.9678064);
         builder5.setSuggestVisitTime(3.0);
+        builder5.setPrice(0.0);
         pinnedInterests1.add(builder5.build());
         pinnedInterests2.add(builder5.build());
         pinnedInterests3.add(builder5.build());
+
+        InterestBuilder builder6 = new InterestBuilder();
+        builder6.setName("TheMuseumOfModernArt");
+        builder6.setLat(40.7609406);
+        builder6.setLng(-73.9801901);
+        builder6.setSuggestVisitTime(2.0);
+        builder6.setPrice(20.0);
+        pinnedInterests4.add(builder6.build());
+
+        InterestBuilder builder7 = new InterestBuilder();
+        builder7.setName("WallStreet");
+        builder7.setLat(40.7060179);
+        builder7.setLng(-74.0110099);
+        builder7.setSuggestVisitTime(1.0);
+        builder7.setPrice(0.0);
+        pinnedInterests4.add(builder7.build());
 
         algorithm test = new algorithm();
 
         System.out.println("===============================================================================");
 
         // test case one: 5 interests in 1 day
-        System.out.println("Test case one: 5 interests in 1 day");
+        System.out.println("Test case one: 5 interests in 1 day, 2 persons");
         System.out.println("Expected result: ");
         System.out.println("Too many interests. Schedule is too tight. Please re-pin interests!");
+        System.out.println("Total travel expense of 3 person(s) is ? dollars");
         System.out.println("Real result: ");
         List<List<Interest>> result1;
         result1 = test.optimizeRoute(pinnedInterests1, 1);
+        test.calculateExpense(result1, 2);
         System.out.println("===============================================================================");
 
 
         // test case two: 5 interests in 2 days
-        System.out.println("Test case two: 5 interests in 2 days");
+        System.out.println("Test case two: 5 interests in 2 days, 1 person");
         System.out.println("Expected result: ");
         System.out.println("{{StatueOfLiberty 911Memorial BrooklynBridge }{EmpireStateBuilding 5thAvenue }}");
+        System.out.println("Total travel expense of 1 person(s) are ? dollars");
         System.out.println("Real result: ");
         List<List<Interest>> result2;
         result2 = test.optimizeRoute(pinnedInterests2, 2);
-        test.printResult(result2);
+        test.calculateExpense(result2, 2);
         System.out.println("===============================================================================");
 
 
         // test case three: 5 interests in 3 days
-        System.out.println("Test case three: 5 interests in 3 days");
+        System.out.println("Test case three: 5 interests in 3 days, 2 persons");
         System.out.println("Expected result: ");
         System.out.println("{{StatueOfLiberty }{EmpireStateBuilding 5thAvenue }{BrooklynBridge 911Memorial }}");
+        System.out.println("Total travel expense of 2 person(s) is ? dollars");
         System.out.println("Real result: ");
         List<List<Interest>> result3;
         result3 = test.optimizeRoute(pinnedInterests3, 3);
-        test.printResult(result3);
+        test.calculateExpense(result3, 2);
+        System.out.println("===============================================================================");
+
+        // test case four: 7 interests in 2 days
+        System.out.println("Test case four: 7 interests in 2 days, 3 persons");
+        System.out.println("Expected result: ");
+        System.out.println(" ");
+        System.out.println("Total travel expense of 3 person(s) is ? dollars");
+        System.out.println("Real result: ");
+        List<List<Interest>> result4;
+        result4 = test.optimizeRoute(pinnedInterests4, 2);
+        test.calculateExpense(result4, 2);
         System.out.println("===============================================================================");
     }
 }
