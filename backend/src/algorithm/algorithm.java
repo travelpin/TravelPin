@@ -34,59 +34,18 @@ import entity.Interest.InterestBuilder;
 // input: travel days: 3 days;
 //        travel person: 2 persons;
 //        pinned interests:
-//                        statueOfLiberty{
-//                        id: 0001,
-//                        coordinate.x: 10,
-//                        coordinate.y: 12,
-//                        category: museum,
-//                        time.open: 08:00;
-//                        time.close: 18:00;
-//                        time.visit: 4.0;
-//                        price: 50;
-//                        rating: 5}
+//                        StatueOfLiberty{ id: 0001, coordinate.x: 10, coordinate.y: 12, time.visit: 4.0, price: 50.0 }
 //                        +
-//                        empireState{id: 0003,
-//                        coordinate.x: 20,
-//                        coordinate.y: 47,
-//                        category: building,
-//                        time.open: 08:00;
-//                        time.close: 22:00;
-//                        time.visit: 3.0;
-//                        price: 30;
-//                        rating: 5}
+//                        EmpireState{ id: 0003, coordinate.x: 20, coordinate.y: 47, time.visit: 3.0, price: 30.0 }
 //                        +
-//                        brooklynBridge{id: 0006,
-//                        coordinate.x: 17,
-//                        coordinate.y: 50,
-//                        category: bridge,
-//                        time.open: 00:00;
-//                        time.close: 24:00;
-//                        time.visit: 2.0;
-//                        price: 0;
-//                        rating: 4}
+//                        BrooklynBridge{ id: 0006, coordinate.x: 17, coordinate.y: 50, time.visit: 2.0, price: 0.0 }
 //                        +
-//                        911Museum{id: 0012,
-//                        coordinate.x: 33,
-//                        coordinate.y: 15,
-//                        category: museum,
-//                        time.open: 08:00;
-//                        time.close: 18:00;
-//                        time.visit: 3.0;
-//                        price: 20;
-//                        rating: 4}
+//                        911Museum{ id: 0012, coordinate.x: 33, coordinate.y: 15, category: museum, time.visit: 3.0, price: 20 }
 //                        +
-//                        fifthAvenue{id: 0031,
-//                        coordinate.x: 25,
-//                        coordinate.y: 6,
-//                        category: shopping,
-//                        time.open: 00:00;
-//                        time.close: 24:00;
-//                        time.visit: 3.0;
-//                        price: 0;
-//                        rating: 5}
+//                        5thAvenue{ id: 0031, coordinate.x: 25, coordinate.y: 6, time.visit: 3.0, price: 0 }
 //
 // output: optimized route: {{0001, 0012} {0003, 0006} {0031}}
-//         total ticket price: 200
+//         total ticket price: 200.0
 
 // Extra Feature...pending
 // pretty schedule:
@@ -124,8 +83,8 @@ import entity.Interest.InterestBuilder;
 // ==> display them on google map with routes, pictures and chart
 
 
-// Usage:
 
+//----------------------- Algorithm Guidance -----------------------//
 // 1. function: optimizeRoute()
 //    input:    List<Interest>        pinnedInterests
 //              int                   days
@@ -135,6 +94,7 @@ import entity.Interest.InterestBuilder;
 //    input:    List<List<Interest>>  optimizedDailyInterests
 //              int                   persons
 //    output:   double                totalTravelExpense
+//-------------------------------------------------------------------//
 
 public class algorithm {
 
@@ -269,7 +229,7 @@ public class algorithm {
 
     // calculate travel expense
     public double calculateExpense(List<List<Interest>> result, int persons) {
-        System.out.println("CalculateExpense in algorithm was called");
+        System.out.println("CalculateExpense() in algorithm was called");
         // check corner case first!
         if (result == null) {
             System.out.println("The input interests are null");
