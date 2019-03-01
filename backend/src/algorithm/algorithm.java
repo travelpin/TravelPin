@@ -161,10 +161,28 @@ public class algorithm {
         // then implement route optimization algorithms in each cases
         int numberOfInterests = pinnedInterests.size();
         if (numberOfInterests / days >= 3) {
-            // TODO: It still has chance to be done. Need to double check open time and close time
             System.out.println("numberOfInterests / days >= 3");
+            // three interest per day. final days may apply four or more interests per day
+            // It still has chance to be done (cuz already passed the total travel time check) (Need to double check open time and close time)
 
-            return null;
+            // e.g.
+            // 7 interests:   {a b c d e f g}
+            // interest_index: 0 1 2 3 4 5 6
+            // 2 days:    {{} {}}
+            // day_index:  0  1
+            // 1st step: {{a} {b}}
+            // ...
+            //           {{a c e g} {b d f}}
+
+            // generate empty daily schedule
+            for (int i = 0; i < days; i++) {
+                List<Interest> daily = new ArrayList<>();
+                result.add(daily);
+            }
+            // add interests into daily schedule sequentially
+            for (int index = 0; index < numberOfInterests; index++) {
+                result.get(index % days).add(pinnedInterests.get(index));
+            }
 
         } else if (numberOfInterests / days < 2) {
             System.out.println("numberOfInterests / days < 2");
