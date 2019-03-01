@@ -142,8 +142,9 @@ public class algorithm {
     public List<List<Interest>> optimizeRoute(List<Interest> pinnedInterests, int days) {
 
         List<List<Interest>> result = new ArrayList<>();
-        System.out.println("algorithm in src was called");
-        System.out.println(pinnedInterests);
+        System.out.println("OptimizeRoute() in algorithm was called");
+        System.out.println("Pinned interests are: " + pinnedInterests);
+        System.out.println("Total travel days are: " + days);
         // calculate total visit time and check if valid
         int dailyVisitTime = 10;
         int totalVisitTime = days * dailyVisitTime;
@@ -152,7 +153,7 @@ public class algorithm {
             pinnedVisitTime += interest.getSuggestVisitTime();
         }
         if (pinnedVisitTime > totalVisitTime) {
-            System.out.println("Too many interests. Schedule is too tight. Please re-pin interests!");
+            System.out.println("Too many interests in limited travel days. Schedule is too tight. Please reduce interests or increase travel days!");
             return null;
         }
 
@@ -161,7 +162,8 @@ public class algorithm {
         int numberOfInterests = pinnedInterests.size();
         if (numberOfInterests / days >= 3) {
             // TODO: It still has chance to be done. Need to double check open time and close time
-            System.out.println("TODO: It still has chance to be done. Need to double check open time and close time");
+            System.out.println("numberOfInterests / days >= 3");
+
             return null;
 
         } else if (numberOfInterests / days < 2) {
@@ -202,6 +204,7 @@ public class algorithm {
             }
 
         } else { // numberOfInterests / days >= 2 && numberOfInterests / days <= 3
+            System.out.println("numberOfInterests / days >= 2 && numberOfInterests / days <= 3");
             // two interests per day. final days may apply three interests per day
 
             // e.g.
@@ -241,18 +244,24 @@ public class algorithm {
         }
 
         // generate route
+        printResult(result);
         return result;
     }
 
     // calculate travel expense
     public double calculateExpense(List<List<Interest>> result, int persons) {
+        System.out.println("CalculateExpense in algorithm was called");
+        System.out.println("Optimized daily interests are: " + result);
+        System.out.println("Total travel persons are: " + persons);
         double sum = 0;
         for (List<Interest> daily : result) {
             for (Interest interest : daily) {
                 sum += interest.getPrice();
             }
         }
-        return sum * persons;
+        double totalExpense = sum * persons;
+        System.out.println("Total travel expense of " + persons + " person(s) are " + totalExpense + " dollars");
+        return totalExpense;
     }
 
     // Convert longitude to a X value in World Coordinates
