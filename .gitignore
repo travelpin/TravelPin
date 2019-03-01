@@ -17,3 +17,5 @@ MySQLDBUtil.java
 
 frontend/travelpin/src/SecureConstants.js
 secureConstants.js
+
+bin/
