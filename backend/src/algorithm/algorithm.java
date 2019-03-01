@@ -40,7 +40,7 @@ import entity.Interest.InterestBuilder;
 //                        +
 //                        BrooklynBridge{ id: 0006, coordinate.x: 17, coordinate.y: 50, time.visit: 2.0, price: 0.0 }
 //                        +
-//                        911Museum{ id: 0012, coordinate.x: 33, coordinate.y: 15, category: museum, time.visit: 3.0, price: 20 }
+//                        911Museum{ id: 0012, coordinate.x: 33, coordinate.y: 15, time.visit: 3.0, price: 20 }
 //                        +
 //                        5thAvenue{ id: 0031, coordinate.x: 25, coordinate.y: 6, time.visit: 3.0, price: 0 }
 //
@@ -89,7 +89,7 @@ import entity.Interest.InterestBuilder;
 //    input:    List<Interest>        pinnedInterests
 //              int                   days
 //    output:   List<List<Interest>>  optimizedDailyInterests
-
+//
 // 2. function: calculateExpense()
 //    input:    List<List<Interest>>  optimizedDailyInterests
 //              int                   persons
@@ -119,10 +119,11 @@ public class algorithm {
         }
 
         // briefly check the "total number of interests / days" rate. Approximately 2-3 interests per day is good
+        // there will be three different cases
         // then implement route optimization algorithms in each cases
         int numberOfInterests = pinnedInterests.size();
         if (numberOfInterests / days >= 3) {
-            System.out.println("numberOfInterests / days >= 3");
+            System.out.println("Case 1: numberOfInterests / days >= 3");
             // three interest per day. final days may apply four or more interests per day
             // It still has chance to be done (cuz already passed the total travel time check) (Need to double check open time and close time)
 
@@ -146,7 +147,7 @@ public class algorithm {
             }
 
         } else if (numberOfInterests / days < 2) {
-            System.out.println("numberOfInterests / days < 2");
+            System.out.println("Case 2: numberOfInterests / days < 2");
             // one interest per day. final days may apply free time
 
             // e.g.
@@ -183,7 +184,7 @@ public class algorithm {
             }
 
         } else { // numberOfInterests / days >= 2 && numberOfInterests / days <= 3
-            System.out.println("numberOfInterests / days >= 2 && numberOfInterests / days <= 3");
+            System.out.println("Case 3: numberOfInterests / days >= 2 && numberOfInterests / days <= 3");
             // two interests per day. final days may apply three interests per day
 
             // e.g.
@@ -223,6 +224,7 @@ public class algorithm {
         }
 
         // generate route
+        System.out.println("Optimized daily interests are: ");
         printResult(result);
         return result;
     }
@@ -233,12 +235,12 @@ public class algorithm {
         // check corner case first!
         if (result == null) {
             System.out.println("The input interests are null");
-            System.out.println("Total travel expense of " + persons + " person(s) is " + 0.0 + " dollars");
+            System.out.println("Total travel expense of " + persons + " persons is " + 0.0 + " dollars");
             return 0.0;
         }
         System.out.println("Optimized daily interests are: ");
         printResult(result);
-        System.out.println("Total travel person(s) are: " + persons);
+        System.out.println("Total travel persons are: " + persons);
         double sum = 0;
         for (List<Interest> daily : result) {
             for (Interest interest : daily) {
@@ -246,7 +248,7 @@ public class algorithm {
             }
         }
         double totalExpense = sum * persons;
-        System.out.println("Total travel expense of " + persons + " person(s) is " + totalExpense + " dollars");
+        System.out.println("Total travel expense of " + persons + " persons is " + totalExpense + " dollars");
         return totalExpense;
     }
 
@@ -427,52 +429,52 @@ public class algorithm {
 
         algorithm test = new algorithm();
 
-        System.out.println("===============================================================================");
+        System.out.println("===============================================================================\n");
 
-        // test case one: 5 interests in 1 day
-        System.out.println("Test case one: 5 interests in 1 day, 3 persons");
-        System.out.println("Expected result: ");
-        System.out.println("Too many interests. Schedule is too tight. Please re-pin interests!");
-        System.out.println("Total travel expense of 3 person(s) is 0.0 dollars");
-        System.out.println("Real result: ");
+        // test case one: 5 interests in 1 day, 3 persons
+        System.out.println("Test case one: 5 interests in 1 day, 3 persons \n");
+        System.out.println("########## Expected result ##########");
+        System.out.println("Too many interests in limited travel days. Schedule is too tight. Please reduce interests or increase travel days!");
+        System.out.println("Total travel expense of 3 persons is 0.0 dollars \n");
+        System.out.println("########## Real result ##########");
         List<List<Interest>> result1;
         result1 = test.optimizeRoute(pinnedInterests1, 1);
         test.calculateExpense(result1, 3);
-        System.out.println("===============================================================================");
+        System.out.println("\n===============================================================================\n");
 
 
-        // test case two: 5 interests in 2 days
-        System.out.println("Test case two: 5 interests in 2 days, 1 person");
-        System.out.println("Expected result: ");
+        // test case two: 5 interests in 2 days, 1 person
+        System.out.println("Test case two: 5 interests in 2 days, 1 person \n");
+        System.out.println("########## Expected result ##########");
         System.out.println("{{StatueOfLiberty 911Memorial BrooklynBridge }{EmpireStateBuilding 5thAvenue }}");
-        System.out.println("Total travel expense of 1 person(s) is 100.0 dollars");
-        System.out.println("Real result: ");
+        System.out.println("Total travel expense of 1 persons is 100.0 dollars \n");
+        System.out.println("########## Real result ##########");
         List<List<Interest>> result2;
         result2 = test.optimizeRoute(pinnedInterests2, 2);
         test.calculateExpense(result2, 1);
-        System.out.println("===============================================================================");
+        System.out.println("\n===============================================================================\n");
 
 
-        // test case three: 5 interests in 3 days
-        System.out.println("Test case three: 5 interests in 3 days, 2 persons");
-        System.out.println("Expected result: ");
+        // test case three: 5 interests in 3 days, 2 persons
+        System.out.println("Test case three: 5 interests in 3 days, 2 persons \n");
+        System.out.println("########## Expected result ##########");
         System.out.println("{{StatueOfLiberty }{EmpireStateBuilding 5thAvenue }{BrooklynBridge 911Memorial }}");
-        System.out.println("Total travel expense of 2 person(s) is 200.0 dollars");
-        System.out.println("Real result: ");
+        System.out.println("Total travel expense of 2 persons is 200.0 dollars \n");
+        System.out.println("########## Real result ##########");
         List<List<Interest>> result3;
         result3 = test.optimizeRoute(pinnedInterests3, 3);
         test.calculateExpense(result3, 2);
-        System.out.println("===============================================================================");
+        System.out.println("\n===============================================================================\n");
 
-        // test case four: 7 interests in 2 days
-        System.out.println("Test case four: 7 interests in 2 days, 3 persons");
-        System.out.println("Expected result: ");
+        // test case four: 7 interests in 2 days, 3 persons
+        System.out.println("Test case four: 7 interests in 2 days, 3 persons \n");
+        System.out.println("########## Expected result ##########");
         System.out.println("{{StatueOfLiberty BrooklynBridge 5thAvenue WallStreet }{EmpireStateBuilding 911Memorial TheMuseumOfModernArt }}");
-        System.out.println("Total travel expense of 3 person(s) is 360.0 dollars");
-        System.out.println("Real result: ");
+        System.out.println("Total travel expense of 3 persons is 360.0 dollars \n");
+        System.out.println("########## Real result ##########");
         List<List<Interest>> result4;
         result4 = test.optimizeRoute(pinnedInterests4, 2);
         test.calculateExpense(result4, 3);
-        System.out.println("===============================================================================");
+        System.out.println("\n===============================================================================\n");
     }
 }
