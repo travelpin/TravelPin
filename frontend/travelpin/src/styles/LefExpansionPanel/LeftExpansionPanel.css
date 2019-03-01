@@ -19,3 +19,33 @@
 
 }
 
+.days-control-container {
+    width: 95%;
+    margin: 5px auto 5px auto;
+    display: flex;
+}
+
+.days-control-container-slider {
+    flex: 3;
+}
+
+.days-control-container-input {
+    flex: 1;
+}
+.days-control-container-btn {
+    flex: 1;
+}
+
+.days-control-slider {
+    width: 100%;
+}
+.days-control-input {
+    width: 70%;
+}
+
+.days-control-btn {
+    width: 70%;
+}
+
+
+
