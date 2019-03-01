@@ -13,24 +13,27 @@ class Arrangement extends React.Component{
         console.log(this.props)
     }
 
-    showRouteOnMap = () => {
-        let interests = this.props.interests
+    showRouteOnMap = (interests) => {
+
         if (interests.length == 1){
             this.showMarker()
         }else{
             // let origin = interests[0]
-            let origin = new google.maps.LatLng(40.71, -74)
+            let origin = new google.maps.LatLng(interests[0].lat, interests[0].lng)
             // let destination = interests[interests.length-1]
-            let destination = new google.maps.LatLng(41.8525800, -74)
-            // let waypoints = interests.slice(1,interests.length-1)
-            let waypoints = [{
-                            location:'40.9525800, -74',
-                            stopover: true,
-
-                        },{
-                            location:'41.2525800, -74',
-                            stopover: true,
-                        }]
+            let destination = interests.length > 2 ? new google.maps.LatLng(interests[2].lat, interests[2].lng):new google.maps.LatLng(interests[1].lat, interests[1].lng)
+            let waypoints = interests.length > 2 ?[{
+                location:`${interests[1].lat},${interests[1].lng}`,
+                stopover:true,
+            }]:[];//interests.slice(1,interests.length-1).
+            // let waypoints = [{
+            //                 location:'40.9525800, -74',
+            //                 stopover: true,
+            //
+            //             },{
+            //                 location:'41.2525800, -74',
+            //                 stopover: true,
+            //             }]
             this.getDirections(origin, destination, waypoints)
             console.log("showRouteOnMap with interests > 1" + interests)
             this.setState({
@@ -72,15 +75,16 @@ class Arrangement extends React.Component{
 
     }
     render() {
+        const interests = this.props.interests;
        return(
            <div className={"arrangement"}>
-           <Button type={"primary"} onClick={this.showRouteOnMap}>Show Route</Button>
+           <Button type={"primary"} onClick={()=>{this.showRouteOnMap(interests)}}>Show Route</Button>
            <List
             itemLayout="horizontal"
-            dataSource={this.props.interests}
-            renderItem={item => (
-                    <Panel header="Day 1" key="1">
-                        {item}
+            dataSource={interests}
+            renderItem={(item,index) => (
+                    <Panel header={`${item.name}`} key={`${index}`}>
+                        {item.name}
                     </Panel>
             )}
         />

@@ -20,10 +20,9 @@ export class PlanPanel extends React.Component {
         return (<List
             itemLayout="horizontal"
             dataSource={this.props.plan}
-            renderItem={item => (
+            renderItem={(item,index) => (
                 <Collapse bordered={false} defaultActiveKey={['1']}>
-                    <Panel header="This is panel header 1" key="1">
-
+                    <Panel header={`Plan of Day ${index+1}`} key={`${index}`}>
                         <Arrangement
                             interests={item}
                             directions={this.props.directions}
