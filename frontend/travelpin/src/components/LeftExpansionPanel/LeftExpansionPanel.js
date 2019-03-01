@@ -149,7 +149,7 @@ export class LeftExpansionPanel extends React.Component {
         console.log(favorite)
         return (
 
-            <div  className={"leftExpansionPanel"}>
+            <div  className="leftExpansionPanel">
                 <div>
                     <Button
                         type="primary"
@@ -169,7 +169,7 @@ export class LeftExpansionPanel extends React.Component {
                         inlineCollapsed={this.state.collapsed}
                         style={MenuStyle}
                     >
-                        <Tabs defaultActiveKey="1">
+                        <Tabs defaultActiveKey="1" style={{width : "100%", overflow: "hidden"}}>
 
                             <TabPane tab="Interest" key="1">
                                 <ListInterests
