@@ -20,6 +20,9 @@ class NormalGoogleMap extends Component {
     componentWillUpdate(nextProps, nextState, nextContext) {
         console.log("GoogleMap componentWillUpdate called.")
     }
+    componentWillReceiveProps(nextProps) {
+        console.log("GoogleMap componentWillUpdate called.")
+    }
 
     getMapRef = (instance) => {
         this.map = instance;
