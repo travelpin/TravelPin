@@ -2,7 +2,7 @@
     display: inline;
     position: absolute;
     left: 0px;
-    top: 65px;
+    top: 150px;
     z-index:20;
     overflow:scroll;
     height: 60%;
@@ -12,11 +12,11 @@
 
 
 .leftExpansionPanel .primary-btn {
-    position: absolute;
-    left: 400px;
-    top: 65px;
+    position: fixed;
+    top: 150px;
     width: 50px;
     height: 50px;
+    z-index:30;
     background-color: rgb(24, 144, 255);
 }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Icon } from "antd";
 import blank from '../asserts/images/blank_star.png';
 import half from '../asserts/images/half_filled_star.png';
 import full from '../asserts/images/full_star.png';

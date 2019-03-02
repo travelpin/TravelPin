@@ -4,6 +4,8 @@ import bluePin from "../asserts/images/blue_pin.png";
 import pinkPin from "../asserts/images/pink_pin.png";
 import greenPin from "../asserts/images/green_pin.png";
 import { Star } from "./Star";
+import {connect} from "react-redux";
+
 
 export class InterestMarker extends Component {
     state = {
@@ -19,15 +21,20 @@ export class InterestMarker extends Component {
     }
 
     render () {
-        const { lat, lng, liked, name, imageUrl, rating, price } = this.props.data;
+
+        const {lat, lng, liked, name, imageUrl, rating, price, location_id } = this.props.data;
         const isLiked = liked === 'TRUE';
-        const icon = isLiked ? {
-            url : pinkPin,
+        const focusPin = this.props.isFocus && this.props.focusedId === location_id ?{
+            url : greenPin,
             scaledSize: new window.google.maps.Size(26, 41),
-        } : {
+        }:{
             url : bluePin,
             scaledSize: new window.google.maps.Size(26, 41),
         }
+        const icon = isLiked ? {
+            url : pinkPin,
+            scaledSize: new window.google.maps.Size(26, 41),
+        } : focusPin;
 
         return (
             <Marker
@@ -35,7 +42,7 @@ export class InterestMarker extends Component {
                 icon={icon}
                 onMouseOver={this.toggleOpen}
                 onMouseOut={this.toggleOpen}
-                //onClick={this.toggleOpen}
+               // onClick={this.toggleOpen}
             >
 
                 {this.state.isOpen ? (
@@ -56,9 +63,6 @@ export class InterestMarker extends Component {
                                 </div>
                                 <div className="open-hours">{`OPEN TODAY: 08:30 - 17:00`}</div>
                             </div>
-                            <div>
-                                {liked}
-                            </div>
                         </div>
                     </InfoWindow>
                 ) : null}
@@ -66,3 +70,12 @@ export class InterestMarker extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        isFocus: state.directions,
+        focusedId:state.location_id
+    };
+};
+
+export default connect(mapStateToProps)(InterestMarker);
