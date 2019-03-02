@@ -3,6 +3,7 @@ import { Marker, InfoWindow } from 'react-google-maps';
 import bluePin from "../asserts/images/blue_pin.png";
 import pinkPin from "../asserts/images/pink_pin.png";
 import greenPin from "../asserts/images/green_pin.png";
+import { Star } from "./Star";
 
 export class InterestMarker extends Component {
     state = {
@@ -44,10 +45,14 @@ export class InterestMarker extends Component {
                             <div className="info">
                                 <p className="interest-name">{name}</p>
                                 <div className="rating">
-                                    {
-                                        price === 0 ? <div>{`Rating: ${rating}, Price: ${price}`}</div> :
-                                                        <div>{`Rating: ${rating}, Price: $${price}`}</div>
-                                    }
+                                    <span className="rating-span">{`${rating}`}</span>
+                                    <Star rating={rating} />
+                                    <span className="price-span">
+                                        {
+                                            price === 0 ? <span>Free</span> :
+                                                <span>{` Price: $${price}`}</span>
+                                        }
+                                    </span>
                                 </div>
                                 <div className="open-hours">{`OPEN TODAY: 08:30 - 17:00`}</div>
                             </div>

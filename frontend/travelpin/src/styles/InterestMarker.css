@@ -14,6 +14,16 @@
     font-weight: bold;
 }
 
+.rating-span {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.price-span {
+    vertical-align: middle;
+    margin-left: 12px;
+}
+
 .open-hours {
     font-weight: bold;
     color: limegreen;
