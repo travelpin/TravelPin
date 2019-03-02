@@ -144,9 +144,10 @@ export class LeftExpansionPanel extends React.Component {
             marginBottom: 8,
             position:"fixed",
             marginLeft:this.state.collapsed?'0px':'400px',
+
         }
         const favorite = this.props.data.filter((interest) => interest.liked === 'TRUE');
-        console.log(favorite)
+        // console.log(favorite)
         return (
 
             <div  className="leftExpansionPanel">
