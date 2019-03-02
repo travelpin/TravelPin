@@ -1,6 +1,7 @@
 import React from 'react';
 import { List, message, Avatar, Spin, Icon} from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
+import {connect} from "react-redux";
 
 
 
@@ -83,4 +84,19 @@ export class ListInterests extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        isFocus: state.directions,
+        focusedId:state.location_id
+    };
+};
+
+const mapDispathchToProps = dispatch => {
+    return {
+        focusClick : (directions) => dispatch({type:"Directions", data:directions})
+    };
+}
+
+export default connect(mapStateToProps, mapDispathchToProps)(ListInterests);
 

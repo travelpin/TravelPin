@@ -20,7 +20,7 @@ export class LeftExpansionPanel extends React.Component {
         days: 1,
         collapsed: false,
         pixelPosition: '400px',
-        plan:[[]]
+        plan: null
     }
 
 
@@ -143,10 +143,11 @@ export class LeftExpansionPanel extends React.Component {
         const ButtonStyle = {
             marginBottom: 8,
             position:"fixed",
-            left:this.state.collapsed?'0px':this.state.pixelPosition,
+            marginLeft:this.state.collapsed?'0px':'400px',
+
         }
         const favorite = this.props.data.filter((interest) => interest.liked === 'TRUE');
-        console.log(favorite)
+        // console.log(favorite)
         return (
 
             <div  className="leftExpansionPanel">

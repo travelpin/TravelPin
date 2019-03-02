@@ -8,10 +8,6 @@ console.log(window)
 
 class NormalGoogleMap extends Component {
     static defaultProps = {
-        // defaultCenter: {
-        //     lat: 40.71,
-        //     lng: -74.00
-        // },
         defaultZoom: 13
     };
     state = {
@@ -21,39 +17,12 @@ class NormalGoogleMap extends Component {
         console.log("GoogleMap componentWillUpdate called.")
     }
     componentWillReceiveProps(nextProps) {
-        console.log("GoogleMap componentWillUpdate called.")
+        console.log("GoogleMap componentWillReceiveProps called.")
     }
 
     getMapRef = (instance) => {
         this.map = instance;
     }
-    // componentDidMount() {
-    //     const DirectionsService = new google.maps.DirectionsService();
-    //
-    //     DirectionsService.route({
-    //         origin: new google.maps.LatLng(40.71, -74),
-    //         destination: new google.maps.LatLng(41.8525800, -74),
-    //         travelMode: google.maps.TravelMode.DRIVING,
-    //         waypoints: [{
-    //             location:'40.9525800, -74',
-    //             stopover: true,
-    //
-    //         },{
-    //             location:'41.2525800, -74',
-    //             stopover: true,
-    //         }]
-    //     }, (result, status) => {
-    //         if (status === google.maps.DirectionsStatus.OK) {
-    //             this.setState({
-    //                 directions: result,
-    //             });
-    //             console.log("In componentDidMount : " + this.state);
-    //         } else {
-    //             console.error(`error fetching directions ${result}`);
-    //         }
-    //     })
-    // }
-
     render() {
 
         const directions = this.props.directions;
@@ -89,11 +58,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(withScriptjs(withGoogleMap(NormalGoogleMap)));
-
-// const mapDispathchToProps = dispatch => {
-//     return {
-//         onShowDirection : (directions) => dispatch({type:"Directions", data:directions})
-//     };
-// }
-
-// export default (NormalGoogleMap);
