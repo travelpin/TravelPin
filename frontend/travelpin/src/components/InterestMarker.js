@@ -18,7 +18,7 @@ export class InterestMarker extends Component {
     }
 
     render () {
-        const {lat, lng, liked, name, imageUrl, rating, price } = this.props.data;
+        const { lat, lng, liked, name, imageUrl, rating, price } = this.props.data;
         const isLiked = liked === 'TRUE';
         const icon = isLiked ? {
             url : pinkPin,
@@ -43,7 +43,12 @@ export class InterestMarker extends Component {
                             <img src={imageUrl} alt={name} className="infoWindow-image"/>
                             <div className="info">
                                 <p className="interest-name">{name}</p>
-                                <div className="rating">{`Rating: ${rating}, Price: ${price}`}</div>
+                                <div className="rating">
+                                    {
+                                        price === 0 ? <div>{`Rating: ${rating}, Price: ${price}`}</div> :
+                                                        <div>{`Rating: ${rating}, Price: $${price}`}</div>
+                                    }
+                                </div>
                                 <div className="open-hours">{`OPEN TODAY: 08:30 - 17:00`}</div>
                             </div>
                             <div>

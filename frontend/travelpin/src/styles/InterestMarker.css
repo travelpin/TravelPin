@@ -5,11 +5,13 @@
 
 .info {
     padding-top: 10px;
+    font-weight: bold;
 }
 
 .rating {
     margin-bottom: 5px;
     color: orangered;
+    font-weight: bold;
 }
 
 .open-hours {
