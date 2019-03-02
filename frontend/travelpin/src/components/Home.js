@@ -140,7 +140,7 @@ export class Home extends React.Component {
                                 googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API}&v=3.exp&libraries=geometry,drawing,places`}
                                 loadingElement={<div style={{ height: `100%` }} />}
                                 directions={directions}
-                                containerElement={<div style={{ height: `${this.state.height_view}px` }} />}
+                                containerElement={<div style={{ position: 'fixed', top: 60, bottom: 0, left: 0, right:0 }} />}
                                 mapElement={<div style={{ height: `100%` }} />}
                                 center={{lat,lng}}
                                 zoom={zoom}
