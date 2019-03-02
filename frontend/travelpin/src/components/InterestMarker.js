@@ -3,7 +3,9 @@ import { Marker, InfoWindow } from 'react-google-maps';
 import bluePin from "../asserts/images/blue_pin.png";
 import pinkPin from "../asserts/images/pink_pin.png";
 import greenPin from "../asserts/images/green_pin.png";
+import { Star } from "./Star";
 import {connect} from "react-redux";
+
 
 export class InterestMarker extends Component {
     state = {
@@ -19,6 +21,7 @@ export class InterestMarker extends Component {
     }
 
     render () {
+
         const {lat, lng, liked, name, imageUrl, rating, price, location_id } = this.props.data;
         const isLiked = liked === 'TRUE';
         const focusPin = this.props.isFocus && this.props.focusedId === location_id ?{
@@ -48,7 +51,16 @@ export class InterestMarker extends Component {
                             <img src={imageUrl} alt={name} className="infoWindow-image"/>
                             <div className="info">
                                 <p className="interest-name">{name}</p>
-                                <div className="rating">{`Rating: ${rating}, Price: ${price}`}</div>
+                                <div className="rating">
+                                    <span className="rating-span">{`${rating}`}</span>
+                                    <Star rating={rating} />
+                                    <span className="price-span">
+                                        {
+                                            price === 0 ? <span>Free</span> :
+                                                <span>{` Price: $${price}`}</span>
+                                        }
+                                    </span>
+                                </div>
                                 <div className="open-hours">{`OPEN TODAY: 08:30 - 17:00`}</div>
                             </div>
                         </div>
