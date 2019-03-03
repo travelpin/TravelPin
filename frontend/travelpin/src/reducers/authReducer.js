@@ -1,14 +1,16 @@
+import {LOGIN_SUCCESS, LOGOUT} from "./actions";
+
 const initialState = {
     isLoggedIn: false
 }
 
 export const authReducer = (state = initialState, action) =>{
     switch(action.type){
-        case 'loginSuccess':
+        case LOGIN_SUCCESS:
             return {...state,
                 isLoggedIn: true
             }
-        case 'logout':
+        case LOGOUT:
             return {
                 ...state,
                 isLoggedIn: false

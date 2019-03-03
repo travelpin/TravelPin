@@ -1,4 +1,4 @@
-import {Menu, Icon, Button, Spin} from 'antd';
+import {Menu, Icon, Button, Spin, Empty} from 'antd';
 import React from 'react';
 import { Tabs, List, Slider, InputNumber, Row, Col } from 'antd';
 import {ListInterests} from "./ListInterests";
@@ -19,8 +19,10 @@ export class LeftExpansionPanel extends React.Component {
     state = {
         days: 1,
         collapsed: false,
-        pixelPosition: '400px',
-        plan: null
+        panelWidth: '400px',
+        panelHeight:'600px',
+        plan: null,
+        TabsActiveKey: null,
     }
 
 
@@ -67,6 +69,9 @@ export class LeftExpansionPanel extends React.Component {
         const favLocIds = this.props.data.filter((interest) => interest.liked === 'TRUE')
             .map((fav) => fav.location_id);
         const days = this.state.days
+        this.setState({
+            TabsActiveKey : "3"
+        })
         console.log(favLocIds);
 
         this.fetchRoute(favLocIds, days);
@@ -121,7 +126,12 @@ export class LeftExpansionPanel extends React.Component {
         } else if (plan && plan.length > 0 ){
             return this.getPlan();
         } else {
-            return <div>No Plan.</div>
+            return <div>
+                <Empty
+                description={
+                    <span>
+                Please <Icon type="like" theme="filled" /> Interests and Set Your Trip
+            </span>}/></div>
         }
     }
     getPlan = () => {
@@ -137,13 +147,13 @@ export class LeftExpansionPanel extends React.Component {
         // const {directions} = this.props.directions;
         const {days} = this.state;
         const MenuStyle = {
-            width:this.state.collapsed?'0px':this.state.pixelPosition,
-            height:this.state.collapsed?'0px':this.state.pixelPosition,
+            width:this.state.collapsed?'0px':this.state.panelWidth,
+            height:this.state.collapsed?'0px':this.state.panelHeight,
         }
         const ButtonStyle = {
             marginBottom: 8,
             position:"fixed",
-            marginLeft:this.state.collapsed?'0px':'400px',
+            marginLeft:this.state.collapsed?'0px':this.state.panelWidth,
 
         }
         const favorite = this.props.data.filter((interest) => interest.liked === 'TRUE');
@@ -170,16 +180,19 @@ export class LeftExpansionPanel extends React.Component {
                         inlineCollapsed={this.state.collapsed}
                         style={MenuStyle}
                     >
-                        <Tabs defaultActiveKey="1" style={{width : "100%", overflow: "hidden"}}>
+                        <Tabs defaultActiveKey="1"
+                              style={{width : "100%", overflow: "hidden"}}
+                              tabBarGutter={1}
+                        >
 
-                            <TabPane tab="Interest" key="1">
+                            <TabPane tab="Find Your Interests" key="1">
                                 <ListInterests
                                     data = {this.props.data}
                                     clickLiked = {this.clickLiked}
                                     clickInterest = {this.clickInterest}
                                 />
                             </TabPane>
-                            <TabPane tab="Route" key="2">
+                            <TabPane tab="Set Your Trip" key="2">
                                 <div className="days-control-container">
                                             <div className="days-control-container-slider">
                                                 <Slider
@@ -219,7 +232,9 @@ export class LeftExpansionPanel extends React.Component {
                                     clickInterest = {this.clickInterest}
                                 />
                             </TabPane>
-                            <TabPane tab="ShowPlan" key="3">{this.showPlan()}</TabPane>
+                            <TabPane tab="Find Your Plan" key="3">
+                                {this.showPlan()}
+                            </TabPane>
 
                         </Tabs>
                     </Menu>
