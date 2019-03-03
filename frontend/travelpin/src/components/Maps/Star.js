@@ -1,7 +1,7 @@
 import React from 'react';
-import blank from '../asserts/images/blank_star.png';
-import half from '../asserts/images/half_filled_star.png';
-import full from '../asserts/images/full_star.png';
+import blank from '../../asserts/images/blank_star.png';
+import half from '../../asserts/images/half_filled_star.png';
+import full from '../../asserts/images/full_star.png';
 
 
 export class Star extends React.Component {

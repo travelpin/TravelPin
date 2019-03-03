@@ -1,6 +1,7 @@
 import React from 'react'
 import {Button, Collapse, List} from 'antd';
 import {connect} from "react-redux";
+import {DIRECTIONS} from "../../reducers/actions";
 const Panel = Collapse.Panel;
 const google = window.google
 class Arrangement extends React.Component{
@@ -25,15 +26,7 @@ class Arrangement extends React.Component{
             let waypoints = interests.length > 2 ?[{
                 location:`${interests[1].lat},${interests[1].lng}`,
                 stopover:true,
-            }]:[];//interests.slice(1,interests.length-1).
-            // let waypoints = [{
-            //                 location:'40.9525800, -74',
-            //                 stopover: true,
-            //
-            //             },{
-            //                 location:'41.2525800, -74',
-            //                 stopover: true,
-            //             }]
+            }]:[];
             this.getDirections(origin, destination, waypoints)
             console.log("showRouteOnMap with interests > 1" + interests)
             this.setState({
@@ -61,18 +54,11 @@ class Arrangement extends React.Component{
             waypoints: waypoints,
         }, (result, status) => {
             if (status === google.maps.DirectionsStatus.OK) {
-                // this.setState({
-                //     directions: result,
-                // });
                 console.log(this.props.onShowDirections(result));
-                console.log(result);
             } else {
                 console.error(`error fetching directions ${result}`);
             }
         })
-    }
-    showInterests = () => {
-
     }
     render() {
         const interests = this.props.interests;
@@ -101,7 +87,7 @@ const mapStateToProps = state => {
 
 const mapDispathchToProps = dispatch => {
     return {
-        onShowDirections : (directions) => dispatch({type:"Directions", data:directions})
+        onShowDirections : (directions) => dispatch({type:DIRECTIONS, data:directions})
     };
 }
 

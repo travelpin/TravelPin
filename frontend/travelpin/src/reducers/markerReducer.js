@@ -1,3 +1,5 @@
+import {FOCUS, UN_FOCUS} from "./actions";
+
 const initialState = {
     isFocus : false,
     focusedId : "xxx"
@@ -5,12 +7,12 @@ const initialState = {
 
 export const findDirectionReducer = (state = initialState, action) =>{
     switch(action.type){
-        case 'Focus':
+        case FOCUS:
             return {...state,
                 isFocus: true,
                 focusedId:action.focusedId
             }
-        case 'unFocus':
+        case UN_FOCUS:
             return {
                 ...state,
                 isFocus: false,

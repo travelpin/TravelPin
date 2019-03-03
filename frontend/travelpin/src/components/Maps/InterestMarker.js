@@ -1,8 +1,8 @@
 import React , {Component} from "react";
 import { Marker, InfoWindow } from 'react-google-maps';
-import bluePin from "../asserts/images/blue_pin.png";
-import pinkPin from "../asserts/images/pink_pin.png";
-import greenPin from "../asserts/images/green_pin.png";
+import bluePin from "../../asserts/images/blue_pin.png";
+import pinkPin from "../../asserts/images/pink_pin.png";
+import greenPin from "../../asserts/images/green_pin.png";
 import { Star } from "./Star";
 import {connect} from "react-redux";
 
